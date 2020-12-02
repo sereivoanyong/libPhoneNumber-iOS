@@ -95,7 +95,7 @@ See sample test code from
  NSLog (@"extractCountryCode [%@]", [phoneUtil extractCountryCode:@"823213123123" nationalNumber:nil]);
 
  NSString *nationalNumber = nil;
- NSNumber *countryCode = [phoneUtil extractCountryCode:@"823213123123" nationalNumber:&nationalNumber];
+ int32_t countryCode = [phoneUtil extractCountryCode:@"823213123123" nationalNumber:&nationalNumber];
 
  NSLog (@"extractCountryCode [%@] [%@]", countryCode, nationalNumber);
 ```

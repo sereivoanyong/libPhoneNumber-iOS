@@ -25,7 +25,7 @@
 /* 28 */ @property(nonatomic, strong) NBPhoneNumberDesc *voicemail;
 /* 24 */ @property(nonatomic, strong) NBPhoneNumberDesc *noInternationalDialling;
 /*  9 */ @property(nonatomic, strong) NSString *codeID;
-/* 10 */ @property(nonatomic, strong) NSNumber *countryCode;
+/* 10 */ @property(nonatomic, assign) int32_t countryCode;
 /* 11 */ @property(nonatomic, strong) NSString *internationalPrefix;
 /* 17 */ @property(nonatomic, strong) NSString *preferredInternationalPrefix;
 /* 12 */ @property(nonatomic, strong) NSString *nationalPrefix;

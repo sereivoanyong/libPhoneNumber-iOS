@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NBGeocoderMetadataHelper *_Nonnull (^NBGeocoderMetadataHelperFactory)(NSNumber *countryCode,
+typedef NBGeocoderMetadataHelper *_Nonnull (^NBGeocoderMetadataHelperFactory)(int32_t countryCode,
                                                                               NSString *language);
 
 @interface NBPhoneNumberOfflineGeocoder : NSObject

@@ -144,145 +144,145 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 
 - (NBPhoneNumber *)alphaNumbericNumber {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @1;
-  alphaNumbericNumber.nationalNumber = @80074935247;
+  alphaNumbericNumber.countryCode = 1;
+  alphaNumbericNumber.nationalNumber = 80074935247;
   return alphaNumbericNumber;
 }
 
 - (NBPhoneNumber *)arMobile {
   NBPhoneNumber *arMobile = [[NBPhoneNumber alloc] init];
-  arMobile.countryCode = @54;
-  arMobile.nationalNumber = @91187654321;
+  arMobile.countryCode = 54;
+  arMobile.nationalNumber = 91187654321;
   return arMobile;
 }
 
 - (NBPhoneNumber *)arNumber {
   NBPhoneNumber *arNumber = [[NBPhoneNumber alloc] init];
-  arNumber.countryCode = @54;
-  arNumber.nationalNumber = @1187654321;
+  arNumber.countryCode = 54;
+  arNumber.nationalNumber = 1187654321;
   return arNumber;
 }
 
 - (NBPhoneNumber *)auNumber {
   NBPhoneNumber *auNumber = [[NBPhoneNumber alloc] init];
-  auNumber.countryCode = @61;
-  auNumber.nationalNumber = @236618300;
+  auNumber.countryCode = 61;
+  auNumber.nationalNumber = 236618300;
   return auNumber;
 }
 
 - (NBPhoneNumber *)bsMobile {
   NBPhoneNumber *bsMobile = [[NBPhoneNumber alloc] init];
-  bsMobile.countryCode = @1;
-  bsMobile.nationalNumber = @2423570000;
+  bsMobile.countryCode = 1;
+  bsMobile.nationalNumber = 2423570000;
   return bsMobile;
 }
 
 - (NBPhoneNumber *)bsNumber {
   NBPhoneNumber *bsNumber = [[NBPhoneNumber alloc] init];
-  bsNumber.countryCode = @1;
-  bsNumber.nationalNumber = @2423651234;
+  bsNumber.countryCode = 1;
+  bsNumber.nationalNumber = 2423651234;
   return bsNumber;
 }
 
 - (NBPhoneNumber *)deShortNumber {
   NBPhoneNumber *deShortNumber = [[NBPhoneNumber alloc] init];
-  deShortNumber.countryCode = @49;
-  deShortNumber.nationalNumber = @1234;
+  deShortNumber.countryCode = 49;
+  deShortNumber.nationalNumber = 1234;
   return deShortNumber;
 }
 
 - (NBPhoneNumber *)gbMobile {
   NBPhoneNumber *gbMobile = [[NBPhoneNumber alloc] init];
-  gbMobile.countryCode = @44;
-  gbMobile.nationalNumber = @7912345678;
+  gbMobile.countryCode = 44;
+  gbMobile.nationalNumber = 7912345678;
   return gbMobile;
 }
 
 - (NBPhoneNumber *)itMobile {
   NBPhoneNumber *itMobile = [[NBPhoneNumber alloc] init];
-  itMobile.countryCode = @39;
-  itMobile.nationalNumber = @345678901;
+  itMobile.countryCode = 39;
+  itMobile.nationalNumber = 345678901;
   return itMobile;
 }
 
 - (NBPhoneNumber *)itNumber {
   NBPhoneNumber *itNumber = [[NBPhoneNumber alloc] init];
-  itNumber.countryCode = @39;
-  itNumber.nationalNumber = @236618300;
+  itNumber.countryCode = 39;
+  itNumber.nationalNumber = 236618300;
   itNumber.italianLeadingZero = YES;
   return itNumber;
 }
 
 - (NBPhoneNumber *)sgNumber {
   NBPhoneNumber *sgNumber = [[NBPhoneNumber alloc] init];
-  sgNumber.countryCode = @65;
-  sgNumber.nationalNumber = @65218000;
+  sgNumber.countryCode = 65;
+  sgNumber.nationalNumber = 65218000;
   return sgNumber;
 }
 
 - (NBPhoneNumber *)nzNumber {
   NBPhoneNumber *nzNumber = [[NBPhoneNumber alloc] init];
-  [nzNumber setCountryCode:@64];
-  [nzNumber setNationalNumber:@33316005];
+  nzNumber.countryCode = 64;
+  nzNumber.nationalNumber = 33316005;
   return nzNumber;
 }
 
 - (NBPhoneNumber *)usPremiumNumber {
   NBPhoneNumber *usPremiumNumber = [[NBPhoneNumber alloc] init];
-  usPremiumNumber.countryCode = @1;
-  usPremiumNumber.nationalNumber = @9002530000;
+  usPremiumNumber.countryCode = 1;
+  usPremiumNumber.nationalNumber = 9002530000;
   return usPremiumNumber;
 }
 
 - (NBPhoneNumber *)usLocalNumber {
   // Too short, but still possible US numbers.
   NBPhoneNumber *usLocalNumber = [[NBPhoneNumber alloc] init];
-  usLocalNumber.countryCode = @1;
-  usLocalNumber.nationalNumber = @2530000;
+  usLocalNumber.countryCode = 1;
+  usLocalNumber.nationalNumber = 2530000;
   return usLocalNumber;
 }
 
 - (NBPhoneNumber *)usShortByOneNumber {
   // Too short, but still possible US numbers.
   NBPhoneNumber *usShortByOneNumber = [[NBPhoneNumber alloc] init];
-  usShortByOneNumber.countryCode = @1;
-  usShortByOneNumber.nationalNumber = @650253000;
+  usShortByOneNumber.countryCode = 1;
+  usShortByOneNumber.nationalNumber = 650253000;
   return usShortByOneNumber;
 }
 
 - (NBPhoneNumber *)usTollFreeNumber {
   NBPhoneNumber *usTollFreeNumber = [[NBPhoneNumber alloc] init];
-  usTollFreeNumber.countryCode = @1;
-  usTollFreeNumber.nationalNumber = @8002530000;
+  usTollFreeNumber.countryCode = 1;
+  usTollFreeNumber.nationalNumber = 8002530000;
   return usTollFreeNumber;
 }
 
 - (NBPhoneNumber *)universalPremiumRateNumber {
   NBPhoneNumber *universalPremiumRateNumber = [[NBPhoneNumber alloc] init];
-  universalPremiumRateNumber.countryCode = @979;
-  universalPremiumRateNumber.nationalNumber = @123456789;
+  universalPremiumRateNumber.countryCode = 979;
+  universalPremiumRateNumber.nationalNumber = 123456789;
   return universalPremiumRateNumber;
 }
 
 - (NBPhoneNumber *)gbNumber {
   NBPhoneNumber *gbNumber = [[NBPhoneNumber alloc] init];
-  gbNumber.countryCode = @44;
-  gbNumber.nationalNumber = @2070313000;
+  gbNumber.countryCode = 44;
+  gbNumber.nationalNumber = 2070313000;
   return gbNumber;
 }
 
 - (NBPhoneNumber *)usNumber {
   NBPhoneNumber *usNumber = [[NBPhoneNumber alloc] init];
-  usNumber.countryCode = @1;
-  usNumber.nationalNumber = @6502530000;
+  usNumber.countryCode = 1;
+  usNumber.nationalNumber = 6502530000;
   return usNumber;
 }
 
 - (NBPhoneNumber *)deNumber {
   // Note that this is the same as the example number for DE in the metadata.
   NBPhoneNumber *deNumber = [[NBPhoneNumber alloc] init];
-  deNumber.countryCode = @49;
-  deNumber.nationalNumber = @30123456;
+  deNumber.countryCode = 49;
+  deNumber.nationalNumber = 30123456;
   return deNumber;
 }
 
@@ -290,51 +290,51 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 - (NBPhoneNumber *)mxMobile1 {
   // Note that this is the same as the example number for DE in the metadata.
   NBPhoneNumber *number = [[NBPhoneNumber alloc] init];
-  number.countryCode = @52;
-  number.nationalNumber = @12345678900;
+  number.countryCode = 52;
+  number.nationalNumber = 12345678900;
   return number;
 }
 
 - (NBPhoneNumber *)mxMobile2 {
   // Note that this is the same as the example number for DE in the metadata.
   NBPhoneNumber *number = [[NBPhoneNumber alloc] init];
-  number.countryCode = @52;
-  number.nationalNumber = @15512345678;
+  number.countryCode = 52;
+  number.nationalNumber = 15512345678;
   return number;
 }
 
 - (NBPhoneNumber *)mxNumber {
   NBPhoneNumber *mxNumber = [[NBPhoneNumber alloc] init];
-  mxNumber.countryCode = @52;
-  mxNumber.nationalNumber = @3312345678;
+  mxNumber.countryCode = 52;
+  mxNumber.nationalNumber = 3312345678;
   return mxNumber;
 }
 
 - (NBPhoneNumber *)usTooLongNumber {
   NBPhoneNumber *usTooLongNumber = [[NBPhoneNumber alloc] init];
-  usTooLongNumber.countryCode = @1;
-  usTooLongNumber.nationalNumber = @65025300001;
+  usTooLongNumber.countryCode = 1;
+  usTooLongNumber.nationalNumber = 65025300001;
   return usTooLongNumber;
 }
 
 - (NBPhoneNumber *)internationalTollFreeTooLongNumber {
   NBPhoneNumber *internationalTollFreeTooLongNumber = [[NBPhoneNumber alloc] init];
-  internationalTollFreeTooLongNumber.countryCode = @800;
-  internationalTollFreeTooLongNumber.nationalNumber = @123456789;
+  internationalTollFreeTooLongNumber.countryCode = 800;
+  internationalTollFreeTooLongNumber.nationalNumber = 123456789;
   return internationalTollFreeTooLongNumber;
 }
 
 - (NBPhoneNumber *)internationalTollFreeNumber {
   NBPhoneNumber *internationalTollFreeNumber = [[NBPhoneNumber alloc] init];
-  internationalTollFreeNumber.countryCode = @800;
-  internationalTollFreeNumber.nationalNumber = @12345678;
+  internationalTollFreeNumber.countryCode = 800;
+  internationalTollFreeNumber.nationalNumber = 12345678;
   return internationalTollFreeNumber;
 }
 
 - (NBPhoneNumber *)unknownCountryCodeNoRawInput {
   NBPhoneNumber *unknownCountryCodeNoRawInput = [[NBPhoneNumber alloc] init];
-  unknownCountryCodeNoRawInput.countryCode = @2;
-  unknownCountryCodeNoRawInput.nationalNumber = @12345;
+  unknownCountryCodeNoRawInput.countryCode = 2;
+  unknownCountryCodeNoRawInput.nationalNumber = 12345;
   return unknownCountryCodeNoRawInput;
 }
 
@@ -375,7 +375,7 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   NBPhoneMetaData *metadata = [self.helper getMetadataForRegion:@"US"];
 
   XCTAssertEqualObjects(@"US", metadata.codeID);
-  XCTAssertEqualObjects(@1, metadata.countryCode);
+  XCTAssertEqual(1, metadata.countryCode);
   XCTAssertEqualObjects(@"011", metadata.internationalPrefix);
   XCTAssertTrue(metadata.nationalPrefix != nil);
   XCTAssertEqual(2, (int)[metadata.numberFormats count]);
@@ -395,7 +395,7 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 - (void)testGetInstanceLoadDEMetadata {
   NBPhoneMetaData *metadata = [self.helper getMetadataForRegion:@"DE"];
   XCTAssertEqualObjects(@"DE", metadata.codeID);
-  XCTAssertEqualObjects(@49, metadata.countryCode);
+  XCTAssertEqual(49, metadata.countryCode);
   XCTAssertEqualObjects(@"00", metadata.internationalPrefix);
   XCTAssertEqualObjects(@"0", metadata.nationalPrefix);
   XCTAssertEqual(6, (int)[metadata.numberFormats count]);
@@ -415,7 +415,7 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 - (void)testGetInstanceLoadARMetadata {
   NBPhoneMetaData *metadata = [self.helper getMetadataForRegion:@"AR"];
   XCTAssertEqualObjects(@"AR", metadata.codeID);
-  XCTAssertEqualObjects(@54, metadata.countryCode);
+  XCTAssertEqual(54, metadata.countryCode);
   XCTAssertEqualObjects(@"00", metadata.internationalPrefix);
   XCTAssertEqualObjects(@"0", metadata.nationalPrefix);
   XCTAssertEqualObjects(@"0(?:(11|343|3715)15)?", metadata.nationalPrefixForParsing);
@@ -429,9 +429,9 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 }
 
 - (void)testGetInstanceLoadInternationalTollFreeMetadata {
-  NBPhoneMetaData *metadata = [self.helper getMetadataForNonGeographicalRegion:@800];
+  NBPhoneMetaData *metadata = [self.helper getMetadataForNonGeographicalRegion:800];
   XCTAssertEqualObjects(@"001", metadata.codeID);
-  XCTAssertEqualObjects(@800, metadata.countryCode);
+  XCTAssertEqual(800, metadata.countryCode);
   XCTAssertEqualObjects(@"$1 $2", ((NBNumberFormat *)metadata.numberFormats[0]).format);
   XCTAssertEqualObjects(@"(\\d{4})(\\d{4})", ((NBNumberFormat *)metadata.numberFormats[0]).pattern);
   XCTAssertEqual(0, metadata.generalDesc.possibleLengthLocalOnly.count);
@@ -521,8 +521,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   // any NDC.
 
   NBPhoneNumber *number = [[NBPhoneNumber alloc] init];
-  [number setCountryCode:@123];
-  [number setNationalNumber:@6502530000];
+  number.countryCode = 123;
+  number.nationalNumber = 6502530000;
   XCTAssertEqual(0, [_aUtil getLengthOfNationalDestinationCode:number]);
 
   // An international toll free number, which has NDC '1234'.
@@ -575,9 +575,9 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 
 - (void)testexampleNumberForNonGeoEntity {
   XCTAssertTrue([self.internationalTollFreeNumber
-      isEqual:[_aUtil getExampleNumberForNonGeoEntity:@800 error:nil]]);
+      isEqual:[_aUtil getExampleNumberForNonGeoEntity:800 error:nil]]);
   XCTAssertTrue([self.universalPremiumRateNumber
-      isEqual:[_aUtil getExampleNumberForNonGeoEntity:@979 error:nil]]);
+      isEqual:[_aUtil getExampleNumberForNonGeoEntity:979 error:nil]]);
 }
 
 - (void)testConvertAlphaCharactersInNumber {
@@ -647,16 +647,16 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   // using the raw_input if that is available no matter which format is
   // specified.
   NBPhoneNumber *usSpoofWithRawInput = [[NBPhoneNumber alloc] init];
-  usSpoofWithRawInput.countryCode = @1;
-  usSpoofWithRawInput.nationalNumber = @0;
+  usSpoofWithRawInput.countryCode = 1;
+  usSpoofWithRawInput.nationalNumber = 0;
   usSpoofWithRawInput.rawInput = @"000-000-0000";
 
   XCTAssertEqualObjects(@"000-000-0000", [_aUtil format:usSpoofWithRawInput
                                              numberFormat:NBEPhoneNumberFormatNATIONAL]);
 
   NBPhoneNumber *usSpoof = [[NBPhoneNumber alloc] init];
-  usSpoof.countryCode = @1;
-  usSpoof.nationalNumber = @0;
+  usSpoof.countryCode = 1;
+  usSpoof.nationalNumber = 0;
   XCTAssertEqualObjects(@"0", [_aUtil format:usSpoof numberFormat:NBEPhoneNumberFormatNATIONAL]);
 }
 
@@ -680,9 +680,9 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 }
 
 - (void)testFormatDENumber {
-  id deNumber = [[NBPhoneNumber alloc] init];
-  [deNumber setCountryCode:@49];
-  [deNumber setNationalNumber:@301234];
+  NBPhoneNumber *deNumber = [[NBPhoneNumber alloc] init];
+  deNumber.countryCode = 49;
+  deNumber.nationalNumber = 301234;
   XCTAssertEqualObjects(@"030/1234", [_aUtil format:deNumber
                                          numberFormat:NBEPhoneNumberFormatNATIONAL]);
   XCTAssertEqualObjects(@"+49 30/1234", [_aUtil format:deNumber
@@ -691,32 +691,32 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                                                 numberFormat:NBEPhoneNumberFormatRFC3966]);
 
   deNumber = [[NBPhoneNumber alloc] init];
-  [deNumber setCountryCode:@49];
-  [deNumber setNationalNumber:@291123];
+  deNumber.countryCode = 49;
+  deNumber.nationalNumber = 291123;
   XCTAssertEqualObjects(@"0291 123", [_aUtil format:deNumber
                                          numberFormat:NBEPhoneNumberFormatNATIONAL]);
   XCTAssertEqualObjects(@"+49 291 123", [_aUtil format:deNumber
                                             numberFormat:NBEPhoneNumberFormatINTERNATIONAL]);
 
   deNumber = [[NBPhoneNumber alloc] init];
-  [deNumber setCountryCode:@49];
-  [deNumber setNationalNumber:@29112345678];
+  deNumber.countryCode = 49;
+  deNumber.nationalNumber = 29112345678;
   XCTAssertEqualObjects(@"0291 12345678", [_aUtil format:deNumber
                                               numberFormat:NBEPhoneNumberFormatNATIONAL]);
   XCTAssertEqualObjects(@"+49 291 12345678", [_aUtil format:deNumber
                                                  numberFormat:NBEPhoneNumberFormatINTERNATIONAL]);
 
   deNumber = [[NBPhoneNumber alloc] init];
-  [deNumber setCountryCode:@49];
-  [deNumber setNationalNumber:@912312345];
+  deNumber.countryCode = 49;
+  deNumber.nationalNumber = 912312345;
   XCTAssertEqualObjects(@"09123 12345", [_aUtil format:deNumber
                                             numberFormat:NBEPhoneNumberFormatNATIONAL]);
   XCTAssertEqualObjects(@"+49 9123 12345", [_aUtil format:deNumber
                                                numberFormat:NBEPhoneNumberFormatINTERNATIONAL]);
 
   deNumber = [[NBPhoneNumber alloc] init];
-  [deNumber setCountryCode:@49];
-  [deNumber setNationalNumber:@80212345];
+  deNumber.countryCode = 49;
+  deNumber.nationalNumber = 80212345;
   XCTAssertEqualObjects(@"08021 2345", [_aUtil format:deNumber
                                            numberFormat:NBEPhoneNumberFormatNATIONAL]);
   XCTAssertEqualObjects(@"+49 8021 2345", [_aUtil format:deNumber
@@ -731,8 +731,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                                          numberFormat:NBEPhoneNumberFormatINTERNATIONAL]);
 
   deNumber = [[NBPhoneNumber alloc] init];
-  [deNumber setCountryCode:@49];
-  [deNumber setNationalNumber:@41341234];
+  deNumber.countryCode = 49;
+  deNumber.nationalNumber = 41341234;
   XCTAssertEqualObjects(@"04134 1234", [_aUtil format:deNumber
                                            numberFormat:NBEPhoneNumberFormatNATIONAL]);
 }
@@ -760,9 +760,9 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   XCTAssertEqualObjects(@"+61236618300", [_aUtil format:self.auNumber
                                              numberFormat:NBEPhoneNumberFormatE164]);
 
-  id auNumber = [[NBPhoneNumber alloc] init];
-  [auNumber setCountryCode:@61];
-  [auNumber setNationalNumber:@1800123456];
+  NBPhoneNumber *auNumber = [[NBPhoneNumber alloc] init];
+  auNumber.countryCode = 61;
+  auNumber.nationalNumber = 1800123456;
   XCTAssertEqualObjects(@"1800 123 456", [_aUtil format:auNumber
                                              numberFormat:NBEPhoneNumberFormatNATIONAL]);
   XCTAssertEqualObjects(@"+61 1800 123 456", [_aUtil format:auNumber
@@ -788,8 +788,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 
 - (void)testFormatMXNumber {
   NBPhoneNumber *mxMobile1 = [[NBPhoneNumber alloc] init];
-  mxMobile1.countryCode = @52;
-  mxMobile1.nationalNumber = @12345678900;
+  mxMobile1.countryCode = 52;
+  mxMobile1.nationalNumber = 12345678900;
   XCTAssertEqualObjects(@"045 234 567 8900", [_aUtil format:mxMobile1
                                                  numberFormat:NBEPhoneNumberFormatNATIONAL]);
   XCTAssertEqualObjects(@"+52 1 234 567 8900", [_aUtil format:mxMobile1
@@ -797,8 +797,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   XCTAssertEqualObjects(@"+5212345678900", [_aUtil format:mxMobile1
                                                numberFormat:NBEPhoneNumberFormatE164]);
   NBPhoneNumber *mxMobile2 = [[NBPhoneNumber alloc] init];
-  mxMobile2.countryCode = @52;
-  mxMobile2.nationalNumber = @15512345678;
+  mxMobile2.countryCode = 52;
+  mxMobile2.nationalNumber = 15512345678;
   XCTAssertEqualObjects(@"045 55 1234 5678", [_aUtil format:mxMobile2
                                                  numberFormat:NBEPhoneNumberFormatNATIONAL]);
   XCTAssertEqualObjects(@"+52 1 55 1234 5678", [_aUtil format:mxMobile2
@@ -812,8 +812,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   XCTAssertEqualObjects(@"+523312345678", [_aUtil format:self.mxNumber
                                               numberFormat:NBEPhoneNumberFormatE164]);
   NBPhoneNumber *mxNumber2 = [[NBPhoneNumber alloc] init];
-  mxNumber2.countryCode = @52;
-  mxNumber2.nationalNumber = @8211234567;
+  mxNumber2.countryCode = 52;
+  mxNumber2.nationalNumber = 8211234567;
   XCTAssertEqualObjects(@"01 821 123 4567", [_aUtil format:mxNumber2
                                                 numberFormat:NBEPhoneNumberFormatNATIONAL]);
   XCTAssertEqualObjects(@"+52 821 123 4567", [_aUtil format:mxNumber2
@@ -856,8 +856,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                         [_aUtil formatOutOfCountryCallingNumber:self.internationalTollFreeNumber
                                               regionCallingFrom:@"US"]);
 
-  id arNumberWithExtn = self.arMobile;
-  [arNumberWithExtn setExtension:@"1234"];
+  NBPhoneNumber *arNumberWithExtn = self.arMobile;
+  arNumberWithExtn.extension = @"1234";
   XCTAssertEqualObjects(@"011 54 9 11 8765 4321 ext. 1234",
                         [_aUtil formatOutOfCountryCallingNumber:arNumberWithExtn
                                               regionCallingFrom:@"US"]);
@@ -890,25 +890,25 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 }
 
 - (void)testFormatOutOfCountryKeepingAlphaChars {
-  id alphaNumericNumber = [[NBPhoneNumber alloc] init];
-  [alphaNumericNumber setCountryCode:@1];
-  [alphaNumericNumber setNationalNumber:@8007493524];
-  [alphaNumericNumber setRawInput:@"1800 six-flag"];
+  NBPhoneNumber *alphaNumericNumber = [[NBPhoneNumber alloc] init];
+  alphaNumericNumber.countryCode = 1;
+  alphaNumericNumber.nationalNumber = 8007493524;
+  alphaNumericNumber.rawInput = @"1800 six-flag";
   XCTAssertEqualObjects(@"0011 1 800 SIX-FLAG",
                         [_aUtil formatOutOfCountryKeepingAlphaChars:alphaNumericNumber
                                                   regionCallingFrom:@"AU"]);
 
-  [alphaNumericNumber setRawInput:@"1-800-SIX-flag"];
+  alphaNumericNumber.rawInput = @"1-800-SIX-flag";
   XCTAssertEqualObjects(@"0011 1 800-SIX-FLAG",
                         [_aUtil formatOutOfCountryKeepingAlphaChars:alphaNumericNumber
                                                   regionCallingFrom:@"AU"]);
 
-  [alphaNumericNumber setRawInput:@"Call us from UK: 00 1 800 SIX-flag"];
+  alphaNumericNumber.rawInput = @"Call us from UK: 00 1 800 SIX-flag";
   XCTAssertEqualObjects(@"0011 1 800 SIX-FLAG",
                         [_aUtil formatOutOfCountryKeepingAlphaChars:alphaNumericNumber
                                                   regionCallingFrom:@"AU"]);
 
-  [alphaNumericNumber setRawInput:@"800 SIX-flag"];
+  alphaNumericNumber.rawInput = @"800 SIX-flag";
   XCTAssertEqualObjects(@"0011 1 800 SIX-FLAG",
                         [_aUtil formatOutOfCountryKeepingAlphaChars:alphaNumericNumber
                                                   regionCallingFrom:@"AU"]);
@@ -923,27 +923,27 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 
   // Testing that if the raw input doesn't exist, it is formatted using
   // formatOutOfCountryCallingNumber.
-  [alphaNumericNumber setRawInput:nil];
+  alphaNumericNumber.rawInput = nil;
   XCTAssertEqualObjects(@"00 1 800 749 3524",
                         [_aUtil formatOutOfCountryKeepingAlphaChars:alphaNumericNumber
                                                   regionCallingFrom:@"DE"]);
 
   // Testing AU alpha number formatted from Australia.
-  [alphaNumericNumber setCountryCode:@61];
-  [alphaNumericNumber setNationalNumber:@827493524];
-  [alphaNumericNumber setRawInput:@"+61 82749-FLAG"];
+  alphaNumericNumber.countryCode = 61;
+  alphaNumericNumber.nationalNumber = 827493524;
+  alphaNumericNumber.rawInput = @"+61 82749-FLAG";
   // This number should have the national prefix fixed.
   XCTAssertEqualObjects(@"082749-FLAG",
                         [_aUtil formatOutOfCountryKeepingAlphaChars:alphaNumericNumber
                                                   regionCallingFrom:@"AU"]);
 
-  [alphaNumericNumber setRawInput:@"082749-FLAG"];
+  alphaNumericNumber.rawInput = @"082749-FLAG";
   XCTAssertEqualObjects(@"082749-FLAG",
                         [_aUtil formatOutOfCountryKeepingAlphaChars:alphaNumericNumber
                                                   regionCallingFrom:@"AU"]);
 
-  [alphaNumericNumber setNationalNumber:@18007493524];
-  [alphaNumericNumber setRawInput:@"1-800-SIX-flag"];
+  alphaNumericNumber.nationalNumber = 18007493524;
+  alphaNumericNumber.rawInput = @"1-800-SIX-flag";
   // This number should not have the national prefix prefixed, in accordance
   // with the override for this specific formatting rule.
   XCTAssertEqualObjects(@"1-800-SIX-FLAG",
@@ -952,7 +952,7 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 
   // The metadata should not be permanently changed, since we copied it before
   // modifying patterns. Here we check this.
-  [alphaNumericNumber setNationalNumber:@1800749352];
+  alphaNumericNumber.nationalNumber = 1800749352;
   XCTAssertEqualObjects(@"1800 749 352", [_aUtil formatOutOfCountryCallingNumber:alphaNumericNumber
                                                                regionCallingFrom:@"AU"]);
 
@@ -966,27 +966,27 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                                                   regionCallingFrom:@"AQ"]);
 
   // Testing the case with an invalid country calling code.
-  [alphaNumericNumber setCountryCode:0];
-  [alphaNumericNumber setNationalNumber:@18007493524];
-  [alphaNumericNumber setRawInput:@"1-800-SIX-flag"];
+  alphaNumericNumber.countryCode = 0;
+  alphaNumericNumber.nationalNumber = 18007493524;
+  alphaNumericNumber.rawInput = @"1-800-SIX-flag";
   // Uses the raw input only.
   XCTAssertEqualObjects(@"1-800-SIX-flag",
                         [_aUtil formatOutOfCountryKeepingAlphaChars:alphaNumericNumber
                                                   regionCallingFrom:@"DE"]);
 
   // Testing the case of an invalid alpha number.
-  [alphaNumericNumber setCountryCode:@1];
-  [alphaNumericNumber setNationalNumber:@80749];
-  [alphaNumericNumber setRawInput:@"180-SIX"];
+  alphaNumericNumber.countryCode = 1;
+  alphaNumericNumber.nationalNumber = 80749;
+  alphaNumericNumber.rawInput = @"180-SIX";
   // No country-code stripping can be done.
   XCTAssertEqualObjects(@"00 1 180-SIX",
                         [_aUtil formatOutOfCountryKeepingAlphaChars:alphaNumericNumber
                                                   regionCallingFrom:@"DE"]);
 
   // Testing the case of calling from a non-supported region.
-  [alphaNumericNumber setCountryCode:@1];
-  [alphaNumericNumber setNationalNumber:@80749];
-  [alphaNumericNumber setRawInput:@"180-SIX"];
+  alphaNumericNumber.countryCode = 1;
+  alphaNumericNumber.nationalNumber = 80749;
+  alphaNumericNumber.rawInput = @"180-SIX";
   // No country-code stripping can be done since the number is invalid.
   XCTAssertEqualObjects(@"+1 180-SIX",
                         [_aUtil formatOutOfCountryKeepingAlphaChars:alphaNumericNumber
@@ -998,8 +998,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   // numbers starting with certain values.
 
   NBPhoneNumber *arMobile = [[NBPhoneNumber alloc] init];
-  [arMobile setCountryCode:@54];
-  [arMobile setNationalNumber:@92234654321];
+  arMobile.countryCode = 54;
+  arMobile.nationalNumber = 92234654321;
   XCTAssertEqualObjects(@"02234 65-4321", [_aUtil format:arMobile
                                               numberFormat:NBEPhoneNumberFormatNATIONAL]);
   // Here we force 14 as the carrier code.
@@ -1024,8 +1024,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   // We only support this for AR in our test metadata.
 
   NBPhoneNumber *arNumber = [[NBPhoneNumber alloc] init];
-  [arNumber setCountryCode:@54];
-  [arNumber setNationalNumber:@91234125678];
+  arNumber.countryCode = 54;
+  arNumber.nationalNumber = 91234125678;
   // Test formatting with no preferred carrier code stored in the number itself.
   XCTAssertEqualObjects(@"01234 15 12-5678",
                         [_aUtil formatNationalNumberWithPreferredCarrierCode:arNumber
@@ -1034,9 +1034,9 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                         [_aUtil formatNationalNumberWithPreferredCarrierCode:arNumber
                                                          fallbackCarrierCode:@""]);
   // Test formatting with preferred carrier code present.
-  [arNumber setPreferredDomesticCarrierCode:@"19"];
+  arNumber.preferredDomesticCarrierCode = @"19";
   XCTAssertEqualObjects(@"01234 12-5678", [_aUtil format:arNumber
-                                              numberFormat:NBEPhoneNumberFormatNATIONAL]);
+                                            numberFormat:NBEPhoneNumberFormatNATIONAL]);
   XCTAssertEqualObjects(@"01234 19 12-5678",
                         [_aUtil formatNationalNumberWithPreferredCarrierCode:arNumber
                                                          fallbackCarrierCode:@"15"]);
@@ -1045,16 +1045,16 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                                                          fallbackCarrierCode:@""]);
   // When the preferred_domestic_carrier_code is present (even when it contains
   // an empty string), use it instead of the default carrier code passed in.
-  [arNumber setPreferredDomesticCarrierCode:@""];
+  arNumber.preferredDomesticCarrierCode = @"";
   XCTAssertEqualObjects(@"01234 12-5678",
                         [_aUtil formatNationalNumberWithPreferredCarrierCode:arNumber
                                                          fallbackCarrierCode:@"15"]);
   // We don't support this for the US so there should be no change.
 
   NBPhoneNumber *usNumber = [[NBPhoneNumber alloc] init];
-  [usNumber setCountryCode:@1];
-  [usNumber setNationalNumber:@4241231234];
-  [usNumber setPreferredDomesticCarrierCode:@"99"];
+  usNumber.countryCode = 1;
+  usNumber.nationalNumber = 4241231234;
+  usNumber.preferredDomesticCarrierCode = @"99";
   XCTAssertEqualObjects(@"424 123 1234", [_aUtil format:usNumber
                                              numberFormat:NBEPhoneNumberFormatNATIONAL]);
   XCTAssertEqualObjects(@"424 123 1234",
@@ -1071,8 +1071,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   XCTAssertEqualObjects(@"+4930123456", [_aUtil formatNumberForMobileDialing:self.deNumber
                                                            regionCallingFrom:@"CH"
                                                               withFormatting:NO]);
-  id deNumberWithExtn = self.deNumber;
-  [deNumberWithExtn setExtension:@"1234"];
+  NBPhoneNumber *deNumberWithExtn = self.deNumber;
+  deNumberWithExtn.extension = @"1234";
   XCTAssertEqualObjects(@"030123456", [_aUtil formatNumberForMobileDialing:deNumberWithExtn
                                                          regionCallingFrom:@"DE"
                                                             withFormatting:NO]);
@@ -1092,8 +1092,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                                                                regionCallingFrom:@"US"
                                                                   withFormatting:YES]);
 
-  id usNumberWithExtn = self.usNumber;
-  [usNumberWithExtn setExtension:@"1234"];
+  NBPhoneNumber *usNumberWithExtn = self.usNumber;
+  usNumberWithExtn.extension = @"1234";
   XCTAssertEqualObjects(@"+1 650 253 0000", [_aUtil formatNumberForMobileDialing:usNumberWithExtn
                                                                regionCallingFrom:@"US"
                                                                   withFormatting:YES]);
@@ -1121,8 +1121,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   // Star numbers. In real life they appear in Israel, but we have them in JP
   // in our test metadata.
   NBPhoneNumber *jpStarNumber = [[NBPhoneNumber alloc] init];
-  jpStarNumber.countryCode = @81;
-  jpStarNumber.nationalNumber = @2345;
+  jpStarNumber.countryCode = 81;
+  jpStarNumber.nationalNumber = 2345;
   XCTAssertEqualObjects(@"*2345", [_aUtil formatNumberForMobileDialing:jpStarNumber
                                                      regionCallingFrom:@"JP"
                                                         withFormatting:NO]);
@@ -1141,8 +1141,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   // UAE numbers beginning with 600 (classified as UAN) need to be dialled
   // without +971 locally.
   NBPhoneNumber *aeUAN = [[NBPhoneNumber alloc] init];
-  aeUAN.countryCode = @971;
-  aeUAN.nationalNumber = @600123456;
+  aeUAN.countryCode = 971;
+  aeUAN.nationalNumber = 600123456;
   XCTAssertEqualObjects(@"+971600123456", [_aUtil formatNumberForMobileDialing:aeUAN
                                                              regionCallingFrom:@"JP"
                                                                 withFormatting:NO]);
@@ -1241,10 +1241,10 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 
 - (void)testFormatNumberWithExtension {
   NBPhoneNumber *nzNumber = [[NBPhoneNumber alloc] init];
-  nzNumber.countryCode = @64;
-  nzNumber.nationalNumber = @33316005;
+  nzNumber.countryCode = 64;
+  nzNumber.nationalNumber = 33316005;
 
-  [nzNumber setExtension:@"1234"];
+  nzNumber.extension = @"1234";
   // Uses default extension prefix:
   XCTAssertEqualObjects(@"03-331 6005 ext. 1234", [_aUtil format:nzNumber
                                                       numberFormat:NBEPhoneNumberFormatNATIONAL]);
@@ -1253,8 +1253,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                         [_aUtil format:nzNumber numberFormat:NBEPhoneNumberFormatRFC3966]);
   // Extension prefix overridden in the territory information for the US:
 
-  id usNumberWithExtension = self.usNumber;
-  [usNumberWithExtension setExtension:@"4567"];
+  NBPhoneNumber *usNumberWithExtension = self.usNumber;
+  usNumberWithExtension.extension = @"4567";
   XCTAssertEqualObjects(@"650 253 0000 extn. 4567", [_aUtil format:usNumberWithExtension
                                                         numberFormat:NBEPhoneNumberFormatNATIONAL]);
 }
@@ -1411,14 +1411,14 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   // The default international prefix used in this case is 0011. When a number
   // with international prefix 0012 is entered, we return the raw input as we
   // don't want to change the number entered.
-  id outOfCountryNumberFromAU1 = [_aUtil parseAndKeepRawInput:@"0012 16502530000"
+  NBPhoneNumber *outOfCountryNumberFromAU1 = [_aUtil parseAndKeepRawInput:@"0012 16502530000"
                                                 defaultRegion:@"AU"
                                                         error:&anError];
   XCTAssertEqualObjects(@"0012 16502530000",
                         [_aUtil formatInOriginalFormat:outOfCountryNumberFromAU1
                                      regionCallingFrom:@"AU"]);
 
-  id outOfCountryNumberFromAU2 = [_aUtil parseAndKeepRawInput:@"0011 16502530000"
+  NBPhoneNumber *outOfCountryNumberFromAU2 = [_aUtil parseAndKeepRawInput:@"0011 16502530000"
                                                 defaultRegion:@"AU"
                                                         error:&anError];
   XCTAssertEqualObjects(@"0011 1 650 253 0000",
@@ -1427,7 +1427,7 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 
   // Test the star sign is not removed from or added to the original input by
   // this method.
-  id starNumber = [_aUtil parseAndKeepRawInput:@"*1234" defaultRegion:@"JP" error:&anError];
+  NBPhoneNumber *starNumber = [_aUtil parseAndKeepRawInput:@"*1234" defaultRegion:@"JP" error:&anError];
   XCTAssertEqualObjects(@"*1234", [_aUtil formatInOriginalFormat:starNumber
                                                regionCallingFrom:@"JP"]);
 
@@ -1448,23 +1448,23 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 
   NBPhoneNumber *premiumRateNumber = [[NBPhoneNumber alloc] init];
   premiumRateNumber = [[NBPhoneNumber alloc] init];
-  [premiumRateNumber setCountryCode:@39];
-  [premiumRateNumber setNationalNumber:@892123];
+  premiumRateNumber.countryCode = 39;
+  premiumRateNumber.nationalNumber = 892123;
   XCTAssertEqual(NBEPhoneNumberTypePREMIUM_RATE, [_aUtil getNumberType:premiumRateNumber]);
 
   premiumRateNumber = [[NBPhoneNumber alloc] init];
-  [premiumRateNumber setCountryCode:@44];
-  [premiumRateNumber setNationalNumber:@9187654321];
+  premiumRateNumber.countryCode = 44;
+  premiumRateNumber.nationalNumber = 9187654321;
   XCTAssertEqual(NBEPhoneNumberTypePREMIUM_RATE, [_aUtil getNumberType:premiumRateNumber]);
 
   premiumRateNumber = [[NBPhoneNumber alloc] init];
-  [premiumRateNumber setCountryCode:@49];
-  [premiumRateNumber setNationalNumber:@9001654321];
+  premiumRateNumber.countryCode = 49;
+  premiumRateNumber.nationalNumber = 9001654321;
   XCTAssertEqual(NBEPhoneNumberTypePREMIUM_RATE, [_aUtil getNumberType:premiumRateNumber]);
 
   premiumRateNumber = [[NBPhoneNumber alloc] init];
-  [premiumRateNumber setCountryCode:@49];
-  [premiumRateNumber setNationalNumber:@90091234567];
+  premiumRateNumber.countryCode = 49;
+  premiumRateNumber.nationalNumber = 90091234567;
   XCTAssertEqual(NBEPhoneNumberTypePREMIUM_RATE, [_aUtil getNumberType:premiumRateNumber]);
   XCTAssertEqual(NBEPhoneNumberTypePREMIUM_RATE,
                  [_aUtil getNumberType:self.universalPremiumRateNumber]);
@@ -1473,23 +1473,23 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 - (void)testIsTollFree {
   NBPhoneNumber *tollFreeNumber = [[NBPhoneNumber alloc] init];
 
-  [tollFreeNumber setCountryCode:@1];
-  [tollFreeNumber setNationalNumber:@8881234567];
+  tollFreeNumber.countryCode = 1;
+  tollFreeNumber.nationalNumber = 8881234567;
   XCTAssertEqual(NBEPhoneNumberTypeTOLL_FREE, [_aUtil getNumberType:tollFreeNumber]);
 
   tollFreeNumber = [[NBPhoneNumber alloc] init];
-  [tollFreeNumber setCountryCode:@39];
-  [tollFreeNumber setNationalNumber:@803123];
+  tollFreeNumber.countryCode = 39;
+  tollFreeNumber.nationalNumber = 803123;
   XCTAssertEqual(NBEPhoneNumberTypeTOLL_FREE, [_aUtil getNumberType:tollFreeNumber]);
 
   tollFreeNumber = [[NBPhoneNumber alloc] init];
-  [tollFreeNumber setCountryCode:@44];
-  [tollFreeNumber setNationalNumber:@8012345678];
+  tollFreeNumber.countryCode = 44;
+  tollFreeNumber.nationalNumber = 8012345678;
   XCTAssertEqual(NBEPhoneNumberTypeTOLL_FREE, [_aUtil getNumberType:tollFreeNumber]);
 
   tollFreeNumber = [[NBPhoneNumber alloc] init];
-  [tollFreeNumber setCountryCode:@49];
-  [tollFreeNumber setNationalNumber:@8001234567];
+  tollFreeNumber.countryCode = 49;
+  tollFreeNumber.nationalNumber = 8001234567;
   XCTAssertEqual(NBEPhoneNumberTypeTOLL_FREE, [_aUtil getNumberType:tollFreeNumber]);
 
   XCTAssertEqual(NBEPhoneNumberTypeTOLL_FREE,
@@ -1503,8 +1503,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   XCTAssertEqual(NBEPhoneNumberTypeMOBILE, [_aUtil getNumberType:self.arMobile]);
 
   NBPhoneNumber *mobileNumber = [[NBPhoneNumber alloc] init];
-  [mobileNumber setCountryCode:@49];
-  [mobileNumber setNationalNumber:@15123456789];
+  mobileNumber.countryCode = 49;
+  mobileNumber.nationalNumber = 15123456789;
   XCTAssertEqual(NBEPhoneNumberTypeMOBILE, [_aUtil getNumberType:mobileNumber]);
 }
 
@@ -1519,30 +1519,30 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   XCTAssertEqual(NBEPhoneNumberTypeFIXED_LINE_OR_MOBILE, [_aUtil getNumberType:self.usNumber]);
 
   NBPhoneNumber *fixedLineAndMobileNumber = [[NBPhoneNumber alloc] init];
-  [fixedLineAndMobileNumber setCountryCode:@54];
-  [fixedLineAndMobileNumber setNationalNumber:@1987654321];
+  fixedLineAndMobileNumber.countryCode = 54;
+  fixedLineAndMobileNumber.nationalNumber = 1987654321;
   XCTAssertEqual(NBEPhoneNumberTypeFIXED_LINE_OR_MOBILE,
                  [_aUtil getNumberType:fixedLineAndMobileNumber]);
 }
 
 - (void)testIsSharedCost {
   NBPhoneNumber *gbNumber = [[NBPhoneNumber alloc] init];
-  [gbNumber setCountryCode:@44];
-  [gbNumber setNationalNumber:@8431231234];
+  gbNumber.countryCode = 44;
+  gbNumber.nationalNumber = 8431231234;
   XCTAssertEqual(NBEPhoneNumberTypeSHARED_COST, [_aUtil getNumberType:gbNumber]);
 }
 
 - (void)testIsVoip {
   NBPhoneNumber *gbNumber = [[NBPhoneNumber alloc] init];
-  [gbNumber setCountryCode:@44];
-  [gbNumber setNationalNumber:@5631231234];
+  gbNumber.countryCode = 44;
+  gbNumber.nationalNumber = 5631231234;
   XCTAssertEqual(NBEPhoneNumberTypeVOIP, [_aUtil getNumberType:gbNumber]);
 }
 
 - (void)testIsPersonalNumber {
   NBPhoneNumber *gbNumber = [[NBPhoneNumber alloc] init];
-  [gbNumber setCountryCode:@44];
-  [gbNumber setNationalNumber:@7031231234];
+  gbNumber.countryCode = 44;
+  gbNumber.nationalNumber = 7031231234;
   XCTAssertEqual(NBEPhoneNumberTypePERSONAL_NUMBER, [_aUtil getNumberType:gbNumber]);
 }
 
@@ -1567,27 +1567,27 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   XCTAssertFalse([_aUtil isValidNumberForRegion:self.bsNumber regionCode:@"US"]);
 
   NBPhoneNumber *bsInvalidNumber = [[NBPhoneNumber alloc] init];
-  [bsInvalidNumber setCountryCode:@1];
-  [bsInvalidNumber setNationalNumber:@2421232345];
+  bsInvalidNumber.countryCode = 1;
+  bsInvalidNumber.nationalNumber = 2421232345;
   // This number is no longer valid.
   XCTAssertFalse([_aUtil isValidNumber:bsInvalidNumber]);
 
   // La Mayotte and Reunion use 'leadingDigits' to differentiate them.
 
   NBPhoneNumber *reNumber = [[NBPhoneNumber alloc] init];
-  [reNumber setCountryCode:@262];
-  [reNumber setNationalNumber:@262123456];
+  reNumber.countryCode = 262;
+  reNumber.nationalNumber = 262123456;
   XCTAssertTrue([_aUtil isValidNumber:reNumber]);
   XCTAssertTrue([_aUtil isValidNumberForRegion:reNumber regionCode:@"RE"]);
   XCTAssertFalse([_aUtil isValidNumberForRegion:reNumber regionCode:@"YT"]);
 
   // Now change the number to be a number for La Mayotte.
-  [reNumber setNationalNumber:@269601234];
+  reNumber.nationalNumber = 269601234;
   XCTAssertTrue([_aUtil isValidNumberForRegion:reNumber regionCode:@"YT"]);
   XCTAssertFalse([_aUtil isValidNumberForRegion:reNumber regionCode:@"RE"]);
 
   // This number is no longer valid for La Reunion.
-  [reNumber setNationalNumber:@269123456];
+  reNumber.nationalNumber = 269123456;
   XCTAssertFalse([_aUtil isValidNumberForRegion:reNumber regionCode:@"YT"]);
   XCTAssertFalse([_aUtil isValidNumberForRegion:reNumber regionCode:@"RE"]);
   XCTAssertFalse([_aUtil isValidNumber:reNumber]);
@@ -1597,7 +1597,7 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   XCTAssertEqualObjects(@"YT", [_aUtil getRegionCodeForNumber:reNumber]);
 
   // This number is valid in both places.
-  [reNumber setNationalNumber:@800123456];
+  reNumber.nationalNumber = 800123456;
   XCTAssertTrue([_aUtil isValidNumberForRegion:reNumber regionCode:@"YT"]);
   XCTAssertTrue([_aUtil isValidNumberForRegion:reNumber regionCode:@"RE"]);
   XCTAssertTrue([_aUtil isValidNumberForRegion:self.internationalTollFreeNumber regionCode:@"001"]);
@@ -1607,11 +1607,11 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 
   NBPhoneNumber *invalidNumber = [[NBPhoneNumber alloc] init];
   // Invalid country calling codes.
-  [invalidNumber setCountryCode:@3923];
-  [invalidNumber setNationalNumber:@2366];
+  invalidNumber.countryCode = 3923;
+  invalidNumber.nationalNumber = 2366;
   XCTAssertFalse([_aUtil isValidNumberForRegion:invalidNumber regionCode:NB_UNKNOWN_REGION]);
   XCTAssertFalse([_aUtil isValidNumberForRegion:invalidNumber regionCode:@"001"]);
-  [invalidNumber setCountryCode:0];
+  invalidNumber.countryCode = 0;
   XCTAssertFalse([_aUtil isValidNumberForRegion:invalidNumber regionCode:@"001"]);
   XCTAssertFalse([_aUtil isValidNumberForRegion:invalidNumber regionCode:NB_UNKNOWN_REGION]);
 }
@@ -1619,43 +1619,43 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   XCTAssertFalse([_aUtil isValidNumber:self.usLocalNumber]);
 
   NBPhoneNumber *invalidNumber = [[NBPhoneNumber alloc] init];
-  [invalidNumber setCountryCode:@39];
-  [invalidNumber setNationalNumber:@23661830000];
-  [invalidNumber setItalianLeadingZero:YES];
+  invalidNumber.countryCode = 39;
+  invalidNumber.nationalNumber = 23661830000;
+  invalidNumber.italianLeadingZero = YES;
   XCTAssertFalse([_aUtil isValidNumber:invalidNumber]);
 
   invalidNumber = [[NBPhoneNumber alloc] init];
-  [invalidNumber setCountryCode:@44];
-  [invalidNumber setNationalNumber:@791234567];
+  invalidNumber.countryCode = 44;
+  invalidNumber.nationalNumber = 791234567;
   XCTAssertFalse([_aUtil isValidNumber:invalidNumber]);
 
   invalidNumber = [[NBPhoneNumber alloc] init];
-  [invalidNumber setCountryCode:@0];
-  [invalidNumber setNationalNumber:@1234];
+  invalidNumber.countryCode = 0;
+  invalidNumber.nationalNumber = 1234;
   XCTAssertFalse([_aUtil isValidNumber:invalidNumber]);
 
   invalidNumber = [[NBPhoneNumber alloc] init];
-  [invalidNumber setCountryCode:@64];
-  [invalidNumber setNationalNumber:@3316005];
+  invalidNumber.countryCode = 64;
+  invalidNumber.nationalNumber = 3316005;
   XCTAssertFalse([_aUtil isValidNumber:invalidNumber]);
 
   invalidNumber = [[NBPhoneNumber alloc] init];
   // Invalid country calling codes.
-  [invalidNumber setCountryCode:@3923];
-  [invalidNumber setNationalNumber:@2366];
+  invalidNumber.countryCode = 3923;
+  invalidNumber.nationalNumber = 2366;
   XCTAssertFalse([_aUtil isValidNumber:invalidNumber]);
-  [invalidNumber setCountryCode:@0];
+  invalidNumber.countryCode = 0;
   XCTAssertFalse([_aUtil isValidNumber:invalidNumber]);
 
   XCTAssertFalse([_aUtil isValidNumber:self.internationalTollFreeTooLongNumber]);
 }
 
 - (void)testgetRegionCodeForCountryCode {
-  XCTAssertEqualObjects(@"US", [_aUtil getRegionCodeForCountryCode:@1]);
-  XCTAssertEqualObjects(@"GB", [_aUtil getRegionCodeForCountryCode:@44]);
-  XCTAssertEqualObjects(@"DE", [_aUtil getRegionCodeForCountryCode:@49]);
-  XCTAssertEqualObjects(@"001", [_aUtil getRegionCodeForCountryCode:@800]);
-  XCTAssertEqualObjects(@"001", [_aUtil getRegionCodeForCountryCode:@979]);
+  XCTAssertEqualObjects(@"US", [_aUtil getRegionCodeForCountryCode:1]);
+  XCTAssertEqualObjects(@"GB", [_aUtil getRegionCodeForCountryCode:44]);
+  XCTAssertEqualObjects(@"DE", [_aUtil getRegionCodeForCountryCode:49]);
+  XCTAssertEqualObjects(@"001", [_aUtil getRegionCodeForCountryCode:800]);
+  XCTAssertEqualObjects(@"001", [_aUtil getRegionCodeForCountryCode:979]);
 }
 
 - (void)testgetRegionCodeForNumber {
@@ -1667,24 +1667,24 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 }
 
 - (void)testGetRegionCodesForCountryCode {
-  NSArray *regionCodesForNANPA = [_aUtil getRegionCodesForCountryCode:@1];
+  NSArray<NSString *> *regionCodesForNANPA = [_aUtil getRegionCodesForCountryCode:1];
   XCTAssertTrue([regionCodesForNANPA containsObject:@"US"]);
   XCTAssertTrue([regionCodesForNANPA containsObject:@"BS"]);
-  XCTAssertTrue([[_aUtil getRegionCodesForCountryCode:@44] containsObject:@"GB"]);
-  XCTAssertTrue([[_aUtil getRegionCodesForCountryCode:@49] containsObject:@"DE"]);
-  XCTAssertTrue([[_aUtil getRegionCodesForCountryCode:@800] containsObject:@"001"]);
+  XCTAssertTrue([[_aUtil getRegionCodesForCountryCode:44] containsObject:@"GB"]);
+  XCTAssertTrue([[_aUtil getRegionCodesForCountryCode:49] containsObject:@"DE"]);
+  XCTAssertTrue([[_aUtil getRegionCodesForCountryCode:800] containsObject:@"001"]);
   // Test with invalid country calling code.
-  XCTAssertTrue([[_aUtil getRegionCodesForCountryCode:@-1] count] == 0);
+  XCTAssertTrue([[_aUtil getRegionCodesForCountryCode:-1] count] == 0);
 }
 
 - (void)testGetCountryCodeForRegion {
-  XCTAssertEqualObjects(@1, [_aUtil getCountryCodeForRegion:@"US"]);
-  XCTAssertEqualObjects(@64, [_aUtil getCountryCodeForRegion:@"NZ"]);
-  XCTAssertEqualObjects(@0, [_aUtil getCountryCodeForRegion:nil]);
-  XCTAssertEqualObjects(@0, [_aUtil getCountryCodeForRegion:NB_UNKNOWN_REGION]);
-  XCTAssertEqualObjects(@0, [_aUtil getCountryCodeForRegion:@"001"]);
+  XCTAssertEqual(1, [_aUtil getCountryCodeForRegion:@"US"]);
+  XCTAssertEqual(64, [_aUtil getCountryCodeForRegion:@"NZ"]);
+  XCTAssertEqual(0, [_aUtil getCountryCodeForRegion:nil]);
+  XCTAssertEqual(0, [_aUtil getCountryCodeForRegion:NB_UNKNOWN_REGION]);
+  XCTAssertEqual(0, [_aUtil getCountryCodeForRegion:@"001"]);
   // CS is already deprecated so the library doesn't support it.
-  XCTAssertEqualObjects(@0, [_aUtil getCountryCodeForRegion:@"CS"]);
+  XCTAssertEqual(0, [_aUtil getCountryCodeForRegion:@"CS"]);
 }
 
 - (void)testGetNationalDiallingPrefixForRegion {
@@ -1759,19 +1759,19 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                  [_aUtil isPossibleNumberWithReason:self.usTooLongNumber]);
 
   NBPhoneNumber *number = [[NBPhoneNumber alloc] init];
-  [number setCountryCode:@0];
-  [number setNationalNumber:@2530000];
+  number.countryCode = 0;
+  number.nationalNumber = 2530000;
   XCTAssertEqual(NBEValidationResultINVALID_COUNTRY_CODE,
                  [_aUtil isPossibleNumberWithReason:number]);
 
   number = [[NBPhoneNumber alloc] init];
-  [number setCountryCode:@1];
-  [number setNationalNumber:@253000];
+  number.countryCode = 1;
+  number.nationalNumber = 253000;
   XCTAssertEqual(NBEValidationResultTOO_SHORT, [_aUtil isPossibleNumberWithReason:number]);
 
   number = [[NBPhoneNumber alloc] init];
-  [number setCountryCode:@65];
-  [number setNationalNumber:@1234567890];
+  number.countryCode = 65;
+  number.nationalNumber = 1234567890;
   XCTAssertEqual(NBEValidationResultIS_POSSIBLE, [_aUtil isPossibleNumberWithReason:number]);
   XCTAssertEqual(NBEValidationResultTOO_LONG,
                  [_aUtil isPossibleNumberWithReason:self.internationalTollFreeTooLongNumber]);
@@ -1782,13 +1782,13 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   XCTAssertFalse([_aUtil isPossibleNumber:self.internationalTollFreeTooLongNumber]);
 
   NBPhoneNumber *number = [[NBPhoneNumber alloc] init];
-  [number setCountryCode:@1];
-  [number setNationalNumber:@253000];
+  number.countryCode = 1;
+  number.nationalNumber = 253000;
   XCTAssertFalse([_aUtil isPossibleNumber:number]);
 
   number = [[NBPhoneNumber alloc] init];
-  [number setCountryCode:@44];
-  [number setNationalNumber:@300];
+  number.countryCode = 44;
+  number.nationalNumber = 300;
   XCTAssertFalse([_aUtil isPossibleNumber:number]);
   XCTAssertFalse([_aUtil isPossibleNumberString:@"+1 650 253 00000"
                               regionDialingFrom:@"US"
@@ -1810,25 +1810,25 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 - (void)testTruncateTooLongNumber {
   // GB number 080 1234 5678, but entered with 4 extra digits at the end.
   NBPhoneNumber *tooLongNumber = [[NBPhoneNumber alloc] init];
-  [tooLongNumber setCountryCode:@44];
-  [tooLongNumber setNationalNumber:@80123456780123];
+  tooLongNumber.countryCode = 44;
+  tooLongNumber.nationalNumber = 80123456780123;
 
   NBPhoneNumber *validNumber = [[NBPhoneNumber alloc] init];
-  [validNumber setCountryCode:@44];
-  [validNumber setNationalNumber:@8012345678];
+  validNumber.countryCode = 44;
+  validNumber.nationalNumber = 8012345678;
   XCTAssertTrue([_aUtil truncateTooLongNumber:tooLongNumber]);
   XCTAssertTrue([validNumber isEqual:tooLongNumber]);
 
   // IT number 022 3456 7890, but entered with 3 extra digits at the end.
   tooLongNumber = [[NBPhoneNumber alloc] init];
-  [tooLongNumber setCountryCode:@39];
-  [tooLongNumber setNationalNumber:@2234567890123];
-  [tooLongNumber setItalianLeadingZero:YES];
+  tooLongNumber.countryCode = 39;
+  tooLongNumber.nationalNumber = 2234567890123;
+  tooLongNumber.italianLeadingZero = YES;
 
   validNumber = [[NBPhoneNumber alloc] init];
-  [validNumber setCountryCode:@39];
-  [validNumber setNationalNumber:@2234567890];
-  [validNumber setItalianLeadingZero:YES];
+  validNumber.countryCode = 39;
+  validNumber.nationalNumber = 2234567890;
+  validNumber.italianLeadingZero = YES;
   XCTAssertTrue([_aUtil truncateTooLongNumber:tooLongNumber]);
   XCTAssertTrue([validNumber isEqual:tooLongNumber]);
 
@@ -1852,8 +1852,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 
   NBPhoneNumber *numberWithInvalidPrefix = [[NBPhoneNumber alloc] init];
   // The test metadata says US numbers cannot have prefix 240.
-  [numberWithInvalidPrefix setCountryCode:@1];
-  [numberWithInvalidPrefix setNationalNumber:@2401234567];
+  numberWithInvalidPrefix.countryCode = 1;
+  numberWithInvalidPrefix.nationalNumber = 2401234567;
 
   NBPhoneNumber *invalidNumberCopy = [numberWithInvalidPrefix copy];
   XCTAssertFalse([_aUtil truncateTooLongNumber:numberWithInvalidPrefix]);
@@ -1863,8 +1863,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   // Tests what happens when a too short number is passed in.
 
   NBPhoneNumber *tooShortNumber = [[NBPhoneNumber alloc] init];
-  [tooShortNumber setCountryCode:@1];
-  [tooShortNumber setNationalNumber:@1234];
+  tooShortNumber.countryCode = 1;
+  tooShortNumber.nationalNumber = 1234;
 
   NBPhoneNumber *tooShortNumberCopy = [tooShortNumber copy];
   XCTAssertFalse([_aUtil truncateTooLongNumber:tooShortNumber]);
@@ -1933,7 +1933,7 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   [metadata setGeneralDesc:generalDesc];
 
   NBPhoneNumber *numberToStrip = [[NBPhoneNumber alloc] init];
-  [numberToStrip setRawInput:@"34356778"];
+  numberToStrip.rawInput = @"34356778";
 
   NSString *strippedNumber = @"356778";
   NSString *rawInput = numberToStrip.rawInput;
@@ -2066,25 +2066,25 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   // Note that for the US, the IDD is 011.
   NSString *phoneNumber = @"011112-3456789";
   NSString *strippedNumber = @"123456789";
-  NSNumber *countryCallingCode = @1;
+  int32_t countryCallingCode = 1;
 
   NSString *numberToFill = @"";
 
   {
     NSError *anError = nil;
-    XCTAssertEqualObjects(countryCallingCode, [_aUtil maybeExtractCountryCode:phoneNumber
+    XCTAssertEqual(countryCallingCode, [_aUtil maybeExtractCountryCode:phoneNumber
                                                                      metadata:metadata
                                                                nationalNumber:&numberToFill
                                                                  keepRawInput:YES
                                                                   phoneNumber:&number
                                                                         error:&anError]);
     XCTAssertEqual(NBECountryCodeSourceFROM_NUMBER_WITH_IDD,
-                   [number.countryCodeSource integerValue]);
+                   number.countryCodeSource);
     // Should strip and normalize national significant number.
     XCTAssertEqualObjects(strippedNumber, numberToFill);
     if (anError) XCTFail(@"Should not have thrown an exception: %@", anError.description);
   }
-  XCTAssertEqual(NBECountryCodeSourceFROM_NUMBER_WITH_IDD, [number.countryCodeSource integerValue],
+  XCTAssertEqual(NBECountryCodeSourceFROM_NUMBER_WITH_IDD, number.countryCodeSource,
                  @"Did not figure out CountryCodeSource correctly");
   // Should strip and normalize national significant number.
   XCTAssertEqualObjects(strippedNumber, numberToFill,
@@ -2092,42 +2092,42 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 
   number = [[NBPhoneNumber alloc] init];
   phoneNumber = @"+6423456789";
-  countryCallingCode = @64;
+  countryCallingCode = 64;
   numberToFill = @"";
-  XCTAssertEqualObjects(countryCallingCode, [_aUtil maybeExtractCountryCode:phoneNumber
+  XCTAssertEqual(countryCallingCode, [_aUtil maybeExtractCountryCode:phoneNumber
                                                                    metadata:metadata
                                                              nationalNumber:&numberToFill
                                                                keepRawInput:YES
                                                                 phoneNumber:&number
                                                                       error:nil]);
   XCTAssertEqual(NBECountryCodeSourceFROM_NUMBER_WITH_PLUS_SIGN,
-                 [number.countryCodeSource integerValue],
+                 number.countryCodeSource,
                  @"Did not figure out CountryCodeSource correctly");
 
   number = [[NBPhoneNumber alloc] init];
   phoneNumber = @"+80012345678";
-  countryCallingCode = @800;
+  countryCallingCode = 800;
   numberToFill = @"";
-  XCTAssertEqualObjects(countryCallingCode, [_aUtil maybeExtractCountryCode:phoneNumber
+  XCTAssertEqual(countryCallingCode, [_aUtil maybeExtractCountryCode:phoneNumber
                                                                    metadata:metadata
                                                              nationalNumber:&numberToFill
                                                                keepRawInput:YES
                                                                 phoneNumber:&number
                                                                       error:nil]);
   XCTAssertEqual(NBECountryCodeSourceFROM_NUMBER_WITH_PLUS_SIGN,
-                 [number.countryCodeSource integerValue],
+                 number.countryCodeSource,
                  @"Did not figure out CountryCodeSource correctly");
 
   number = [[NBPhoneNumber alloc] init];
   phoneNumber = @"2345-6789";
   numberToFill = @"";
-  XCTAssertEqual(@0, [_aUtil maybeExtractCountryCode:phoneNumber
+  XCTAssertEqual(0, [_aUtil maybeExtractCountryCode:phoneNumber
                                             metadata:metadata
                                       nationalNumber:&numberToFill
                                         keepRawInput:YES
                                          phoneNumber:&number
                                                error:nil]);
-  XCTAssertEqual(NBECountryCodeSourceFROM_DEFAULT_COUNTRY, [number.countryCodeSource integerValue],
+  XCTAssertEqual(NBECountryCodeSourceFROM_DEFAULT_COUNTRY, number.countryCodeSource,
                  @"Did not figure out CountryCodeSource correctly");
 
   number = [[NBPhoneNumber alloc] init];
@@ -2149,11 +2149,11 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 
   number = [[NBPhoneNumber alloc] init];
   phoneNumber = @"(1 610) 619 4466";
-  countryCallingCode = @1;
+  countryCallingCode = 1;
   numberToFill = @"";
   {
     NSError *anError = nil;
-    XCTAssertEqualObjects(
+    XCTAssertEqual(
         countryCallingCode,
         [_aUtil maybeExtractCountryCode:phoneNumber
                                metadata:metadata
@@ -2163,17 +2163,17 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                                   error:&anError],
         @"Should have extracted the country calling code of the region passed in");
     XCTAssertEqual(NBECountryCodeSourceFROM_NUMBER_WITHOUT_PLUS_SIGN,
-                   [number.countryCodeSource integerValue],
+                   number.countryCodeSource,
                    @"Did not figure out CountryCodeSource correctly");
   }
 
   number = [[NBPhoneNumber alloc] init];
   phoneNumber = @"(1 610) 619 4466";
-  countryCallingCode = @1;
+  countryCallingCode = 1;
   numberToFill = @"";
   {
     NSError *anError = nil;
-    XCTAssertEqualObjects(countryCallingCode, [_aUtil maybeExtractCountryCode:phoneNumber
+    XCTAssertEqual(countryCallingCode, [_aUtil maybeExtractCountryCode:phoneNumber
                                                                      metadata:metadata
                                                                nationalNumber:&numberToFill
                                                                  keepRawInput:NO
@@ -2186,13 +2186,13 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   numberToFill = @"";
   {
     NSError *anError = nil;
-    XCTAssertEqualObjects(@0, [_aUtil maybeExtractCountryCode:phoneNumber
+    XCTAssertEqual(0, [_aUtil maybeExtractCountryCode:phoneNumber
                                                      metadata:metadata
                                                nationalNumber:&numberToFill
                                                  keepRawInput:NO
                                                   phoneNumber:&number
                                                         error:&anError]);
-    XCTAssertFalse(number.countryCodeSource != nil, @"Should not contain CountryCodeSource.");
+    XCTAssertFalse(number.countryCodeSource != NBECountryCodeSourceUNSPECIFIED, @"Should not contain CountryCodeSource.");
   }
 
   number = [[NBPhoneNumber alloc] init];
@@ -2200,14 +2200,14 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   numberToFill = @"";
   {
     NSError *anError = nil;
-    XCTAssertEqual(@0, [_aUtil maybeExtractCountryCode:phoneNumber
+    XCTAssertEqual(0, [_aUtil maybeExtractCountryCode:phoneNumber
                                               metadata:metadata
                                         nationalNumber:&numberToFill
                                           keepRawInput:YES
                                            phoneNumber:&number
                                                  error:&anError]);
     XCTAssertEqual(NBECountryCodeSourceFROM_DEFAULT_COUNTRY,
-                   [number.countryCodeSource integerValue]);
+                   number.countryCodeSource);
   }
 }
 
@@ -2301,8 +2301,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                                               error:&anError]]);
 
   NBPhoneNumber *nzNumber = [[NBPhoneNumber alloc] init];
-  [nzNumber setCountryCode:@64];
-  [nzNumber setNationalNumber:@64123456];
+  nzNumber.countryCode = 64;
+  nzNumber.nationalNumber = 64123456;
   XCTAssertTrue([nzNumber isEqual:[_aUtil parse:@"64(0)64123456"
                                       defaultRegion:@"NZ"
                                               error:&anError]]);
@@ -2314,8 +2314,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   NBPhoneNumber *usNumber = [[NBPhoneNumber alloc] init];
   // Check it doesn't use the '1' as a country calling code when parsing if the
   // phone number was already possible.
-  [usNumber setCountryCode:@1];
-  [usNumber setNationalNumber:@1234567890];
+  usNumber.countryCode = 1;
+  usNumber.nationalNumber = 1234567890;
   XCTAssertTrue([usNumber isEqual:[_aUtil parse:@"123-456-7890"
                                       defaultRegion:@"US"
                                               error:&anError]]);
@@ -2323,15 +2323,15 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   // Test star numbers. Although this is not strictly valid, we would like to
   // make sure we can parse the output we produce when formatting the number.
   NBPhoneNumber *jpStarNumber = [[NBPhoneNumber alloc] init];
-  jpStarNumber.countryCode = @81;
-  jpStarNumber.nationalNumber = @2345;
+  jpStarNumber.countryCode = 81;
+  jpStarNumber.nationalNumber = 2345;
   XCTAssertTrue([jpStarNumber isEqual:[_aUtil parse:@"+81 *2345"
                                           defaultRegion:@"JP"
                                                   error:&anError]]);
 
   NBPhoneNumber *shortNumber = [[NBPhoneNumber alloc] init];
-  [shortNumber setCountryCode:@64];
-  [shortNumber setNationalNumber:@12];
+  shortNumber.countryCode = 64;
+  shortNumber.nationalNumber = 12;
   XCTAssertTrue([shortNumber isEqual:[_aUtil parse:@"12" defaultRegion:@"NZ" error:&anError]]);
 }
 
@@ -2339,15 +2339,15 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   NSError *anError;
   // Test case with alpha characters.
   NBPhoneNumber *tollfreeNumber = [[NBPhoneNumber alloc] init];
-  [tollfreeNumber setCountryCode:@64];
-  [tollfreeNumber setNationalNumber:@800332005];
+  tollfreeNumber.countryCode = 64;
+  tollfreeNumber.nationalNumber = 800332005;
   XCTAssertTrue([tollfreeNumber isEqual:[_aUtil parse:@"0800 DDA 005"
                                             defaultRegion:@"NZ"
                                                     error:&anError]]);
 
   NBPhoneNumber *premiumNumber = [[NBPhoneNumber alloc] init];
-  [premiumNumber setCountryCode:@64];
-  [premiumNumber setNationalNumber:@9003326005];
+  premiumNumber.countryCode = 64;
+  premiumNumber.nationalNumber = 9003326005;
   XCTAssertTrue([premiumNumber isEqual:[_aUtil parse:@"0900 DDA 6005"
                                            defaultRegion:@"NZ"
                                                    error:&anError]]);
@@ -2487,8 +2487,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   NSError *anError = nil;
   // Test parsing mobile numbers of Argentina.
   NBPhoneNumber *arNumber = [[NBPhoneNumber alloc] init];
-  [arNumber setCountryCode:@54];
-  [arNumber setNationalNumber:@93435551212];
+  arNumber.countryCode = 54;
+  arNumber.nationalNumber = 93435551212;
   XCTAssertTrue([arNumber isEqual:[_aUtil parse:@"+54 9 343 555 1212"
                                       defaultRegion:@"AR"
                                               error:&anError]]);
@@ -2497,8 +2497,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                                               error:&anError]]);
 
   arNumber = [[NBPhoneNumber alloc] init];
-  [arNumber setCountryCode:@54];
-  [arNumber setNationalNumber:@93715654320];
+  arNumber.countryCode = 54;
+  arNumber.nationalNumber = 93715654320;
   XCTAssertTrue([arNumber isEqual:[_aUtil parse:@"+54 9 3715 65 4320"
                                       defaultRegion:@"AR"
                                               error:&anError]]);
@@ -2518,8 +2518,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                                                    error:&anError]]);
 
   arNumber = [[NBPhoneNumber alloc] init];
-  [arNumber setCountryCode:@54];
-  [arNumber setNationalNumber:@3715654321];
+  arNumber.countryCode = 54;
+  arNumber.nationalNumber = 3715654321;
   XCTAssertTrue([arNumber isEqual:[_aUtil parse:@"+54 3715 65 4321"
                                       defaultRegion:@"AR"
                                               error:&anError]]);
@@ -2528,8 +2528,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                                               error:&anError]]);
 
   arNumber = [[NBPhoneNumber alloc] init];
-  [arNumber setCountryCode:@54];
-  [arNumber setNationalNumber:@2312340000];
+  arNumber.countryCode = 54;
+  arNumber.nationalNumber = 2312340000;
   XCTAssertTrue([arNumber isEqual:[_aUtil parse:@"+54 23 1234 0000"
                                       defaultRegion:@"AR"
                                               error:&anError]]);
@@ -2555,9 +2555,9 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                                            defaultRegion:@"AR"
                                                    error:&anError]]);
 
-  id arFromUs = [[NBPhoneNumber alloc] init];
-  [arFromUs setCountryCode:@54];
-  [arFromUs setNationalNumber:@81429712];
+  NBPhoneNumber *arFromUs = [[NBPhoneNumber alloc] init];
+  arFromUs.countryCode = 54;
+  arFromUs.nationalNumber = 81429712;
   // This test is intentionally constructed such that the number of digit after
   // xx is larger than 7, so that the number won't be mistakenly treated as an
   // extension, as we allow extensions up to 7 digits. This assumption is okay
@@ -2572,9 +2572,9 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   NSError *anError = nil;
   // Test parsing fixed-line numbers of Mexico.
 
-  id mxNumber = [[NBPhoneNumber alloc] init];
-  [mxNumber setCountryCode:@52];
-  [mxNumber setNationalNumber:@4499780001];
+  NBPhoneNumber *mxNumber = [[NBPhoneNumber alloc] init];
+  mxNumber.countryCode = 52;
+  mxNumber.nationalNumber = 4499780001;
   XCTAssertTrue([mxNumber isEqual:[_aUtil parse:@"+52 (449)978-0001"
                                       defaultRegion:@"MX"
                                               error:&anError]]);
@@ -2587,8 +2587,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 
   // Test parsing mobile numbers of Mexico.
   mxNumber = [[NBPhoneNumber alloc] init];
-  [mxNumber setCountryCode:@52];
-  [mxNumber setNationalNumber:@13312345678];
+  mxNumber.countryCode = 52;
+  mxNumber.nationalNumber = 13312345678;
   XCTAssertTrue([mxNumber isEqual:[_aUtil parse:@"+52 1 33 1234-5678"
                                       defaultRegion:@"MX"
                                               error:&anError]]);
@@ -2926,12 +2926,10 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   // It is important that we set the carrier code to an empty string, since we
   // used ParseAndKeepRawInput and no carrier code was found.
 
-  id nzNumberWithRawInput = self.nzNumber;
-  [nzNumberWithRawInput setRawInput:@"+64 3 331 6005"];
-  [nzNumberWithRawInput
-      setCountryCodeSource:[NSNumber
-                               numberWithInteger:NBECountryCodeSourceFROM_NUMBER_WITH_PLUS_SIGN]];
-  [nzNumberWithRawInput setPreferredDomesticCarrierCode:@""];
+  NBPhoneNumber *nzNumberWithRawInput = self.nzNumber;
+  nzNumberWithRawInput.rawInput = @"+64 3 331 6005";
+  nzNumberWithRawInput.countryCodeSource = NBECountryCodeSourceFROM_NUMBER_WITH_PLUS_SIGN;
+  nzNumberWithRawInput.preferredDomesticCarrierCode = @"";
   XCTAssertTrue([nzNumberWithRawInput isEqual:[_aUtil parseAndKeepRawInput:@"+64 3 331 6005"
                                                              defaultRegion:NB_UNKNOWN_REGION
                                                                      error:&anError]]);
@@ -2944,9 +2942,9 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 - (void)testParseExtensions {
   NSError *anError = nil;
   NBPhoneNumber *nzNumber = [[NBPhoneNumber alloc] init];
-  [nzNumber setCountryCode:@64];
-  [nzNumber setNationalNumber:@33316005];
-  [nzNumber setExtension:@"3456"];
+  nzNumber.countryCode = 64;
+  nzNumber.nationalNumber = 33316005;
+  nzNumber.extension = @"3456";
   XCTAssertTrue([nzNumber isEqual:[_aUtil parse:@"03 331 6005 ext 3456"
                                       defaultRegion:@"NZ"
                                               error:&anError]]);
@@ -2976,8 +2974,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 
   // Check that the last instance of an extension token is matched.
 
-  id extnNumber = self.alphaNumbericNumber;
-  [extnNumber setExtension:@"1234"];
+  NBPhoneNumber *extnNumber = self.alphaNumbericNumber;
+  extnNumber.extension = @"1234";
   XCTAssertTrue([extnNumber isEqual:[_aUtil parse:@"0~0 1800 7493 5247 ~1234"
                                         defaultRegion:@"PL"
                                                 error:&anError]]);
@@ -2986,10 +2984,10 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   // if it was a 0 when extracting the extension. Also verifying a few different
   // cases of extensions.
 
-  id ukNumber = [[NBPhoneNumber alloc] init];
-  [ukNumber setCountryCode:@44];
-  [ukNumber setNationalNumber:@2034567890];
-  [ukNumber setExtension:@"456"];
+  NBPhoneNumber *ukNumber = [[NBPhoneNumber alloc] init];
+  ukNumber.countryCode = 44;
+  ukNumber.nationalNumber = 2034567890;
+  ukNumber.extension = @"456";
   XCTAssertTrue([ukNumber isEqual:[_aUtil parse:@"+44 2034567890x456"
                                       defaultRegion:@"NZ"
                                               error:&anError]]);
@@ -3033,10 +3031,10 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                                       defaultRegion:@"GB"
                                               error:&anError]]);
 
-  id usWithExtension = [[NBPhoneNumber alloc] init];
-  [usWithExtension setCountryCode:@1];
-  [usWithExtension setNationalNumber:@8009013355];
-  [usWithExtension setExtension:@"7246433"];
+  NBPhoneNumber *usWithExtension = [[NBPhoneNumber alloc] init];
+  usWithExtension.countryCode = 1;
+  usWithExtension.nationalNumber = 8009013355;
+  usWithExtension.extension = @"7246433";
   XCTAssertTrue([usWithExtension isEqual:[_aUtil parse:@"(800) 901-3355 x 7246433"
                                              defaultRegion:@"US"
                                                      error:&anError]]);
@@ -3063,10 +3061,10 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                                                      error:&anError]]);
 
   // Test that if a number has two extensions specified, we ignore the second.
-  id usWithTwoExtensionsNumber = [[NBPhoneNumber alloc] init];
-  [usWithTwoExtensionsNumber setCountryCode:@1];
-  [usWithTwoExtensionsNumber setNationalNumber:@2121231234];
-  [usWithTwoExtensionsNumber setExtension:@"508"];
+  NBPhoneNumber *usWithTwoExtensionsNumber = [[NBPhoneNumber alloc] init];
+  usWithTwoExtensionsNumber.countryCode = 1;
+  usWithTwoExtensionsNumber.nationalNumber = 2121231234;
+  usWithTwoExtensionsNumber.extension = @"508";
   XCTAssertTrue([usWithTwoExtensionsNumber isEqual:[_aUtil parse:@"(212)123-1234 x508/x1234"
                                                        defaultRegion:@"US"
                                                                error:&anError]]);
@@ -3080,9 +3078,9 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   // Test parsing numbers in the form (645) 123-1234-910# works, where the last
   // 3 digits before the # are an extension.
   usWithExtension = [[NBPhoneNumber alloc] init];
-  [usWithExtension setCountryCode:@1];
-  [usWithExtension setNationalNumber:@6451231234];
-  [usWithExtension setExtension:@"910"];
+  usWithExtension.countryCode = 1;
+  usWithExtension.nationalNumber = 6451231234;
+  usWithExtension.extension = @"910";
   XCTAssertTrue([usWithExtension isEqual:[_aUtil parse:@"+1 (645) 123 1234-910#"
                                              defaultRegion:@"US"
                                                      error:&anError]]);
@@ -3095,39 +3093,33 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 - (void)testParseAndKeepRaw {
   NSError *anError;
   NBPhoneNumber *alphaNumericNumber = self.alphaNumbericNumber;
-  [alphaNumericNumber setRawInput:@"800 six-flags"];
-  [alphaNumericNumber
-      setCountryCodeSource:[NSNumber numberWithInteger:NBECountryCodeSourceFROM_DEFAULT_COUNTRY]];
-  [alphaNumericNumber setPreferredDomesticCarrierCode:@""];
+  alphaNumericNumber.rawInput = @"800 six-flags";
+  alphaNumericNumber.countryCodeSource = NBECountryCodeSourceFROM_DEFAULT_COUNTRY;
+  alphaNumericNumber.preferredDomesticCarrierCode = @"";
   XCTAssertTrue([alphaNumericNumber isEqual:[_aUtil parseAndKeepRawInput:@"800 six-flags"
                                                            defaultRegion:@"US"
                                                                    error:&anError]]);
 
-  id shorterAlphaNumber = [[NBPhoneNumber alloc] init];
-  [shorterAlphaNumber setCountryCode:@1];
-  [shorterAlphaNumber setNationalNumber:@8007493524];
-  [shorterAlphaNumber setRawInput:@"1800 six-flag"];
-  [shorterAlphaNumber
-      setCountryCodeSource:
-          [NSNumber numberWithInteger:NBECountryCodeSourceFROM_NUMBER_WITHOUT_PLUS_SIGN]];
-  [shorterAlphaNumber setPreferredDomesticCarrierCode:@""];
+  NBPhoneNumber *shorterAlphaNumber = [[NBPhoneNumber alloc] init];
+  shorterAlphaNumber.countryCode = 1;
+  shorterAlphaNumber.nationalNumber = 8007493524;
+  shorterAlphaNumber.rawInput = @"1800 six-flag";
+  shorterAlphaNumber.countryCodeSource = NBECountryCodeSourceFROM_NUMBER_WITHOUT_PLUS_SIGN;
+  shorterAlphaNumber.preferredDomesticCarrierCode = @"";
   XCTAssertTrue([shorterAlphaNumber isEqual:[_aUtil parseAndKeepRawInput:@"1800 six-flag"
                                                            defaultRegion:@"US"
                                                                    error:&anError]]);
 
-  [shorterAlphaNumber setRawInput:@"+1800 six-flag"];
-  [shorterAlphaNumber
-      setCountryCodeSource:[NSNumber
-                               numberWithInteger:NBECountryCodeSourceFROM_NUMBER_WITH_PLUS_SIGN]];
+  shorterAlphaNumber.rawInput = @"+1800 six-flag";
+  shorterAlphaNumber.countryCodeSource = NBECountryCodeSourceFROM_NUMBER_WITH_PLUS_SIGN;
   XCTAssertTrue([shorterAlphaNumber isEqual:[_aUtil parseAndKeepRawInput:@"+1800 six-flag"
                                                            defaultRegion:@"NZ"
                                                                    error:&anError]]);
 
-  [alphaNumericNumber setCountryCode:@1];
-  [alphaNumericNumber setNationalNumber:@8007493524];
-  [alphaNumericNumber setRawInput:@"001800 six-flag"];
-  [alphaNumericNumber
-      setCountryCodeSource:[NSNumber numberWithInteger:NBECountryCodeSourceFROM_NUMBER_WITH_IDD]];
+  alphaNumericNumber.countryCode = 1;
+  alphaNumericNumber.nationalNumber = 8007493524;
+  alphaNumericNumber.rawInput = @"001800 six-flag";
+  alphaNumericNumber.countryCodeSource = NBECountryCodeSourceFROM_NUMBER_WITH_IDD;
   XCTAssertTrue([alphaNumericNumber isEqual:[_aUtil parseAndKeepRawInput:@"001800 six-flag"
                                                            defaultRegion:@"NZ"
                                                                    error:&anError]]);
@@ -3144,13 +3136,12 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
     }
   }
 
-  id koreanNumber = [[NBPhoneNumber alloc] init];
-  [koreanNumber setCountryCode:@82];
-  [koreanNumber setNationalNumber:@22123456];
-  [koreanNumber setRawInput:@"08122123456"];
-  [koreanNumber
-      setCountryCodeSource:[NSNumber numberWithInteger:NBECountryCodeSourceFROM_DEFAULT_COUNTRY]];
-  [koreanNumber setPreferredDomesticCarrierCode:@"81"];
+  NBPhoneNumber *koreanNumber = [[NBPhoneNumber alloc] init];
+  koreanNumber.countryCode = 82;
+  koreanNumber.nationalNumber = 22123456;
+  koreanNumber.rawInput = @"08122123456";
+  koreanNumber.countryCodeSource = NBECountryCodeSourceFROM_DEFAULT_COUNTRY;
+  koreanNumber.preferredDomesticCarrierCode = @"81";
   XCTAssertTrue([koreanNumber isEqual:[_aUtil parseAndKeepRawInput:@"08122123456"
                                                      defaultRegion:@"KR"
                                                              error:&anError]]);
@@ -3160,8 +3151,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   // Andorra is a country where we don't have PhoneNumberDesc info in the
   // metadata.
   NBPhoneNumber *adNumber = [[NBPhoneNumber alloc] init];
-  [adNumber setCountryCode:@376];
-  [adNumber setNationalNumber:@12345];
+  adNumber.countryCode = 376;
+  adNumber.nationalNumber = 12345;
   XCTAssertEqualObjects(@"+376 12345", [_aUtil format:adNumber
                                            numberFormat:NBEPhoneNumberFormatINTERNATIONAL]);
   XCTAssertEqualObjects(@"+37612345", [_aUtil format:adNumber
@@ -3219,11 +3210,11 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
                                                          second:@"+6403 331 6005"]);
 
   NBPhoneNumber *nzNumber = self.nzNumber;
-  [nzNumber setExtension:@"3456"];
+  nzNumber.extension = @"3456";
   XCTAssertEqual(NBEMatchTypeEXACT_MATCH, [_aUtil isNumberMatch:nzNumber
                                                          second:@"+643 331 6005 ext 3456"]);
   // Check empty extensions are ignored.
-  [nzNumber setExtension:@""];
+  nzNumber.extension = @"";
   XCTAssertEqual(NBEMatchTypeEXACT_MATCH, [_aUtil isNumberMatch:nzNumber second:@"+6403 331 6005"]);
   // Check variant with two proto buffers.
   XCTAssertEqual(NBEMatchTypeEXACT_MATCH, [_aUtil isNumberMatch:nzNumber second:self.nzNumber],
@@ -3235,19 +3226,16 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   NBPhoneNumber *brNumberOne = [[NBPhoneNumber alloc] init];
 
   NBPhoneNumber *brNumberTwo = [[NBPhoneNumber alloc] init];
-  [brNumberOne setCountryCode:@55];
-  [brNumberOne setNationalNumber:@3121286979];
-  [brNumberOne
-      setCountryCodeSource:[NSNumber
-                               numberWithInteger:NBECountryCodeSourceFROM_NUMBER_WITH_PLUS_SIGN]];
-  [brNumberOne setPreferredDomesticCarrierCode:@"12"];
-  [brNumberOne setRawInput:@"012 3121286979"];
-  [brNumberTwo setCountryCode:@55];
-  [brNumberTwo setNationalNumber:@3121286979];
-  [brNumberTwo
-      setCountryCodeSource:[NSNumber numberWithInteger:NBECountryCodeSourceFROM_DEFAULT_COUNTRY]];
-  [brNumberTwo setPreferredDomesticCarrierCode:@"14"];
-  [brNumberTwo setRawInput:@"143121286979"];
+  brNumberOne.countryCode = 55;
+  brNumberOne.nationalNumber = 3121286979;
+  brNumberOne.countryCodeSource = NBECountryCodeSourceFROM_NUMBER_WITH_PLUS_SIGN;
+  brNumberOne.preferredDomesticCarrierCode = @"12";
+  brNumberOne.rawInput = @"012 3121286979";
+  brNumberTwo.countryCode = 55;
+  brNumberTwo.nationalNumber = 3121286979;
+  brNumberTwo.countryCodeSource = NBECountryCodeSourceFROM_DEFAULT_COUNTRY;
+  brNumberTwo.preferredDomesticCarrierCode = @"14";
+  brNumberTwo.rawInput = @"143121286979";
   XCTAssertEqual(NBEMatchTypeEXACT_MATCH, [_aUtil isNumberMatch:brNumberOne second:brNumberTwo]);
 }
 
@@ -3311,8 +3299,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   // parsing.
 
   NBPhoneNumber *randomNumber = [[NBPhoneNumber alloc] init];
-  [randomNumber setCountryCode:@41];
-  [randomNumber setNationalNumber:@6502530000];
+  randomNumber.countryCode = 41;
+  randomNumber.nationalNumber = 6502530000;
   XCTAssertEqual(NBEMatchTypeSHORT_NSN_MATCH, [_aUtil isNumberMatch:randomNumber
                                                              second:@"1-650-253-0000"]);
 }
@@ -3355,19 +3343,19 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   // One has Italian leading zero, one does not.
 
   NBPhoneNumber *italianNumberOne = [[NBPhoneNumber alloc] init];
-  [italianNumberOne setCountryCode:@39];
-  [italianNumberOne setNationalNumber:@1234];
-  [italianNumberOne setItalianLeadingZero:YES];
+  italianNumberOne.countryCode = 39;
+  italianNumberOne.nationalNumber = 1234;
+  italianNumberOne.italianLeadingZero = YES;
 
   NBPhoneNumber *italianNumberTwo = [[NBPhoneNumber alloc] init];
-  [italianNumberTwo setCountryCode:@39];
-  [italianNumberTwo setNationalNumber:@1234];
+  italianNumberTwo.countryCode = 39;
+  italianNumberTwo.nationalNumber = 1234;
   XCTAssertEqual(NBEMatchTypeSHORT_NSN_MATCH, [_aUtil isNumberMatch:italianNumberOne
                                                              second:italianNumberTwo]);
   // One has an extension, the other has an extension of ''.
-  [italianNumberOne setExtension:@"1234"];
+  italianNumberOne.extension = @"1234";
   italianNumberOne.italianLeadingZero = NO;
-  [italianNumberTwo setExtension:@""];
+  italianNumberTwo.extension = @"";
   XCTAssertEqual(NBEMatchTypeSHORT_NSN_MATCH, [_aUtil isNumberMatch:italianNumberOne
                                                              second:italianNumberTwo]);
 }
@@ -3402,11 +3390,9 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
 
 - (void)testGetCountryMobileToken {
   XCTAssertEqualObjects(
-      @"1", [_aUtil getCountryMobileTokenFromCountryCode:[[_aUtil getCountryCodeForRegion:@"MX"]
-                                                             integerValue]]);
+      @"1", [_aUtil getCountryMobileTokenFromCountryCode:[_aUtil getCountryCodeForRegion:@"MX"]]);
   XCTAssertEqualObjects(
-      @"", [_aUtil getCountryMobileTokenFromCountryCode:[[_aUtil getCountryCodeForRegion:@"SE"]
-                                                            integerValue]]);
+      @"", [_aUtil getCountryMobileTokenFromCountryCode:[_aUtil getCountryCodeForRegion:@"SE"]]);
 }
 
 @end

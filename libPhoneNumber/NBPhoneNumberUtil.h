@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "NBPhoneNumberDefines.h"
+#import "NBNumberFormat.h"
 
 @class NBPhoneMetaData, NBPhoneNumber, NBMetadataHelper;
 
@@ -16,11 +17,11 @@
 + (NBPhoneNumberUtil *)sharedInstance;
 - (instancetype)initWithMetadataHelper:(NBMetadataHelper *)helper;
 
-@property(nonatomic, strong, readonly) NSDictionary *DIGIT_MAPPINGS;
+@property(nonatomic, strong, readonly) NSDictionary<NSString *, NSString *> *DIGIT_MAPPINGS;
 
 // regular expressions
-- (NSArray *)matchesByRegex:(NSString *)sourceString regex:(NSString *)pattern;
-- (NSArray *)matchedStringByRegex:(NSString *)sourceString regex:(NSString *)pattern;
+- (NSArray<NSTextCheckingResult *> *)matchesByRegex:(NSString *)sourceString regex:(NSString *)pattern;
+- (NSArray<NSString *> *)matchedStringByRegex:(NSString *)sourceString regex:(NSString *)pattern;
 - (NSString *)replaceStringByRegex:(NSString *)sourceString
                              regex:(NSString *)pattern
                       withTemplate:(NSString *)templateString;
@@ -36,7 +37,7 @@
 - (BOOL)isNumberGeographical:(NBPhoneNumber *)phoneNumber;
 
 - (NSString *)extractPossibleNumber:(NSString *)phoneNumber;
-- (NSNumber *)extractCountryCode:(NSString *)fullNumber nationalNumber:(NSString **)nationalNumber;
+- (int32_t)extractCountryCode:(NSString *)fullNumber nationalNumber:(NSString **)nationalNumber;
 #if TARGET_OS_IOS
 - (NSString *)countryCodeByCarrier;
 #endif
@@ -44,21 +45,21 @@
 - (NSString *)getNddPrefixForRegion:(NSString *)regionCode stripNonDigits:(BOOL)stripNonDigits;
 - (NSString *)getNationalSignificantNumber:(NBPhoneNumber *)phoneNumber;
 
-- (NSArray *)getSupportedRegions;
+- (NSArray<NSString *> *)getSupportedRegions;
 
 - (NBEPhoneNumberType)getNumberType:(NBPhoneNumber *)phoneNumber;
 
-- (NSNumber *)getCountryCodeForRegion:(NSString *)regionCode;
+- (int32_t)getCountryCodeForRegion:(NSString *)regionCode;
 
-- (NSString *)getRegionCodeForCountryCode:(NSNumber *)countryCallingCode;
-- (NSArray *)getRegionCodesForCountryCode:(NSNumber *)countryCallingCode;
+- (NSString *)getRegionCodeForCountryCode:(int32_t)countryCallingCode;
+- (NSArray<NSString *> *)getRegionCodesForCountryCode:(int32_t)countryCallingCode;
 - (NSString *)getRegionCodeForNumber:(NBPhoneNumber *)phoneNumber;
 
 - (NBPhoneNumber *)getExampleNumber:(NSString *)regionCode error:(NSError **)error;
 - (NBPhoneNumber *)getExampleNumberForType:(NSString *)regionCode
                                       type:(NBEPhoneNumberType)type
                                      error:(NSError **)error;
-- (NBPhoneNumber *)getExampleNumberForNonGeoEntity:(NSNumber *)countryCallingCode
+- (NBPhoneNumber *)getExampleNumberForNonGeoEntity:(int32_t)countryCallingCode
                                              error:(NSError **)error;
 
 - (BOOL)canBeInternationallyDialled:(NBPhoneNumber *)number error:(NSError **)error;
@@ -70,7 +71,7 @@
 - (BOOL)isAlphaNumber:(NSString *)number;
 - (BOOL)isValidNumberForRegion:(NBPhoneNumber *)number regionCode:(NSString *)regionCode;
 - (BOOL)isNANPACountry:(NSString *)regionCode;
-- (BOOL)isLeadingZeroPossible:(NSNumber *)countryCallingCode;
+- (BOOL)isLeadingZeroPossible:(int32_t)countryCallingCode;
 
 - (NBEValidationResult)isPossibleNumberWithReason:(NBPhoneNumber *)number error:(NSError **)error;
 
@@ -91,7 +92,7 @@
 - (NBECountryCodeSource)maybeStripInternationalPrefixAndNormalize:(NSString **)numberStr
                                                 possibleIddPrefix:(NSString *)possibleIddPrefix;
 
-- (NSNumber *)maybeExtractCountryCode:(NSString *)number
+- (int32_t)maybeExtractCountryCode:(NSString *)number
                              metadata:(NBPhoneMetaData *)defaultRegionMetadata
                        nationalNumber:(NSString **)nationalNumber
                          keepRawInput:(BOOL)keepRawInput
@@ -111,7 +112,7 @@
                error:(NSError **)error;
 - (NSString *)formatByPattern:(NBPhoneNumber *)number
                  numberFormat:(NBEPhoneNumberFormat)numberFormat
-           userDefinedFormats:(NSArray *)userDefinedFormats
+           userDefinedFormats:(NSArray<NBNumberFormat *> *)userDefinedFormats
                         error:(NSError **)error;
 - (NSString *)formatNumberForMobileDialing:(NBPhoneNumber *)number
                          regionCallingFrom:(NSString *)regionCallingFrom
@@ -142,6 +143,6 @@
  * @param countryCallingCode  the country calling code for which we want the mobile token.
  * @return  the mobile token, as a string, for the given country calling code.
  */
-- (NSString *)getCountryMobileTokenFromCountryCode:(NSInteger)countryCallingCode;
+- (NSString *)getCountryMobileTokenFromCountryCode:(int32_t)countryCallingCode;
 
 @end

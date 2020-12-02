@@ -19,13 +19,13 @@
 
 - (instancetype)init;
 
-- (NSArray *)regionCodeFromCountryCode:(NSNumber *)countryCodeNumber;
+- (NSArray<NSString *> *)regionCodeFromCountryCode:(int32_t)countryCodeNumber;
 - (NSString *)countryCodeFromRegionCode:(NSString *)regionCode;
 
-- (NBPhoneMetaData *)getMetadataForNonGeographicalRegion:(NSNumber *)countryCallingCode;
+- (NBPhoneMetaData *)getMetadataForNonGeographicalRegion:(int32_t)countryCallingCode;
 - (NBPhoneMetaData *)getMetadataForRegion:(NSString *)regionCode;
 
-- (NSDictionary *)countryCodeToCountryNumberDictionary;
-- (NSArray *)getAllMetadata;
+- (NSDictionary<NSString *, NSString *> *)countryCodeToCountryNumberDictionary;
+- (NSArray<NSDictionary<NSString *, id> *> *)getAllMetadata;
 
 @end

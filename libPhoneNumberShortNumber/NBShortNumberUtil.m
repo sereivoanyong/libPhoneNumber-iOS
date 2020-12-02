@@ -256,9 +256,9 @@ static NSString *const PLUS_CHARS_PATTERN = @"[+\uFF0B]+";
   // If leading zero(s) have been set, we prefix this now. Note this is not a national prefix.
   NSMutableString *nationalNumber = [[NSMutableString alloc] init];
   if (phoneNumber.italianLeadingZero) {
-    [nationalNumber appendFormat:@"%*d", [phoneNumber.numberOfLeadingZeros intValue], 0];
+    [nationalNumber appendFormat:@"%*d", (int)phoneNumber.numberOfLeadingZeros, 0];
   }
-  [nationalNumber appendString:[phoneNumber.nationalNumber stringValue]];
+  [nationalNumber appendString:[NSString stringWithFormat:@"%llu", phoneNumber.nationalNumber]];
 
   return [nationalNumber copy];
 }

@@ -16,7 +16,7 @@
   sqlite3 *_database;
   sqlite3_stmt *_selectStatement;
   NSString *_language;
-  NSNumber *_countryCode;
+  int32_t _countryCode;
   const char *_completePhoneNumber;
 }
 
@@ -35,12 +35,12 @@ static NSString *const preparedStatement = @"WITH recursive count(x)"
                                            @"SELECT   nationalnumber, "
                                            @"description, "
                                            @"length(nationalnumber) AS nationalnumberlength "
-                                           @"FROM     geocodingpairs%@ "
+                                           @"FROM     geocodingpairs%d "
                                            @"WHERE    nationalnumber IN tosearch "
                                            @"ORDER BY nationalnumberlength DESC "
                                            @"LIMIT    2";
 
-- (instancetype)initWithCountryCode:(NSNumber *)countryCode
+- (instancetype)initWithCountryCode:(int32_t)countryCode
                        withLanguage:(NSString *)languageCode
                          withBundle:(NSBundle *)bundle {
   self = [super init];
@@ -65,7 +65,7 @@ static NSString *const preparedStatement = @"WITH recursive count(x)"
   return self;
 }
 
-- (instancetype)initWithCountryCode:(NSNumber *)countryCode withLanguage:(NSString *)languageCode {
+- (instancetype)initWithCountryCode:(int32_t)countryCode withLanguage:(NSString *)languageCode {
   NSBundle *bundle = [NSBundle bundleForClass:self.classForCoder];
   NSURL *resourceURL =
       [[bundle resourceURL] URLByAppendingPathComponent:@"GeocodingMetadata.bundle"];
@@ -75,7 +75,7 @@ static NSString *const preparedStatement = @"WITH recursive count(x)"
 
 - (NSString *)searchPhoneNumber:(NBPhoneNumber *)phoneNumber {
   @synchronized(self) {
-    if (![phoneNumber.countryCode isEqualToNumber:_countryCode]) {
+    if (phoneNumber.countryCode != _countryCode) {
       _countryCode = phoneNumber.countryCode;
       sqlite3_finalize(_selectStatement);
       sqlite3_prepare_v2(_database,
@@ -111,9 +111,9 @@ static NSString *const preparedStatement = @"WITH recursive count(x)"
 - (const char *)createCompletePhoneNumber:(NBPhoneNumber *)phoneNumber {
   if ([phoneNumber italianLeadingZero]) {
     return [[NSString
-        stringWithFormat:@"%@0%@", phoneNumber.countryCode, phoneNumber.nationalNumber] UTF8String];
+        stringWithFormat:@"%d0%llu", phoneNumber.countryCode, phoneNumber.nationalNumber] UTF8String];
   } else {
-    return [[NSString stringWithFormat:@"%@%@", phoneNumber.countryCode, phoneNumber.nationalNumber]
+    return [[NSString stringWithFormat:@"%d%llu", phoneNumber.countryCode, phoneNumber.nationalNumber]
         UTF8String];
   }
 }

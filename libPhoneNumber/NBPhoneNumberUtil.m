@@ -41,10 +41,10 @@ static BOOL isNan(NSString *sourceString) {
 @interface NBPhoneNumberUtil ()
 
 @property(nonatomic, strong) NSLock *entireStringCacheLock;
-@property(nonatomic, strong) NSMutableDictionary *entireStringRegexCache;
+@property(nonatomic, strong) NSMutableDictionary<NSString *, NSRegularExpression *> *entireStringRegexCache;
 
 @property(nonatomic, strong) NSLock *lockPatternCache;
-@property(nonatomic, strong) NSMutableDictionary *regexPatternCache;
+@property(nonatomic, strong) NSMutableDictionary<NSString *, NSRegularExpression *> *regexPatternCache;
 
 @property(nonatomic, strong) NSRegularExpression *CAPTURING_DIGIT_PATTERN;
 @property(nonatomic, strong) NSRegularExpression *VALID_ALPHA_PHONE_PATTERN;
@@ -61,7 +61,7 @@ static BOOL isNan(NSString *sourceString) {
 @implementation NBPhoneNumberUtil
 
 #pragma mark - Static Int variables -
-const static NSUInteger NANPA_COUNTRY_CODE_ = 1;
+const static int32_t NANPA_COUNTRY_CODE_ = 1;
 const static NSUInteger MIN_LENGTH_FOR_NSN_ = 2;
 const static NSUInteger MAX_LENGTH_FOR_NSN_ = 16;
 const static NSUInteger MAX_LENGTH_COUNTRY_CODE_ = 3;
@@ -100,18 +100,18 @@ static NSString *VALID_START_CHAR_PATTERN;
 static NSString *UNWANTED_END_CHAR_PATTERN;
 static NSString *SECOND_NUMBER_START_PATTERN;
 
-static NSDictionary *ALL_NORMALIZATION_MAPPINGS;
-static NSDictionary *DIALLABLE_CHAR_MAPPINGS;
-static NSDictionary *ALL_PLUS_NUMBER_GROUPING_SYMBOLS;
+static NSDictionary<NSString *, NSString *> *ALL_NORMALIZATION_MAPPINGS;
+static NSDictionary<NSString *, NSString *> *DIALLABLE_CHAR_MAPPINGS;
+static NSDictionary<NSString *, NSString *> *ALL_PLUS_NUMBER_GROUPING_SYMBOLS;
 
 // Map of country calling codes that use a mobile token before the area code. One example of when
 // this is relevant is when determining the length of the national destination code, which should
 // be the length of the area code plus the length of the mobile token.
 static NSDictionary<NSNumber *, NSString *> *MOBILE_TOKEN_MAPPINGS;
 
-static NSDictionary *DIGIT_MAPPINGS;
+static NSDictionary<NSString *, NSString *> *DIGIT_MAPPINGS;
 
-static NSArray *GEO_MOBILE_COUNTRIES;
+static NSArray<NSNumber *> *GEO_MOBILE_COUNTRIES;
 
 #pragma mark - Deprecated methods
 
@@ -140,7 +140,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
 #pragma mark - NSError
 
 - (NSError *)errorWithObject:(id)obj withDomain:(NSString *)domain {
-  NSDictionary *userInfo = [NSDictionary dictionaryWithObject:obj forKey:NSLocalizedDescriptionKey];
+  NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary dictionaryWithObject:obj forKey:NSLocalizedDescriptionKey];
   NSError *error = [NSError errorWithDomain:domain code:0 userInfo:userInfo];
   return error;
 }
@@ -195,11 +195,11 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   }
 }
 
-- (NSMutableArray *)componentsSeparatedByRegex:(NSString *)sourceString regex:(NSString *)pattern {
+- (NSMutableArray<NSString *> *)componentsSeparatedByRegex:(NSString *)sourceString regex:(NSString *)pattern {
   NSString *replacedString = [self replaceStringByRegex:sourceString
                                                   regex:pattern
                                            withTemplate:@"<SEP>"];
-  NSMutableArray *resArray = [[replacedString componentsSeparatedByString:@"<SEP>"] mutableCopy];
+  NSMutableArray<NSString *> *resArray = [[replacedString componentsSeparatedByString:@"<SEP>"] mutableCopy];
   [resArray removeObject:@""];
   return resArray;
 }
@@ -213,9 +213,9 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   NSRegularExpression *currentPattern = [self regularExpressionWithPattern:pattern
                                                                    options:0
                                                                      error:&error];
-  NSArray *matches = [currentPattern matchesInString:sourceString
-                                             options:0
-                                               range:NSMakeRange(0, sourceString.length)];
+  NSArray<NSTextCheckingResult *> *matches = [currentPattern matchesInString:sourceString
+                                                                     options:0
+                                                                       range:NSMakeRange(0, sourceString.length)];
 
   int foundPosition = -1;
 
@@ -267,7 +267,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   NSRegularExpression *currentPattern = [self regularExpressionWithPattern:pattern
                                                                    options:0
                                                                      error:&error];
-  NSArray *matches = [currentPattern matchesInString:sourceString
+  NSArray<NSTextCheckingResult *> *matches = [currentPattern matchesInString:sourceString
                                              options:0
                                                range:NSMakeRange(0, sourceString.length)];
 
@@ -305,27 +305,27 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   NSRegularExpression *currentPattern = [self regularExpressionWithPattern:pattern
                                                                    options:0
                                                                      error:&error];
-  NSArray *matches = [currentPattern matchesInString:sourceString
+  NSArray<NSTextCheckingResult *> *matches = [currentPattern matchesInString:sourceString
                                              options:0
                                                range:NSMakeRange(0, sourceString.length)];
   if ([matches count] > 0) return [matches objectAtIndex:0];
   return nil;
 }
 
-- (NSArray *)matchesByRegex:(NSString *)sourceString regex:(NSString *)pattern {
+- (NSArray<NSTextCheckingResult *> *)matchesByRegex:(NSString *)sourceString regex:(NSString *)pattern {
   NSError *error = nil;
   NSRegularExpression *currentPattern = [self regularExpressionWithPattern:pattern
                                                                    options:0
                                                                      error:&error];
-  NSArray *matches = [currentPattern matchesInString:sourceString
+  NSArray<NSTextCheckingResult *> *matches = [currentPattern matchesInString:sourceString
                                              options:0
                                                range:NSMakeRange(0, sourceString.length)];
   return matches;
 }
 
-- (NSArray *)matchedStringByRegex:(NSString *)sourceString regex:(NSString *)pattern {
-  NSArray *matches = [self matchesByRegex:sourceString regex:pattern];
-  NSMutableArray *matchString = [[NSMutableArray alloc] init];
+- (NSArray<NSString *> *)matchedStringByRegex:(NSString *)sourceString regex:(NSString *)pattern {
+  NSArray<NSTextCheckingResult *> *matches = [self matchesByRegex:sourceString regex:pattern];
+  NSMutableArray<NSString *> *matchString = [[NSMutableArray alloc] init];
 
   for (NSTextCheckingResult *match in matches) {
     NSString *curString = [sourceString substringWithRange:match.range];
@@ -340,7 +340,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   NSRegularExpression *currentPattern = [self regularExpressionWithPattern:pattern
                                                                    options:0
                                                                      error:&error];
-  NSArray *matches = [currentPattern matchesInString:sourceString
+  NSArray<NSTextCheckingResult *> *matches = [currentPattern matchesInString:sourceString
                                              options:0
                                                range:NSMakeRange(0, sourceString.length)];
 
@@ -354,7 +354,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
 }
 
 - (NSString *)stringByReplacingOccurrencesString:(NSString *)sourceString
-                                         withMap:(NSDictionary *)dicMap
+                                         withMap:(NSDictionary<NSString *, NSString *> *)dicMap
                                 removeNonMatches:(BOOL)bRemove {
   NSMutableString *targetString = [[NSMutableString alloc] init];
   NSUInteger length = sourceString.length;
@@ -392,16 +392,16 @@ static NSArray *GEO_MOBILE_COUNTRIES;
 - (NSString *)getNationalSignificantNumber:(NBPhoneNumber *)phoneNumber {
   // If leading zero(s) have been set, we prefix this now. Note this is not a
   // national prefix.
-  NSString *nationalNumber = [phoneNumber.nationalNumber stringValue];
+  NSString *nationalNumber = @(phoneNumber.nationalNumber).stringValue;
   if (phoneNumber.italianLeadingZero) {
     NSString *zeroNumbers =
-        [@"" stringByPaddingToLength:phoneNumber.numberOfLeadingZeros.integerValue
+        [@"" stringByPaddingToLength:phoneNumber.numberOfLeadingZeros
                           withString:@"0"
                      startingAtIndex:0];
     return [NSString stringWithFormat:@"%@%@", zeroNumbers, nationalNumber];
   }
 
-  return [phoneNumber.nationalNumber stringValue];
+  return @(phoneNumber.nationalNumber).stringValue;
 }
 
 #pragma mark - Initializations -
@@ -471,7 +471,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   });
 }
 
-- (NSDictionary *)DIGIT_MAPPINGS {
+- (NSDictionary<NSString *, NSString *> *)DIGIT_MAPPINGS {
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     DIGIT_MAPPINGS = [NSDictionary
@@ -769,8 +769,8 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   @try {
     res = [self getLengthOfGeographicalAreaCode:phoneNumber];
   } @catch (NSException *exception) {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:exception.reason
-                                                         forKey:NSLocalizedDescriptionKey];
+    NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary dictionaryWithObject:exception.reason
+                                                                                 forKey:NSLocalizedDescriptionKey];
     if (error != NULL) {
       (*error) = [NSError errorWithDomain:exception.name code:0 userInfo:userInfo];
     }
@@ -842,8 +842,8 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   @try {
     res = [self getLengthOfNationalDestinationCode:phoneNumber];
   } @catch (NSException *exception) {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:exception.reason
-                                                         forKey:NSLocalizedDescriptionKey];
+    NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary dictionaryWithObject:exception.reason
+                                                                                 forKey:NSLocalizedDescriptionKey];
     if (error != NULL) {
       (*error) = [NSError errorWithDomain:exception.name code:0 userInfo:userInfo];
     }
@@ -864,8 +864,8 @@ static NSArray *GEO_MOBILE_COUNTRIES;
 
   NSString *nationalSignificantNumber = [self format:copiedProto
                                         numberFormat:NBEPhoneNumberFormatINTERNATIONAL];
-  NSMutableArray *numberGroups = [[self componentsSeparatedByRegex:nationalSignificantNumber
-                                                             regex:NON_DIGITS_PATTERN] mutableCopy];
+  NSMutableArray<NSString *> *numberGroups = [[self componentsSeparatedByRegex:nationalSignificantNumber
+                                                                         regex:NON_DIGITS_PATTERN] mutableCopy];
 
   // The pattern will start with '+COUNTRY_CODE ' so the first group will always
   // be the empty string (before the + symbol) and the second group will be the
@@ -874,7 +874,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   // NOTE: On IE the first group that is supposed to be the empty string does
   // not appear in the array of number groups... so make the result on non-IE
   // browsers to be that of IE.
-  if ([numberGroups count] > 0 && ((NSString *)[numberGroups objectAtIndex:0]).length <= 0) {
+  if ([numberGroups count] > 0 && [numberGroups objectAtIndex:0].length <= 0) {
     [numberGroups removeObjectAtIndex:0];
   }
 
@@ -882,7 +882,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
     return 0;
   }
 
-  NSArray *regionCodes = [self.helper regionCodeFromCountryCode:phoneNumber.countryCode];
+  NSArray<NSString *> *regionCodes = [self.helper regionCodeFromCountryCode:phoneNumber.countryCode];
   BOOL isExists = NO;
 
   for (NSString *regCode in regionCodes) {
@@ -906,7 +906,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   return (int)((NSString *)[numberGroups objectAtIndex:1]).length;
 }
 
-- (NSString *)getCountryMobileTokenFromCountryCode:(NSInteger)countryCallingCode {
+- (NSString *)getCountryMobileTokenFromCountryCode:(int32_t)countryCallingCode {
   NSString *mobileToken = MOBILE_TOKEN_MAPPINGS[@(countryCallingCode)];
   if (mobileToken != nil) {
     return mobileToken;
@@ -930,7 +930,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  * @private
  */
 - (NSString *)normalizeHelper:(NSString *)sourceString
-    normalizationReplacements:(NSDictionary *)normalizationReplacements
+    normalizationReplacements:(NSDictionary<NSString *, NSString *> *)normalizationReplacements
              removeNonMatches:(BOOL)removeNonMatches {
   NSUInteger numberLength = sourceString.length;
   NSMutableString *normalizedNumber = [[NSMutableString alloc] init];
@@ -980,7 +980,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   // TODO: Include mobile phone numbers from countries like Indonesia, which
   // has some mobile numbers that are geographical.
 
-  BOOL containGeoMobileContries = [GEO_MOBILE_COUNTRIES containsObject:phoneNumber.countryCode] &&
+  BOOL containGeoMobileContries = [GEO_MOBILE_COUNTRIES containsObject:@(phoneNumber.countryCode)] &&
                                   numberType == NBEPhoneNumberTypeMOBILE;
   BOOL isFixedLine = (numberType == NBEPhoneNumberTypeFIXED_LINE);
   BOOL isFixedLineOrMobile = (numberType == NBEPhoneNumberTypeFIXED_LINE_OR_MOBILE);
@@ -1014,8 +1014,8 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  * @return {boolean} NO if country calling code code is valid.
  * @private
  */
-- (BOOL)hasValidCountryCallingCode:(NSNumber *)countryCallingCode {
-  id res = [self.helper regionCodeFromCountryCode:countryCallingCode];
+- (BOOL)hasValidCountryCallingCode:(int32_t)countryCallingCode {
+  NSArray<NSString *> *res = [self.helper regionCodeFromCountryCode:countryCallingCode];
   if (res != nil) {
     return YES;
   }
@@ -1047,15 +1047,15 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   @try {
     res = [self format:phoneNumber numberFormat:numberFormat];
   } @catch (NSException *exception) {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:exception.reason
-                                                         forKey:NSLocalizedDescriptionKey];
+    NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary dictionaryWithObject:exception.reason
+                                                                                 forKey:NSLocalizedDescriptionKey];
     if (error != NULL) (*error) = [NSError errorWithDomain:exception.name code:0 userInfo:userInfo];
   }
   return res;
 }
 
 - (NSString *)format:(NBPhoneNumber *)phoneNumber numberFormat:(NBEPhoneNumberFormat)numberFormat {
-  if ([phoneNumber.nationalNumber isEqualToNumber:@0] &&
+  if (phoneNumber.nationalNumber == 0 &&
       [NBMetadataHelper hasValue:phoneNumber.rawInput]) {
     // Unparseable numbers that kept their raw input just use that.
     // This is the only case where a number can be formatted as E164 without a
@@ -1069,7 +1069,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
     }
   }
 
-  NSNumber *countryCallingCode = phoneNumber.countryCode;
+  int32_t countryCallingCode = phoneNumber.countryCode;
   NSString *nationalSignificantNumber = [self getNationalSignificantNumber:phoneNumber];
 
   if (numberFormat == NBEPhoneNumberFormatE164) {
@@ -1090,7 +1090,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   // for regions which share a country calling code is contained by only one
   // region for performance reasons. For example, for NANPA regions it will be
   // contained in the metadata for US.
-  NSArray *regionCodeArray = [self.helper regionCodeFromCountryCode:countryCallingCode];
+  NSArray<NSString *> *regionCodeArray = [self.helper regionCodeFromCountryCode:countryCallingCode];
   NSString *regionCode = [regionCodeArray objectAtIndex:0];
 
   // Metadata cannot be nil because the country calling code is valid (which
@@ -1130,7 +1130,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  */
 - (NSString *)formatByPattern:(NBPhoneNumber *)number
                  numberFormat:(NBEPhoneNumberFormat)numberFormat
-           userDefinedFormats:(NSArray *)userDefinedFormats
+           userDefinedFormats:(NSArray<NBNumberFormat *> *)userDefinedFormats
                         error:(NSError **)error {
   NSString *res = nil;
   @try {
@@ -1138,8 +1138,8 @@ static NSArray *GEO_MOBILE_COUNTRIES;
                    numberFormat:numberFormat
              userDefinedFormats:userDefinedFormats];
   } @catch (NSException *exception) {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:exception.reason
-                                                         forKey:NSLocalizedDescriptionKey];
+    NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary dictionaryWithObject:exception.reason
+                                                                                 forKey:NSLocalizedDescriptionKey];
     if (error != NULL) (*error) = [NSError errorWithDomain:exception.name code:0 userInfo:userInfo];
   }
   return res;
@@ -1147,8 +1147,8 @@ static NSArray *GEO_MOBILE_COUNTRIES;
 
 - (NSString *)formatByPattern:(NBPhoneNumber *)number
                  numberFormat:(NBEPhoneNumberFormat)numberFormat
-           userDefinedFormats:(NSArray *)userDefinedFormats {
-  NSNumber *countryCallingCode = number.countryCode;
+           userDefinedFormats:(NSArray<NBNumberFormat *> *)userDefinedFormats {
+  int32_t countryCallingCode = number.countryCode;
   NSString *nationalSignificantNumber = [self getNationalSignificantNumber:number];
 
   if ([self hasValidCountryCallingCode:countryCallingCode] == NO) {
@@ -1159,7 +1159,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   // for regions which share a country calling code is contained by only one
   // region for performance reasons. For example, for NANPA regions it will be
   // contained in the metadata for US.
-  NSArray *regionCodes = [self.helper regionCodeFromCountryCode:countryCallingCode];
+  NSArray<NSString *> *regionCodes = [self.helper regionCodeFromCountryCode:countryCallingCode];
   NSString *regionCode = nil;
   if (regionCodes != nil && regionCodes.count > 0) {
     regionCode = [regionCodes objectAtIndex:0];
@@ -1240,8 +1240,8 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   @try {
     res = [self formatNationalNumberWithCarrierCode:number carrierCode:carrierCode];
   } @catch (NSException *exception) {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:exception.reason
-                                                         forKey:NSLocalizedDescriptionKey];
+    NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary dictionaryWithObject:exception.reason
+                                                                                 forKey:NSLocalizedDescriptionKey];
     if (error != NULL) {
       (*error) = [NSError errorWithDomain:exception.name code:0 userInfo:userInfo];
     }
@@ -1251,7 +1251,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
 
 - (NSString *)formatNationalNumberWithCarrierCode:(NBPhoneNumber *)number
                                       carrierCode:(NSString *)carrierCode {
-  NSNumber *countryCallingCode = number.countryCode;
+  int32_t countryCallingCode = number.countryCode;
   NSString *nationalSignificantNumber = [self getNationalSignificantNumber:number];
 
   if ([self hasValidCountryCallingCode:countryCallingCode] == NO) {
@@ -1285,7 +1285,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  * @return {i18n.phonenumbers.PhoneMetadata}
  * @private
  */
-- (NBPhoneMetaData *)getMetadataForRegionOrCallingCode:(NSNumber *)countryCallingCode
+- (NBPhoneMetaData *)getMetadataForRegionOrCallingCode:(int32_t)countryCallingCode
                                             regionCode:(NSString *)regionCode {
   NBMetadataHelper *helper = self.helper;
 
@@ -1321,8 +1321,8 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   @try {
     res = [self formatNationalNumberWithCarrierCode:number carrierCode:fallbackCarrierCode];
   } @catch (NSException *exception) {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:exception.reason
-                                                         forKey:NSLocalizedDescriptionKey];
+    NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary dictionaryWithObject:exception.reason
+                                                                                 forKey:NSLocalizedDescriptionKey];
     if (error != NULL) {
       (*error) = [NSError errorWithDomain:exception.name code:0 userInfo:userInfo];
     }
@@ -1333,9 +1333,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
 
 - (NSString *)formatNationalNumberWithPreferredCarrierCode:(NBPhoneNumber *)number
                                        fallbackCarrierCode:(NSString *)fallbackCarrierCode {
-  NSString *domesticCarrierCode = number.preferredDomesticCarrierCode != nil
-                                      ? number.preferredDomesticCarrierCode
-                                      : fallbackCarrierCode;
+  NSString *domesticCarrierCode = number.preferredDomesticCarrierCode ?: fallbackCarrierCode;
   return [self formatNationalNumberWithCarrierCode:number carrierCode:domesticCarrierCode];
 }
 
@@ -1362,8 +1360,8 @@ static NSArray *GEO_MOBILE_COUNTRIES;
                            regionCallingFrom:regionCallingFrom
                               withFormatting:withFormatting];
   } @catch (NSException *exception) {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:exception.reason
-                                                         forKey:NSLocalizedDescriptionKey];
+    NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary dictionaryWithObject:exception.reason
+                                                                                 forKey:NSLocalizedDescriptionKey];
     if (error != NULL) (*error) = [NSError errorWithDomain:exception.name code:0 userInfo:userInfo];
   }
   return res;
@@ -1372,7 +1370,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
 - (NSString *)formatNumberForMobileDialing:(NBPhoneNumber *)number
                          regionCallingFrom:(NSString *)regionCallingFrom
                             withFormatting:(BOOL)withFormatting {
-  NSNumber *countryCallingCode = number.countryCode;
+  int32_t countryCallingCode = number.countryCode;
 
   if ([self hasValidCountryCallingCode:countryCallingCode] == NO) {
     return [NBMetadataHelper hasValue:number.rawInput] ? number.rawInput : @"";
@@ -1408,7 +1406,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
       // For NANPA countries, non-geographical countries, and Mexican fixed
       // line and mobile numbers, we output international format for numbersi
       // that can be dialed internationally as that always works.
-      if ((countryCallingCode.unsignedIntegerValue == NANPA_COUNTRY_CODE_ ||
+      if ((countryCallingCode == NANPA_COUNTRY_CODE_ ||
            [regionCode isEqualToString:NB_REGION_CODE_FOR_NON_GEO_ENTITY] ||
            // MX fixed line and mobile numbers should always be formatted in
            // international format, even when dialed within MX. For national
@@ -1463,8 +1461,8 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   @try {
     res = [self formatOutOfCountryCallingNumber:number regionCallingFrom:regionCallingFrom];
   } @catch (NSException *exception) {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:exception.reason
-                                                         forKey:NSLocalizedDescriptionKey];
+    NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary dictionaryWithObject:exception.reason
+                                                                                 forKey:NSLocalizedDescriptionKey];
     if (error != NULL) (*error) = [NSError errorWithDomain:exception.name code:0 userInfo:userInfo];
   }
 
@@ -1477,23 +1475,22 @@ static NSArray *GEO_MOBILE_COUNTRIES;
     return [self format:number numberFormat:NBEPhoneNumberFormatINTERNATIONAL];
   }
 
-  NSNumber *countryCallingCode = [number.countryCode copy];
+  int32_t countryCallingCode = number.countryCode;
   NSString *nationalSignificantNumber = [self getNationalSignificantNumber:number];
 
   if ([self hasValidCountryCallingCode:countryCallingCode] == NO) {
     return nationalSignificantNumber;
   }
 
-  if (countryCallingCode.unsignedIntegerValue == NANPA_COUNTRY_CODE_) {
+  if (countryCallingCode == NANPA_COUNTRY_CODE_) {
     if ([self isNANPACountry:regionCallingFrom]) {
       // For NANPA regions, return the national format for these regions but
       // prefix it with the country calling code.
-      return [NSString stringWithFormat:@"%@ %@", countryCallingCode,
+      return [NSString stringWithFormat:@"%d %@", countryCallingCode,
                                         [self format:number
                                             numberFormat:NBEPhoneNumberFormatNATIONAL]];
     }
-  } else if ([countryCallingCode
-                 isEqualToNumber:[self getCountryCodeForValidRegion:regionCallingFrom error:nil]]) {
+  } else if (countryCallingCode == [self getCountryCodeForValidRegion:regionCallingFrom error:nil]) {
     // If regions share a country calling code, the country calling code need
     // not be dialled. This also applies when dialling within a region, so this
     // if clause covers both these cases. Technically this is the case for
@@ -1536,7 +1533,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
                           numberFormat:NBEPhoneNumberFormatINTERNATIONAL];
 
   NSString *hasLenth =
-      [NSString stringWithFormat:@"%@ %@ %@%@", internationalPrefixForFormatting,
+      [NSString stringWithFormat:@"%@ %d %@%@", internationalPrefixForFormatting,
                                  countryCallingCode, formattedNationalNumber, formattedExtension];
   NSString *hasNotLength =
       [self prefixNumberWithCountryCallingCode:countryCallingCode
@@ -1558,19 +1555,19 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  * @return {string} the formatted phone number.
  * @private
  */
-- (NSString *)prefixNumberWithCountryCallingCode:(NSNumber *)countryCallingCode
+- (NSString *)prefixNumberWithCountryCallingCode:(int32_t)countryCallingCode
                                phoneNumberFormat:(NBEPhoneNumberFormat)numberFormat
                          formattedNationalNumber:(NSString *)formattedNationalNumber
                               formattedExtension:(NSString *)formattedExtension {
   switch (numberFormat) {
     case NBEPhoneNumberFormatE164:
-      return [NSString stringWithFormat:@"+%@%@%@", countryCallingCode, formattedNationalNumber,
+      return [NSString stringWithFormat:@"+%d%@%@", countryCallingCode, formattedNationalNumber,
                                         formattedExtension];
     case NBEPhoneNumberFormatINTERNATIONAL:
-      return [NSString stringWithFormat:@"+%@ %@%@", countryCallingCode, formattedNationalNumber,
+      return [NSString stringWithFormat:@"+%d %@%@", countryCallingCode, formattedNationalNumber,
                                         formattedExtension];
     case NBEPhoneNumberFormatRFC3966:
-      return [NSString stringWithFormat:@"%@+%@-%@%@", RFC3966_PREFIX, countryCallingCode,
+      return [NSString stringWithFormat:@"%@+%d-%@%@", RFC3966_PREFIX, countryCallingCode,
                                         formattedNationalNumber, formattedExtension];
     case NBEPhoneNumberFormatNATIONAL:
     default:
@@ -1603,8 +1600,8 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   @try {
     res = [self formatInOriginalFormat:number regionCallingFrom:regionCallingFrom];
   } @catch (NSException *exception) {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:exception.reason
-                                                         forKey:NSLocalizedDescriptionKey];
+    NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary dictionaryWithObject:exception.reason
+                                                                                 forKey:NSLocalizedDescriptionKey];
     if (error != NULL) (*error) = [NSError errorWithDomain:exception.name code:0 userInfo:userInfo];
   }
 
@@ -1620,13 +1617,13 @@ static NSArray *GEO_MOBILE_COUNTRIES;
     return number.rawInput;
   }
 
-  if (number.countryCodeSource == nil) {
+  if (number.countryCodeSource == NBECountryCodeSourceUNSPECIFIED) {
     return [self format:number numberFormat:NBEPhoneNumberFormatNATIONAL];
   }
 
   NSString *formattedNumber = @"";
 
-  switch ([number.countryCodeSource integerValue]) {
+  switch (number.countryCodeSource) {
     case NBECountryCodeSourceFROM_NUMBER_WITH_PLUS_SIGN:
       formattedNumber = [self format:number numberFormat:NBEPhoneNumberFormatINTERNATIONAL];
       break;
@@ -1778,7 +1775,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  * @private
  */
 - (BOOL)hasFormattingPatternForNumber:(NBPhoneNumber *)number {
-  NSNumber *countryCallingCode = number.countryCode;
+  int32_t countryCallingCode = number.countryCode;
   NSString *phoneNumberRegion = [self getRegionCodeForCountryCode:countryCallingCode];
   NBPhoneMetaData *metadata = [self getMetadataForRegionOrCallingCode:countryCallingCode
                                                            regionCode:phoneNumberRegion];
@@ -1826,8 +1823,8 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   @try {
     res = [self formatOutOfCountryKeepingAlphaChars:number regionCallingFrom:regionCallingFrom];
   } @catch (NSException *exception) {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:exception.reason
-                                                         forKey:NSLocalizedDescriptionKey];
+    NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary dictionaryWithObject:exception.reason
+                                                                                 forKey:NSLocalizedDescriptionKey];
     if (error != NULL) (*error) = [NSError errorWithDomain:exception.name code:0 userInfo:userInfo];
   }
   return res;
@@ -1842,7 +1839,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
     return [self formatOutOfCountryCallingNumber:number regionCallingFrom:regionCallingFrom];
   }
 
-  NSNumber *countryCode = number.countryCode;
+  int32_t countryCode = number.countryCode;
   if ([self hasValidCountryCallingCode:countryCode] == NO) {
     return rawInput;
   }
@@ -1871,13 +1868,12 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   NBPhoneMetaData *metadataForRegionCallingFrom =
       [self.helper getMetadataForRegion:regionCallingFrom];
 
-  if (countryCode.unsignedIntegerValue == NANPA_COUNTRY_CODE_) {
+  if (countryCode == NANPA_COUNTRY_CODE_) {
     if ([self isNANPACountry:regionCallingFrom]) {
-      return [NSString stringWithFormat:@"%@ %@", countryCode, rawInput];
+      return [NSString stringWithFormat:@"%d %@", countryCode, rawInput];
     }
   } else if (metadataForRegionCallingFrom != nil &&
-             [countryCode isEqualToNumber:[self getCountryCodeForValidRegion:regionCallingFrom
-                                                                       error:nil]]) {
+             countryCode == [self getCountryCodeForValidRegion:regionCallingFrom error:nil]) {
     NBNumberFormat *formattingPattern =
         [self chooseFormattingPatternForNumber:metadataForRegionCallingFrom.numberFormats
                                 nationalNumber:nationalNumber];
@@ -1928,7 +1924,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
                           numberFormat:NBEPhoneNumberFormatINTERNATIONAL];
 
   if (internationalPrefixForFormatting.length > 0) {
-    return [NSString stringWithFormat:@"%@ %@ %@%@", internationalPrefixForFormatting, countryCode,
+    return [NSString stringWithFormat:@"%@ %d %@%@", internationalPrefixForFormatting, countryCode,
                                       rawInput, formattedExtension];
   } else {
     // Invalid region entered as country-calling-from (so no metadata was found
@@ -1961,10 +1957,10 @@ static NSArray *GEO_MOBILE_COUNTRIES;
                metadata:(NBPhoneMetaData *)metadata
       phoneNumberFormat:(NBEPhoneNumberFormat)numberFormat
             carrierCode:(NSString *)opt_carrierCode {
-  NSArray *intlNumberFormats = metadata.intlNumberFormats;
+  NSArray<NBNumberFormat *> *intlNumberFormats = metadata.intlNumberFormats;
   // When the intlNumberFormats exists, we use that to format national number
   // for the INTERNATIONAL format instead of using the numberDesc.numberFormats.
-  NSArray *availableFormats =
+  NSArray<NBNumberFormat *> *availableFormats =
       ([intlNumberFormats count] <= 0 || numberFormat == NBEPhoneNumberFormatNATIONAL)
           ? metadata.numberFormats
           : intlNumberFormats;
@@ -1989,7 +1985,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  * @return {i18n.phonenumbers.NumberFormat}
  * @private
  */
-- (NBNumberFormat *)chooseFormattingPatternForNumber:(NSArray *)availableFormats
+- (NBNumberFormat *)chooseFormattingPatternForNumber:(NSArray<NBNumberFormat *> *)availableFormats
                                       nationalNumber:(NSString *)nationalNumber {
   for (NBNumberFormat *numFormat in availableFormats) {
     NSUInteger size = [numFormat.leadingDigitsPatterns count];
@@ -2135,7 +2131,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  *     such information, or the country calling code passed in does not belong
  *     to a non-geographical entity.
  */
-- (NBPhoneNumber *)getExampleNumberForNonGeoEntity:(NSNumber *)countryCallingCode
+- (NBPhoneNumber *)getExampleNumberForNonGeoEntity:(int32_t)countryCallingCode
                                              error:(NSError *__autoreleasing *)error {
   NBPhoneNumber *res = nil;
 
@@ -2161,7 +2157,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
 
     if (fetchedExampleNumber != nil) {
       NSString *callCode =
-          [NSString stringWithFormat:@"+%@%@", countryCallingCode, fetchedExampleNumber];
+          [NSString stringWithFormat:@"+%d%@", countryCallingCode, fetchedExampleNumber];
       res = [self parse:callCode defaultRegion:NB_UNKNOWN_REGION error:error];
     }
   }
@@ -2375,12 +2371,12 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  *     pattern.
  */
 - (BOOL)isValidNumberForRegion:(NBPhoneNumber *)number regionCode:(NSString *)regionCode {
-  NSNumber *countryCode = [number.countryCode copy];
+  int32_t countryCode = number.countryCode;
   NBPhoneMetaData *metadata = [self getMetadataForRegionOrCallingCode:countryCode
                                                            regionCode:regionCode];
   if (metadata == nil ||
       ([NB_REGION_CODE_FOR_NON_GEO_ENTITY isEqualToString:regionCode] == NO &&
-       ![countryCode isEqualToNumber:[self getCountryCodeForValidRegion:regionCode error:nil]])) {
+       countryCode != [self getCountryCodeForValidRegion:regionCode error:nil])) {
     // Either the region code was invalid, or the country calling code for this
     // number does not match that of the region code.
     return NO;
@@ -2417,7 +2413,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
     return nil;
   }
 
-  NSArray *regionCodes = [self.helper regionCodeFromCountryCode:phoneNumber.countryCode];
+  NSArray<NSString *> *regionCodes = [self.helper regionCodeFromCountryCode:phoneNumber.countryCode];
   if (regionCodes == nil || [regionCodes count] <= 0) {
     return nil;
   }
@@ -2437,7 +2433,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
 
  */
 - (NSString *)getRegionCodeForNumberFromRegionList:(NBPhoneNumber *)phoneNumber
-                                       regionCodes:(NSArray *)regionCodes {
+                                       regionCodes:(NSArray<NSString *> *)regionCodes {
   NSString *nationalNumber = [self getNationalSignificantNumber:phoneNumber];
   NSUInteger regionCodesCount = [regionCodes count];
 
@@ -2469,8 +2465,8 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  * - param {number} countryCallingCode the country calling code.
  * @return {string}
  */
-- (NSString *)getRegionCodeForCountryCode:(NSNumber *)countryCallingCode {
-  NSArray *regionCodes = [self.helper regionCodeFromCountryCode:countryCallingCode];
+- (NSString *)getRegionCodeForCountryCode:(int32_t)countryCallingCode {
+  NSArray<NSString *> *regionCodes = [self.helper regionCodeFromCountryCode:countryCallingCode];
   return regionCodes == nil ? NB_UNKNOWN_REGION : [regionCodes objectAtIndex:0];
 }
 
@@ -2483,9 +2479,9 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  * - param {number} countryCallingCode the country calling code.
  * @return {Array.<string>}
  */
-- (NSArray *)getRegionCodesForCountryCode:(NSNumber *)countryCallingCode {
-  NSArray *regionCodes = [self.helper regionCodeFromCountryCode:countryCallingCode];
-  return regionCodes == nil ? nil : regionCodes;
+- (NSArray<NSString *> *)getRegionCodesForCountryCode:(int32_t)countryCallingCode {
+  NSArray<NSString *> *regionCodes = [self.helper regionCodeFromCountryCode:countryCallingCode];
+  return regionCodes;
 }
 
 /**
@@ -2497,15 +2493,15 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  * @return {number} the country calling code for the region denoted by
  *     regionCode.
  */
-- (NSNumber *)getCountryCodeForRegion:(NSString *)regionCode {
+- (int32_t)getCountryCodeForRegion:(NSString *)regionCode {
   if ([self isValidRegionCode:regionCode] == NO) {
-    return @0;
+    return 0;
   }
 
   NSError *error = nil;
-  NSNumber *res = [self getCountryCodeForValidRegion:regionCode error:&error];
+  int32_t res = [self getCountryCodeForValidRegion:regionCode error:&error];
   if (error != nil) {
-    return @0;
+    return 0;
   }
 
   return res;
@@ -2523,18 +2519,18 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  * @throws {string} if the region is invalid
  * @private
  */
-- (NSNumber *)getCountryCodeForValidRegion:(NSString *)regionCode error:(NSError **)error {
+- (int32_t)getCountryCodeForValidRegion:(NSString *)regionCode error:(NSError **)error {
   NBPhoneMetaData *metadata = [self.helper getMetadataForRegion:regionCode];
 
   if (metadata == nil) {
-    NSDictionary *userInfo = [NSDictionary
-        dictionaryWithObject:[NSString stringWithFormat:@"Invalid region code:%@", regionCode]
-                      forKey:NSLocalizedDescriptionKey];
+    NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary
+                                                      dictionaryWithObject:[NSString stringWithFormat:@"Invalid region code:%@", regionCode]
+                                                      forKey:NSLocalizedDescriptionKey];
     if (error != NULL) {
       (*error) = [NSError errorWithDomain:@"INVALID_REGION_CODE" code:0 userInfo:userInfo];
     }
 
-    return @-1;
+    return -1;
   }
 
   return metadata.countryCode;
@@ -2588,8 +2584,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  */
 - (BOOL)isNANPACountry:(NSString *)regionCode {
   BOOL isExists = NO;
-  NSArray *res = [self.helper
-      regionCodeFromCountryCode:[NSNumber numberWithUnsignedInteger:NANPA_COUNTRY_CODE_]];
+  NSArray<NSString *> *res = [self.helper regionCodeFromCountryCode:NANPA_COUNTRY_CODE_];
 
   for (NSString *inRegionCode in res) {
     if ([inRegionCode isEqualToString:regionCode.uppercaseString]) {
@@ -2609,7 +2604,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  * - param {number} countryCallingCode the country calling code.
  * @return {boolean}
  */
-- (BOOL)isLeadingZeroPossible:(NSNumber *)countryCallingCode {
+- (BOOL)isLeadingZeroPossible:(int32_t)countryCallingCode {
   NBPhoneMetaData *mainMetadataForCallingCode = [self
       getMetadataForRegionOrCallingCode:countryCallingCode
                              regionCode:[self getRegionCodeForCountryCode:countryCallingCode]];
@@ -2656,8 +2651,8 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   @try {
     res = [self isPossibleNumber:number];
   } @catch (NSException *exception) {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:exception.reason
-                                                         forKey:NSLocalizedDescriptionKey];
+    NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary dictionaryWithObject:exception.reason
+                                                                                 forKey:NSLocalizedDescriptionKey];
     if (error != NULL) (*error) = [NSError errorWithDomain:exception.name code:0 userInfo:userInfo];
   }
   return res;
@@ -2708,7 +2703,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
         // Note that when adding the possible lengths from mobile, we have to again check they
         // aren't empty since if they are this indicates they are the same as the general desc and
         // should be obtained from there.
-        NSArray *combinedArray =
+        NSArray<NSNumber *> *combinedArray =
             [possibleLengths arrayByAddingObjectsFromArray:[mobileDesc.possibleLength count] == 0
                                                                ? metadata.generalDesc.possibleLength
                                                                : mobileDesc.possibleLength];
@@ -2720,7 +2715,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
         if (![localLengths count]) {
           localLengths = mobileDesc.possibleLengthLocalOnly;
         } else {
-          NSArray *combinedArray =
+          NSArray<NSNumber *> *combinedArray =
               [localLengths arrayByAddingObjectsFromArray:mobileDesc.possibleLengthLocalOnly];
           localLengths = [combinedArray sortedArrayUsingSelector:@selector(compare:)];
         }
@@ -2753,7 +2748,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   }
 
   // We skip the first element; we've already checked it.
-  NSArray *possibleLengthsSubarray =
+  NSArray<NSNumber *> *possibleLengthsSubarray =
       [possibleLengths subarrayWithRange:NSMakeRange(1, possibleLengths.count - 1)];
   return [possibleLengthsSubarray containsObject:actualLength] ? NBEValidationResultIS_POSSIBLE
                                                                : NBEValidationResultINVALID_LENGTH;
@@ -2773,8 +2768,8 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  */
 - (NBEValidationResult)testNumberLength:(NSString *)number
                                    desc:(NBPhoneNumberDesc *)phoneNumberDesc {
-  NSArray *possibleLengths = phoneNumberDesc.possibleLength;
-  NSArray *localLengths = phoneNumberDesc.possibleLengthLocalOnly;
+  NSArray<NSNumber *> *possibleLengths = phoneNumberDesc.possibleLength;
+  NSArray<NSNumber *> *localLengths = phoneNumberDesc.possibleLengthLocalOnly;
 
   NSUInteger actualLength = number.length;
 
@@ -2836,8 +2831,8 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   @try {
     res = [self isPossibleNumberWithReason:number];
   } @catch (NSException *exception) {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:exception.reason
-                                                         forKey:NSLocalizedDescriptionKey];
+    NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary dictionaryWithObject:exception.reason
+                                                                                 forKey:NSLocalizedDescriptionKey];
     if (error != NULL) (*error) = [NSError errorWithDomain:exception.name code:0 userInfo:userInfo];
   }
 
@@ -2846,7 +2841,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
 
 - (NBEValidationResult)isPossibleNumberWithReason:(NBPhoneNumber *)number {
   NSString *nationalNumber = [self getNationalSignificantNumber:number];
-  NSNumber *countryCode = number.countryCode;
+  int32_t countryCode = number.countryCode;
   // Note: For Russian Fed and NANPA numbers, we just use the rules from the
   // default region (US or Russia) since the getRegionCodeForNumber will not
   // work if the number is possible but not valid. This would need to be
@@ -2913,12 +2908,11 @@ static NSArray *GEO_MOBILE_COUNTRIES;
   }
 
   NBPhoneNumber *numberCopy = [number copy];
-  NSNumber *nationalNumber = number.nationalNumber;
+  uint64_t nationalNumber = number.nationalNumber;
   do {
-    nationalNumber =
-        [NSNumber numberWithLongLong:(long long)floor(nationalNumber.unsignedLongLongValue / 10)];
-    numberCopy.nationalNumber = [nationalNumber copy];
-    if ([nationalNumber isEqualToNumber:@0] ||
+    nationalNumber = nationalNumber / 10;
+    numberCopy.nationalNumber = nationalNumber;
+    if (nationalNumber == 0 ||
         [self isPossibleNumberWithReason:numberCopy] == NBEValidationResultTOO_SHORT) {
       return NO;
     }
@@ -2938,12 +2932,12 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  * - param {!goog.string.StringBuffer} nationalNumber
  * @return {number}
  */
-- (NSNumber *)extractCountryCode:(NSString *)fullNumber nationalNumber:(NSString **)nationalNumber {
+- (int32_t)extractCountryCode:(NSString *)fullNumber nationalNumber:(NSString **)nationalNumber {
   fullNumber = NormalizeNonBreakingSpace(fullNumber);
 
   if ((fullNumber.length == 0) || ([[fullNumber substringToIndex:1] isEqualToString:@"0"])) {
     // Country codes do not begin with a '0'.
-    return @0;
+    return 0;
   }
 
   NSUInteger numberLength = fullNumber.length;
@@ -2955,9 +2949,9 @@ static NSArray *GEO_MOBILE_COUNTRIES;
 
   for (NSUInteger i = 1; i <= maxCountryCode && i <= numberLength; ++i) {
     NSString *subNumber = [fullNumber substringWithRange:NSMakeRange(0, i)];
-    NSNumber *potentialCountryCode = [NSNumber numberWithInteger:[subNumber integerValue]];
+    int32_t potentialCountryCode = subNumber.intValue;
 
-    NSArray *regionCodes = [self.helper regionCodeFromCountryCode:potentialCountryCode];
+    NSArray<NSString *> *regionCodes = [self.helper regionCodeFromCountryCode:potentialCountryCode];
     if (regionCodes != nil && regionCodes.count > 0) {
       if (nationalNumber != NULL) {
         if ((*nationalNumber) == nil) {
@@ -2971,7 +2965,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
     }
   }
 
-  return @0;
+  return 0;
 }
 
 /**
@@ -2980,14 +2974,14 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  * @return {!Array.<string>} region codes supported by the library.
  */
 
-- (NSArray *)getSupportedRegions {
-  NSArray *allKeys = [[self.helper countryCodeToCountryNumberDictionary] allKeys];
+- (NSArray<NSString *> *)getSupportedRegions {
+  NSArray<NSString *> *allKeys = [self.helper countryCodeToCountryNumberDictionary].allKeys;
   NSPredicate *predicateIsNaN =
       [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         return isNan(evaluatedObject);
       }];
 
-  NSArray *supportedRegions = [allKeys filteredArrayUsingPredicate:predicateIsNaN];
+  NSArray<NSString *> *supportedRegions = [allKeys filteredArrayUsingPredicate:predicateIsNaN];
   return supportedRegions;
 }
 
@@ -3062,14 +3056,14 @@ static NSArray *GEO_MOBILE_COUNTRIES;
  *     extracted.
  * @throws {i18n.phonenumbers.Error}
  */
-- (NSNumber *)maybeExtractCountryCode:(NSString *)number
+- (int32_t)maybeExtractCountryCode:(NSString *)number
                              metadata:(NBPhoneMetaData *)defaultRegionMetadata
                        nationalNumber:(NSString **)nationalNumber
                          keepRawInput:(BOOL)keepRawInput
                           phoneNumber:(NBPhoneNumber **)phoneNumber
                                 error:(NSError **)error {
   if (nationalNumber == NULL || phoneNumber == NULL || number.length <= 0) {
-    return @0;
+    return 0;
   }
 
   NSString *fullNumber = [number copy];
@@ -3088,45 +3082,44 @@ static NSArray *GEO_MOBILE_COUNTRIES;
       [self maybeStripInternationalPrefixAndNormalize:&fullNumber
                                     possibleIddPrefix:possibleCountryIddPrefix];
   if (keepRawInput) {
-    (*phoneNumber).countryCodeSource = [NSNumber numberWithInteger:countryCodeSource];
+    (*phoneNumber).countryCodeSource = countryCodeSource;
   }
 
   if (countryCodeSource != NBECountryCodeSourceFROM_DEFAULT_COUNTRY) {
     if (fullNumber.length <= MIN_LENGTH_FOR_NSN_) {
-      NSDictionary *userInfo = [NSDictionary
-          dictionaryWithObject:[NSString stringWithFormat:@"TOO_SHORT_AFTER_IDD:%@", fullNumber]
-                        forKey:NSLocalizedDescriptionKey];
+      NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary
+                                                        dictionaryWithObject:[NSString stringWithFormat:@"TOO_SHORT_AFTER_IDD:%@", fullNumber]
+                                                        forKey:NSLocalizedDescriptionKey];
       if (error != NULL) {
         (*error) = [NSError errorWithDomain:@"TOO_SHORT_AFTER_IDD" code:0 userInfo:userInfo];
       }
-      return @0;
+      return 0;
     }
 
-    NSNumber *potentialCountryCode = [self extractCountryCode:fullNumber
+    int32_t potentialCountryCode = [self extractCountryCode:fullNumber
                                                nationalNumber:nationalNumber];
 
-    if (![potentialCountryCode isEqualToNumber:@0]) {
+    if (potentialCountryCode != 0) {
       (*phoneNumber).countryCode = potentialCountryCode;
       return potentialCountryCode;
     }
 
     // If this fails, they must be using a strange country calling code that we
     // don't recognize, or that doesn't exist.
-    NSDictionary *userInfo =
-        [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"INVALID_COUNTRY_CODE:%@",
-                                                                      potentialCountryCode]
-                                    forKey:NSLocalizedDescriptionKey];
+    NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary
+                                                      dictionaryWithObject:[NSString stringWithFormat:@"INVALID_COUNTRY_CODE:%d", potentialCountryCode]
+                                                      forKey:NSLocalizedDescriptionKey];
     if (error != NULL) {
       (*error) = [NSError errorWithDomain:@"INVALID_COUNTRY_CODE" code:0 userInfo:userInfo];
     }
 
-    return @0;
+    return 0;
   } else if (defaultRegionMetadata != nil) {
     // Check to see if the number starts with the country calling code for the
     // default region. If so, we remove the country calling code, and do some
     // checks on the validity of the number before and after.
-    NSNumber *defaultCountryCode = defaultRegionMetadata.countryCode;
-    NSString *defaultCountryCodeString = [NSString stringWithFormat:@"%@", defaultCountryCode];
+    int32_t defaultCountryCode = defaultRegionMetadata.countryCode;
+    NSString *defaultCountryCodeString = [NSString stringWithFormat:@"%d", defaultCountryCode];
     NSString *normalizedNumber = [fullNumber copy];
 
     if ([normalizedNumber hasPrefix:defaultCountryCodeString]) {
@@ -3149,8 +3142,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
           [self testNumberLength:fullNumber desc:generalDesc] == NBEValidationResultTOO_LONG) {
         (*nationalNumber) = [(*nationalNumber) stringByAppendingString:potentialNationalNumberStr];
         if (keepRawInput) {
-          (*phoneNumber).countryCodeSource =
-              [NSNumber numberWithInteger:NBECountryCodeSourceFROM_NUMBER_WITHOUT_PLUS_SIGN];
+          (*phoneNumber).countryCodeSource = NBECountryCodeSourceFROM_NUMBER_WITHOUT_PLUS_SIGN;
         }
         (*phoneNumber).countryCode = defaultCountryCode;
         return defaultCountryCode;
@@ -3158,8 +3150,8 @@ static NSArray *GEO_MOBILE_COUNTRIES;
     }
   }
   // No country calling code present.
-  (*phoneNumber).countryCode = @0;
-  return @0;
+  (*phoneNumber).countryCode = 0;
+  return 0;
 }
 
 /**
@@ -3197,14 +3189,14 @@ static NSArray *GEO_MOBILE_COUNTRIES;
     NSUInteger matchEnd = matchedString.length;
     NSString *remainString = [numberStr substringFromIndex:matchEnd];
 
-    NSArray *matchedGroups =
+    NSArray<NSTextCheckingResult *> *matchedGroups =
         [_CAPTURING_DIGIT_PATTERN matchesInString:remainString
                                           options:0
                                             range:NSMakeRange(0, remainString.length)];
 
     if (matchedGroups && [matchedGroups count] > 0 && [matchedGroups objectAtIndex:0] != nil) {
       NSString *digitMatched = [remainString
-          substringWithRange:((NSTextCheckingResult *)[matchedGroups objectAtIndex:0]).range];
+          substringWithRange:[matchedGroups objectAtIndex:0].range];
       if (digitMatched.length > 0) {
         NSString *normalizedGroup = [self normalizeDigitsOnly:digitMatched];
         if ([normalizedGroup isEqualToString:@"0"]) {
@@ -3294,7 +3286,7 @@ static NSArray *GEO_MOBILE_COUNTRIES;
                                                                    options:0
                                                                      error:&error];
 
-  NSArray *prefixMatcher = [currentPattern matchesInString:numberStr
+  NSArray<NSTextCheckingResult *> *prefixMatcher = [currentPattern matchesInString:numberStr
                                                    options:0
                                                      range:NSMakeRange(0, numberLength)];
   if (prefixMatcher && [prefixMatcher count] > 0) {
@@ -3531,9 +3523,9 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
                                   error:(NSError **)error {
   if ([self isValidRegionCode:defaultRegion] == NO) {
     if (numberToParse.length > 0 && [numberToParse hasPrefix:@"+"] == NO) {
-      NSDictionary *userInfo = [NSDictionary
-          dictionaryWithObject:[NSString stringWithFormat:@"Invalid country code:%@", numberToParse]
-                        forKey:NSLocalizedDescriptionKey];
+      NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary
+                                                        dictionaryWithObject:[NSString stringWithFormat:@"Invalid country code:%@", numberToParse]
+                                                        forKey:NSLocalizedDescriptionKey];
       if (error != NULL) {
         (*error) = [NSError errorWithDomain:@"INVALID_COUNTRY_CODE" code:0 userInfo:userInfo];
       }
@@ -3559,7 +3551,7 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
                                  phoneNumber:(NBPhoneNumber *)phoneNumber {
   if (nationalNumber.length > 1 && [nationalNumber hasPrefix:@"0"]) {
     phoneNumber.italianLeadingZero = YES;
-    NSInteger numberOfLeadingZeros = 1;
+    NSUInteger numberOfLeadingZeros = 1;
     // Note that if the national number is all "0"s, the last "0" is not counted
     // as a leading zero.
     while (numberOfLeadingZeros < nationalNumber.length - 1 &&
@@ -3568,7 +3560,7 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
       numberOfLeadingZeros++;
     }
     if (numberOfLeadingZeros != 1) {
-      phoneNumber.numberOfLeadingZeros = @(numberOfLeadingZeros);
+      phoneNumber.numberOfLeadingZeros = numberOfLeadingZeros;
     }
   }
 }
@@ -3658,7 +3650,7 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
   // Check to see if the number is given in international format so we know
   // whether this number is from the default region or not.
   NSString *normalizedNationalNumber = @"";
-  NSNumber *countryCode = nil;
+  int32_t countryCode;
   NSString *nationalNumberStr = [nationalNumber copy];
 
   {
@@ -3684,7 +3676,7 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
                                        keepRawInput:keepRawInput
                                         phoneNumber:&phoneNumber
                                               error:&aNestedError];
-        if ([countryCode isEqualToNumber:@0]) {
+        if (countryCode == 0) {
           if (error != NULL)
             (*error) = [self errorWithObject:anError.description withDomain:anError.domain];
 
@@ -3699,7 +3691,7 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
     }
   }
 
-  if (![countryCode isEqualToNumber:@0]) {
+  if (countryCode != 0) {
     NSString *phoneNumberRegion = [self getRegionCodeForCountryCode:countryCode];
     if (phoneNumberRegion != defaultRegion) {
       // Metadata cannot be nil because the country calling code is valid.
@@ -3717,7 +3709,7 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
       countryCode = regionMetadata.countryCode;
       phoneNumber.countryCode = countryCode;
     } else if (keepRawInput) {
-      [phoneNumber clearCountryCodeSource];
+      phoneNumber.countryCodeSource = NBECountryCodeSourceUNSPECIFIED;
     }
   }
 
@@ -3774,8 +3766,7 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
 
   [self setItalianLeadingZerosForPhoneNumber:normalizedNationalNumberStr phoneNumber:phoneNumber];
 
-  phoneNumber.nationalNumber =
-      [NSNumber numberWithLongLong:[normalizedNationalNumberStr longLongValue]];
+  phoneNumber.nationalNumber = [normalizedNationalNumberStr longLongValue];
   return phoneNumber;
 }
 
@@ -3878,8 +3869,8 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
   @try {
     res = [self isNumberMatch:firstNumberIn second:secondNumberIn];
   } @catch (NSException *exception) {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:exception.reason
-                                                         forKey:NSLocalizedDescriptionKey];
+    NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary dictionaryWithObject:exception.reason
+                                                                                 forKey:NSLocalizedDescriptionKey];
     if (error != NULL) (*error) = [NSError errorWithDomain:exception.name code:0 userInfo:userInfo];
   }
   return res;
@@ -3961,11 +3952,11 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
   // preferred_domestic_carrier_code fields and any empty-string extensions so
   // that we can use the proto-buffer equality method.
   firstNumber.rawInput = @"";
-  [firstNumber clearCountryCodeSource];
+  firstNumber.countryCodeSource = NBECountryCodeSourceUNSPECIFIED;
   firstNumber.preferredDomesticCarrierCode = @"";
 
   secondNumber.rawInput = @"";
-  [secondNumber clearCountryCodeSource];
+  secondNumber.countryCodeSource = NBECountryCodeSourceUNSPECIFIED;
   secondNumber.preferredDomesticCarrierCode = @"";
 
   if (firstNumber.extension != nil && firstNumber.extension.length == 0) {
@@ -3983,15 +3974,15 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
     return NBEMatchTypeNO_MATCH;
   }
 
-  NSNumber *firstNumberCountryCode = firstNumber.countryCode;
-  NSNumber *secondNumberCountryCode = secondNumber.countryCode;
+  int32_t firstNumberCountryCode = firstNumber.countryCode;
+  int32_t secondNumberCountryCode = secondNumber.countryCode;
 
   // Both had country_code specified.
-  if (![firstNumberCountryCode isEqualToNumber:@0] &&
-      ![secondNumberCountryCode isEqualToNumber:@0]) {
+  if (firstNumberCountryCode != 0 &&
+      secondNumberCountryCode != 0) {
     if ([firstNumber isEqual:secondNumber]) {
       return NBEMatchTypeEXACT_MATCH;
-    } else if ([firstNumberCountryCode isEqualToNumber:secondNumberCountryCode] &&
+    } else if (firstNumberCountryCode == secondNumberCountryCode &&
                [self isNationalNumberSuffixOfTheOther:firstNumber second:secondNumber]) {
       // A SHORT_NSN_MATCH occurs if there is a difference because of the
       // presence or absence of an 'Italian leading zero', the presence or
@@ -4005,8 +3996,8 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
   // Checks cases where one or both country_code fields were not specified. To
   // make equality checks easier, we first set the country_code fields to be
   // equal.
-  firstNumber.countryCode = @0;
-  secondNumber.countryCode = @0;
+  firstNumber.countryCode = 0;
+  secondNumber.countryCode = 0;
   // If all else was the same, then this is an NSN_MATCH.
   if ([firstNumber isEqual:secondNumber]) {
     return NBEMatchTypeNSN_MATCH;
@@ -4032,9 +4023,9 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
 - (BOOL)isNationalNumberSuffixOfTheOther:(NBPhoneNumber *)firstNumber
                                   second:(NBPhoneNumber *)secondNumber {
   NSString *firstNumberNationalNumber =
-      [NSString stringWithFormat:@"%@", firstNumber.nationalNumber];
+      [NSString stringWithFormat:@"%lld", firstNumber.nationalNumber];
   NSString *secondNumberNationalNumber =
-      [NSString stringWithFormat:@"%@", secondNumber.nationalNumber];
+      [NSString stringWithFormat:@"%lld", secondNumber.nationalNumber];
 
   // Note that endsWith returns NO if the numbers are equal.
   return [firstNumberNationalNumber hasSuffix:secondNumberNationalNumber] ||
@@ -4058,8 +4049,8 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
   @try {
     res = [self canBeInternationallyDialled:number];
   } @catch (NSException *exception) {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:exception.reason
-                                                         forKey:NSLocalizedDescriptionKey];
+    NSDictionary<NSErrorUserInfoKey, id> *userInfo = [NSDictionary dictionaryWithObject:exception.reason
+                                                                                 forKey:NSLocalizedDescriptionKey];
     if (error != NULL) (*error) = [NSError errorWithDomain:exception.name code:0 userInfo:userInfo];
   }
   return res;

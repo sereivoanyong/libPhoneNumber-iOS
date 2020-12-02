@@ -61,27 +61,27 @@ static size_t kPhoneNumberMetaDataForTestingExpandedLength = 33021;
 
 - (void)testIsPossibleShortNumber {
   NBPhoneNumber *possibleNumber = [[NBPhoneNumber alloc] init];
-  possibleNumber.countryCode = @33;
-  possibleNumber.nationalNumber = @123456;
+  possibleNumber.countryCode = 33;
+  possibleNumber.nationalNumber = 123456;
   XCTAssertTrue([_shortNumberUtil isPossibleShortNumber:possibleNumber]);
 
   NBPhoneNumber *impossibleNumber = [[NBPhoneNumber alloc] init];
-  impossibleNumber.countryCode = @33;
-  impossibleNumber.nationalNumber = @9;
+  impossibleNumber.countryCode = 33;
+  impossibleNumber.nationalNumber = 9;
   XCTAssertFalse([_shortNumberUtil isPossibleShortNumber:impossibleNumber]);
 
   // Note that GB and GG share the country calling code 44, and that this number is possible but
   // not valid.
   NBPhoneNumber *possibleButInvalid = [[NBPhoneNumber alloc] init];
-  possibleButInvalid.countryCode = @44;
-  possibleButInvalid.nationalNumber = @11001;
+  possibleButInvalid.countryCode = 44;
+  possibleButInvalid.nationalNumber = 11001;
   XCTAssertTrue([_shortNumberUtil isPossibleShortNumber:possibleButInvalid]);
 }
 
 - (void)testIsValidShortNumber {
   NBPhoneNumber *valid = [[NBPhoneNumber alloc] init];
-  valid.countryCode = @33;
-  valid.nationalNumber = @1010;
+  valid.countryCode = 33;
+  valid.nationalNumber = 1010;
   XCTAssertTrue([_shortNumberUtil isValidShortNumber:valid]);
 
   NBPhoneNumber *validWithRegion = [_phoneNumberUtil parse:@"1010" defaultRegion:@"FR" error:nil];
@@ -89,8 +89,8 @@ static size_t kPhoneNumberMetaDataForTestingExpandedLength = 33021;
   XCTAssertTrue([_shortNumberUtil isValidShortNumber:validWithRegion forRegion:@"FR"]);
 
   NBPhoneNumber *invalid = [[NBPhoneNumber alloc] init];
-  invalid.countryCode = @33;
-  invalid.nationalNumber = @123456;
+  invalid.countryCode = 33;
+  invalid.nationalNumber = 123456;
   XCTAssertFalse([_shortNumberUtil isValidShortNumber:invalid]);
 
   NBPhoneNumber *invalidWithRegion = [_phoneNumberUtil parse:@"123456"
@@ -101,15 +101,15 @@ static size_t kPhoneNumberMetaDataForTestingExpandedLength = 33021;
 
   // Note that GB and GG share the country calling code 44.
   NBPhoneNumber *valid2 = [[NBPhoneNumber alloc] init];
-  valid2.countryCode = @44;
-  valid2.nationalNumber = @18001;
+  valid2.countryCode = 44;
+  valid2.nationalNumber = 18001;
   XCTAssertTrue([_shortNumberUtil isValidShortNumber:valid2]);
 }
 
 - (void)testIsCarrierSpecific {
   NBPhoneNumber *carrierSpecificNumber = [[NBPhoneNumber alloc] init];
-  carrierSpecificNumber.countryCode = @1;
-  carrierSpecificNumber.nationalNumber = @33669;
+  carrierSpecificNumber.countryCode = 1;
+  carrierSpecificNumber.nationalNumber = 33669;
   XCTAssertTrue([_shortNumberUtil isPhoneNumberCarrierSpecific:carrierSpecificNumber]);
   XCTAssertTrue([_shortNumberUtil isPhoneNumberCarrierSpecific:[_phoneNumberUtil parse:@"33669"
                                                                          defaultRegion:@"US"
@@ -117,8 +117,8 @@ static size_t kPhoneNumberMetaDataForTestingExpandedLength = 33021;
                                                      forRegion:@"US"]);
 
   NBPhoneNumber *notCarrierSpecific = [[NBPhoneNumber alloc] init];
-  notCarrierSpecific.countryCode = @1;
-  notCarrierSpecific.nationalNumber = @911;
+  notCarrierSpecific.countryCode = 1;
+  notCarrierSpecific.nationalNumber = 911;
   XCTAssertFalse([_shortNumberUtil isPhoneNumberCarrierSpecific:notCarrierSpecific]);
   XCTAssertFalse([_shortNumberUtil isPhoneNumberCarrierSpecific:[_phoneNumberUtil parse:@"911"
                                                                           defaultRegion:@"US"
@@ -126,8 +126,8 @@ static size_t kPhoneNumberMetaDataForTestingExpandedLength = 33021;
                                                       forRegion:@"US"]);
 
   NBPhoneNumber *carrierSpecificForSomeRegion = [[NBPhoneNumber alloc] init];
-  carrierSpecificForSomeRegion.countryCode = @1;
-  carrierSpecificForSomeRegion.nationalNumber = @211;
+  carrierSpecificForSomeRegion.countryCode = 1;
+  carrierSpecificForSomeRegion.nationalNumber = 211;
   XCTAssertTrue([_shortNumberUtil isPhoneNumberCarrierSpecific:carrierSpecificForSomeRegion]);
   XCTAssertTrue([_shortNumberUtil isPhoneNumberCarrierSpecific:carrierSpecificForSomeRegion
                                                      forRegion:@"US"]);
@@ -147,8 +147,8 @@ static size_t kPhoneNumberMetaDataForTestingExpandedLength = 33021;
                                         forRegion:@"FR"]);
 
   NBPhoneNumber *premiumRateNumber = [[NBPhoneNumber alloc] init];
-  premiumRateNumber.countryCode = @33;
-  premiumRateNumber.nationalNumber = @([premiumRateSample integerValue]);
+  premiumRateNumber.countryCode = 33;
+  premiumRateNumber.nationalNumber = premiumRateSample.integerValue;
   XCTAssertEqual(NBEShortNumberCostPremiumRate,
                  [_shortNumberUtil expectedCostOfPhoneNumber:premiumRateNumber forRegion:@"FR"]);
 
@@ -163,8 +163,8 @@ static size_t kPhoneNumberMetaDataForTestingExpandedLength = 33021;
                                         forRegion:@"FR"]);
 
   NBPhoneNumber *standardRateNumber = [[NBPhoneNumber alloc] init];
-  standardRateNumber.countryCode = @33;
-  standardRateNumber.nationalNumber = @([standardRateSample integerValue]);
+  standardRateNumber.countryCode = 33;
+  standardRateNumber.nationalNumber = standardRateSample.integerValue;
   XCTAssertEqual(NBEShortNumberCostStandardRate,
                  [_shortNumberUtil expectedCostOfPhoneNumber:standardRateNumber forRegion:@"FR"]);
 
@@ -178,8 +178,8 @@ static size_t kPhoneNumberMetaDataForTestingExpandedLength = 33021;
                                                    forRegion:@"FR"]);
 
   NBPhoneNumber *tollFreeNumber = [[NBPhoneNumber alloc] init];
-  tollFreeNumber.countryCode = @33;
-  tollFreeNumber.nationalNumber = @([tollFreeSample integerValue]);
+  tollFreeNumber.countryCode = 33;
+  tollFreeNumber.nationalNumber = tollFreeSample.integerValue;
   XCTAssertEqual(NBEShortNumberCostTollFree,
                  [_shortNumberUtil expectedCostOfPhoneNumber:tollFreeNumber forRegion:@"FR"]);
 
@@ -190,8 +190,8 @@ static size_t kPhoneNumberMetaDataForTestingExpandedLength = 33021;
                                                                                error:nil]
                                                    forRegion:@"FR"]);
   NBPhoneNumber *unknownCostNumber = [[NBPhoneNumber alloc] init];
-  unknownCostNumber.countryCode = @33;
-  unknownCostNumber.nationalNumber = @12345;
+  unknownCostNumber.countryCode = 33;
+  unknownCostNumber.nationalNumber = 12345;
   XCTAssertEqual(NBEShortNumberCostUnknown,
                  [_shortNumberUtil expectedCostOfPhoneNumber:unknownCostNumber forRegion:@"FR"]);
 
@@ -204,8 +204,8 @@ static size_t kPhoneNumberMetaDataForTestingExpandedLength = 33021;
                  [_shortNumberUtil expectedCostOfPhoneNumber:invalidShortNumber forRegion:@"FR"]);
 
   NBPhoneNumber *invalidShortNumber2 = [[NBPhoneNumber alloc] init];
-  invalidShortNumber2.countryCode = @33;
-  invalidShortNumber2.nationalNumber = @116123;
+  invalidShortNumber2.countryCode = 33;
+  invalidShortNumber2.nationalNumber = 116123;
   XCTAssertFalse([_shortNumberUtil isValidShortNumber:invalidShortNumber2 forRegion:@"FR"]);
   XCTAssertEqual(NBEShortNumberCostTollFree,
                  [_shortNumberUtil expectedCostOfPhoneNumber:invalidShortNumber2 forRegion:@"FR"]);
@@ -215,8 +215,8 @@ static size_t kPhoneNumberMetaDataForTestingExpandedLength = 33021;
   XCTAssertEqual(NBEShortNumberCostUnknown, [_shortNumberUtil expectedCostOfPhoneNumber:usNumber
                                                                               forRegion:@"ZZ"]);
   NBPhoneNumber *unknownNumber2 = [[NBPhoneNumber alloc] init];
-  unknownNumber2.countryCode = @123;
-  unknownNumber2.nationalNumber = @911;
+  unknownNumber2.countryCode = 123;
+  unknownNumber2.nationalNumber = 911;
   XCTAssertEqual(NBEShortNumberCostUnknown,
                  [_shortNumberUtil expectedCostOfPhoneNumber:unknownNumber2]);
 }
@@ -224,18 +224,18 @@ static size_t kPhoneNumberMetaDataForTestingExpandedLength = 33021;
 - (void)testExpectedCostForSharedCountryCallingCode {
   NSString *ambiguousPremiumRateString = @"1234";
   NBPhoneNumber *ambiguousPremiumRateNumber = [[NBPhoneNumber alloc] init];
-  ambiguousPremiumRateNumber.countryCode = @61;
-  ambiguousPremiumRateNumber.nationalNumber = @1234;
+  ambiguousPremiumRateNumber.countryCode = 61;
+  ambiguousPremiumRateNumber.nationalNumber = 1234;
 
   NSString *ambiguousStandardRateString = @"1194";
   NBPhoneNumber *ambiguousStandardRateNumber = [[NBPhoneNumber alloc] init];
-  ambiguousStandardRateNumber.countryCode = @61;
-  ambiguousStandardRateNumber.nationalNumber = @1194;
+  ambiguousStandardRateNumber.countryCode = 61;
+  ambiguousStandardRateNumber.nationalNumber = 1194;
 
   NSString *ambiguousTollFreeString = @"733";
   NBPhoneNumber *ambiguousTollFreeNumber = [[NBPhoneNumber alloc] init];
-  ambiguousTollFreeNumber.countryCode = @61;
-  ambiguousTollFreeNumber.nationalNumber = @733;
+  ambiguousTollFreeNumber.countryCode = 61;
+  ambiguousTollFreeNumber.nationalNumber = 733;
 
   XCTAssertTrue([_shortNumberUtil isValidShortNumber:ambiguousPremiumRateNumber]);
   XCTAssertTrue([_shortNumberUtil isValidShortNumber:ambiguousStandardRateNumber]);
@@ -482,8 +482,8 @@ static size_t kPhoneNumberMetaDataForTestingExpandedLength = 33021;
                  [_shortNumberUtil expectedCostOfPhoneNumber:auEmergencyNumber forRegion:@"CX"]);
 
   NBPhoneNumber *sharedEmergencyNumber = [[NBPhoneNumber alloc] init];
-  sharedEmergencyNumber.countryCode = @61;
-  sharedEmergencyNumber.nationalNumber = @112;
+  sharedEmergencyNumber.countryCode = 61;
+  sharedEmergencyNumber.nationalNumber = 112;
   XCTAssertTrue([_shortNumberUtil isValidShortNumber:sharedEmergencyNumber]);
   XCTAssertEqual(NBEShortNumberCostTollFree,
                  [_shortNumberUtil expectedCostOfPhoneNumber:sharedEmergencyNumber]);

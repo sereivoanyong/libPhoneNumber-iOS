@@ -45,7 +45,7 @@
     _noInternationalDialling =
         [[NBPhoneNumberDesc alloc] initWithEntry:[entry nb_safeArrayAtIndex:24]];
     _codeID = [entry nb_safeStringAtIndex:9];
-    _countryCode = [entry nb_safeNumberAtIndex:10];
+    _countryCode = [entry nb_safeNumberAtIndex:10].intValue;
     _internationalPrefix = [entry nb_safeStringAtIndex:11];
     _preferredInternationalPrefix = [entry nb_safeStringAtIndex:17];
     _nationalPrefix = [entry nb_safeStringAtIndex:12];
@@ -69,7 +69,7 @@
 }
 
 - (NSArray<NBNumberFormat *> *)numberFormatsFromEntry:(NSArray *)entry {
-  NSMutableArray *formats = [NSMutableArray arrayWithCapacity:entry.count];
+  NSMutableArray<NBNumberFormat *> *formats = [NSMutableArray arrayWithCapacity:entry.count];
   for (NSArray *format in entry) {
     NBNumberFormat *numberFormat = [[NBNumberFormat alloc] initWithEntry:format];
     [formats addObject:numberFormat];
@@ -80,7 +80,7 @@
 - (NSString *)description {
   return [NSString
       stringWithFormat:
-          @"* codeID[%@] countryCode[%@] generalDesc[%@] fixedLine[%@] mobile[%@] tollFree[%@] "
+          @"* codeID[%@] countryCode[%d] generalDesc[%@] fixedLine[%@] mobile[%@] tollFree[%@] "
           @"premiumRate[%@] sharedCost[%@] personalNumber[%@] voip[%@] pager[%@] uan[%@] "
           @"emergency[%@] voicemail[%@] noInternationalDialling[%@] internationalPrefix[%@] "
           @"preferredInternationalPrefix[%@] nationalPrefix[%@] preferredExtnPrefix[%@] "

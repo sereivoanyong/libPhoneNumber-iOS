@@ -71,6 +71,7 @@ typedef NS_ENUM(NSInteger, NBEValidationResult) {
 };
 
 typedef NS_ENUM(NSInteger, NBECountryCodeSource) {
+  NBECountryCodeSourceUNSPECIFIED = 0,
   NBECountryCodeSourceFROM_NUMBER_WITH_PLUS_SIGN = 1,
   NBECountryCodeSourceFROM_NUMBER_WITH_IDD = 5,
   NBECountryCodeSourceFROM_NUMBER_WITHOUT_PLUS_SIGN = 10,

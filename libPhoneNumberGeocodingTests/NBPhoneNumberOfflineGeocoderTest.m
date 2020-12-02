@@ -49,7 +49,7 @@
   NBPhoneNumberUtil *phoneNumberUtil = [NBPhoneNumberUtil sharedInstance];
 
   self.geocoder = [[NBPhoneNumberOfflineGeocoder alloc]
-      initWithMetadataHelperFactory:^NBGeocoderMetadataHelper *(NSNumber *_Nonnull countryCode,
+      initWithMetadataHelperFactory:^NBGeocoderMetadataHelper *(int32_t countryCode,
                                                                 NSString *_Nonnull language) {
         return [[NBGeocoderMetadataHelper alloc] initWithCountryCode:countryCode
                                                         withLanguage:language
@@ -60,106 +60,106 @@
 
 - (NBPhoneNumber *)koreanPhoneNumber1 {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @82;
-  alphaNumbericNumber.nationalNumber = @22123456;
+  alphaNumbericNumber.countryCode = 82;
+  alphaNumbericNumber.nationalNumber = 22123456;
   return alphaNumbericNumber;
 }
 
 - (NBPhoneNumber *)koreanPhoneNumber2 {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @82;
-  alphaNumbericNumber.nationalNumber = @322123456;
+  alphaNumbericNumber.countryCode = 82;
+  alphaNumbericNumber.nationalNumber = 322123456;
   return alphaNumbericNumber;
 }
 
 - (NBPhoneNumber *)koreanPhoneNumber3 {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @82;
-  alphaNumbericNumber.nationalNumber = @6421234567;
+  alphaNumbericNumber.countryCode = 82;
+  alphaNumbericNumber.nationalNumber = 6421234567;
   return alphaNumbericNumber;
 }
 
 - (NBPhoneNumber *)invalidKoreanPhoneNumber {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @82;
-  alphaNumbericNumber.nationalNumber = @1234;
+  alphaNumbericNumber.countryCode = 82;
+  alphaNumbericNumber.nationalNumber = 1234;
   return alphaNumbericNumber;
 }
 
 - (NBPhoneNumber *)koreanMobilePhoneNumber {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @82;
-  alphaNumbericNumber.nationalNumber = @101234567;
+  alphaNumbericNumber.countryCode = 82;
+  alphaNumbericNumber.nationalNumber = 101234567;
   return alphaNumbericNumber;
 }
 
 - (NBPhoneNumber *)unitedStatesPhoneNumber1 {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @1;
-  alphaNumbericNumber.nationalNumber = @6501234567;
+  alphaNumbericNumber.countryCode = 1;
+  alphaNumbericNumber.nationalNumber = 6501234567;
   return alphaNumbericNumber;
 }
 
 - (NBPhoneNumber *)unitedStatesPhoneNumber2 {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @1;
-  alphaNumbericNumber.nationalNumber = @6509600000;
+  alphaNumbericNumber.countryCode = 1;
+  alphaNumbericNumber.nationalNumber = 6509600000;
   return alphaNumbericNumber;
 }
 
 - (NBPhoneNumber *)unitedStatesPhoneNumber3 {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @1;
-  alphaNumbericNumber.nationalNumber = @2128120000;
+  alphaNumbericNumber.countryCode = 1;
+  alphaNumbericNumber.nationalNumber = 2128120000;
   return alphaNumbericNumber;
 }
 
 - (NBPhoneNumber *)unitedStatesPhoneNumber4 {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @1;
-  alphaNumbericNumber.nationalNumber = @9097111234;
+  alphaNumbericNumber.countryCode = 1;
+  alphaNumbericNumber.nationalNumber = 9097111234;
   return alphaNumbericNumber;
 }
 
 - (NBPhoneNumber *)invalidUSPhoneNumber {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @1;
-  alphaNumbericNumber.nationalNumber = @123456789;
+  alphaNumbericNumber.countryCode = 1;
+  alphaNumbericNumber.nationalNumber = 123456789;
   return alphaNumbericNumber;
 }
 
 - (NBPhoneNumber *)tollFreeNANPAPhoneNumber {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @1;
-  alphaNumbericNumber.nationalNumber = @8002431234;
+  alphaNumbericNumber.countryCode = 1;
+  alphaNumbericNumber.nationalNumber = 8002431234;
   return alphaNumbericNumber;
 }
 
 - (NBPhoneNumber *)bahamasPhoneNumber {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @1;
-  alphaNumbericNumber.nationalNumber = @2423651234;
+  alphaNumbericNumber.countryCode = 1;
+  alphaNumbericNumber.nationalNumber = 2423651234;
   return alphaNumbericNumber;
 }
 
 - (NBPhoneNumber *)australianPhoneNumber {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @61;
-  alphaNumbericNumber.nationalNumber = @236618300;
+  alphaNumbericNumber.countryCode = 61;
+  alphaNumbericNumber.nationalNumber = 236618300;
   return alphaNumbericNumber;
 }
 
 - (NBPhoneNumber *)saudiArabianPhoneNumber {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @54;
-  alphaNumbericNumber.nationalNumber = @2214000000;
+  alphaNumbericNumber.countryCode = 54;
+  alphaNumbericNumber.nationalNumber = 2214000000;
   return alphaNumbericNumber;
 }
 
 - (NBPhoneNumber *)germanPhoneNumber {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @43;
-  alphaNumbericNumber.nationalNumber = @25721234;
+  alphaNumbericNumber.countryCode = 43;
+  alphaNumbericNumber.nationalNumber = 25721234;
   return alphaNumbericNumber;
 }
 
@@ -172,15 +172,15 @@
 
 - (NBPhoneNumber *)invalidCountryCodePhoneNumber {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @999;
-  alphaNumbericNumber.nationalNumber = @2423651234;
+  alphaNumbericNumber.countryCode = 999;
+  alphaNumbericNumber.nationalNumber = 2423651234;
   return alphaNumbericNumber;
 }
 
 - (NBPhoneNumber *)internationalTollFreePhoneNumber {
   NBPhoneNumber *alphaNumbericNumber = [[NBPhoneNumber alloc] init];
-  alphaNumbericNumber.countryCode = @800;
-  alphaNumbericNumber.nationalNumber = @12345678;
+  alphaNumbericNumber.countryCode = 800;
+  alphaNumbericNumber.nationalNumber = 12345678;
   return alphaNumbericNumber;
 }
 

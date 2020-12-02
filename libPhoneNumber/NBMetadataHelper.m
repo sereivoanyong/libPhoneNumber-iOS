@@ -32,8 +32,8 @@ static NSString *StringByTrimming(NSString *aString) {
 
 @implementation NBMetadataHelper {
  @private
-  NSDictionary *_phoneNumberDataDictionary;
-  NSDictionary *_countryCodeToCountryNumberDictionary;
+  NSDictionary<NSString *, id> *_phoneNumberDataDictionary;
+  NSDictionary<NSString *, NSString *> *_countryCodeToCountryNumberDictionary;
 }
 
 - (instancetype)init {
@@ -72,12 +72,12 @@ static NSString *StringByTrimming(NSString *aString) {
  Ref. site (countrycode.org)
  */
 
-- (NSDictionary *)countryCodeToCountryNumberDictionary {
+- (NSDictionary<NSString *, NSString *> *)countryCodeToCountryNumberDictionary {
   if (_countryCodeToCountryNumberDictionary == nil) {
-    NSDictionary *countryCodeToRegionCodeMap = [self countryCodeToRegionCodeDictionary];
-    NSMutableDictionary *map = [[NSMutableDictionary alloc] init];
+    NSDictionary<NSString *, NSArray<NSString *> *> *countryCodeToRegionCodeMap = [self countryCodeToRegionCodeDictionary];
+    NSMutableDictionary<NSString *, NSString *> *map = [[NSMutableDictionary alloc] init];
     for (NSString *countryCode in countryCodeToRegionCodeMap) {
-      NSArray *regionCodes = countryCodeToRegionCodeMap[countryCode];
+      NSArray<NSString *> *regionCodes = countryCodeToRegionCodeMap[countryCode];
       for (NSString *regionCode in regionCodes) {
         map[regionCode] = countryCode;
       }
@@ -88,22 +88,22 @@ static NSString *StringByTrimming(NSString *aString) {
   return _countryCodeToCountryNumberDictionary;
 }
 
-- (NSDictionary *)countryCodeToRegionCodeDictionary {
+- (NSDictionary<NSString *, NSArray<NSString *> *> *)countryCodeToRegionCodeDictionary {
   return _phoneNumberDataDictionary[@"countryCodeToRegionCodeMap"];
 }
 
-- (NSArray *)getAllMetadata {
-  NSArray *countryCodes = [NSLocale ISOCountryCodes];
-  NSMutableArray *resultMetadata = [[NSMutableArray alloc] initWithCapacity:countryCodes.count];
+- (NSArray<NSDictionary<NSString *, id> *> *)getAllMetadata {
+  NSArray<NSString *> *countryCodes = [NSLocale ISOCountryCodes];
+  NSMutableArray<NSDictionary<NSString *, id> *> *resultMetadata = [[NSMutableArray alloc] initWithCapacity:countryCodes.count];
 
   for (NSString *countryCode in countryCodes) {
-    id countryDictionaryInstance = [NSDictionary dictionaryWithObject:countryCode
-                                                               forKey:NSLocaleCountryCode];
+    NSDictionary<NSLocaleKey, NSString *> *countryDictionaryInstance = [NSDictionary dictionaryWithObject:countryCode
+                                                                                                   forKey:NSLocaleCountryCode];
     NSString *identifier = [NSLocale localeIdentifierFromComponents:countryDictionaryInstance];
     NSString *country = [[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier
                                                               value:identifier];
 
-    NSMutableDictionary *countryMeta = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary<NSString *, id> *countryMeta = [[NSMutableDictionary alloc] init];
     if (country) {
       [countryMeta setObject:country forKey:@"name"];
     } else {
@@ -129,9 +129,9 @@ static NSString *StringByTrimming(NSString *aString) {
   return resultMetadata;
 }
 
-- (NSArray *)regionCodeFromCountryCode:(NSNumber *)countryCodeNumber {
-  NSArray *res = [self countryCodeToRegionCodeDictionary][[countryCodeNumber stringValue]];
-  if ([res isKindOfClass:[NSArray class]] && [res count] > 0) {
+- (NSArray<NSString *> *)regionCodeFromCountryCode:(int32_t)countryCodeNumber {
+  NSArray<NSString *> *res = [self countryCodeToRegionCodeDictionary][@(countryCodeNumber).stringValue];
+  if ([res isKindOfClass:[NSArray class]] && res.count > 0) {
     return res;
   }
 
@@ -162,7 +162,7 @@ static NSString *StringByTrimming(NSString *aString) {
     return cachedMetadata;
   }
 
-  NSDictionary *dict = _phoneNumberDataDictionary[@"countryToMetadata"];
+  NSDictionary<NSString *, NSArray *> *dict = _phoneNumberDataDictionary[@"countryToMetadata"];
   NSArray *entry = dict[regionCode];
   if (entry) {
     NBPhoneMetaData *metadata = [[NBPhoneMetaData alloc] initWithEntry:entry];
@@ -178,8 +178,8 @@ static NSString *StringByTrimming(NSString *aString) {
  * @param countryCallingCode countryCallingCode
  * @return {i18n.phonenumbers.PhoneMetadata}
  */
-- (NBPhoneMetaData *)getMetadataForNonGeographicalRegion:(NSNumber *)countryCallingCode {
-  NSString *countryCallingCodeStr = countryCallingCode.stringValue;
+- (NBPhoneMetaData *)getMetadataForNonGeographicalRegion:(int32_t)countryCallingCode {
+  NSString *countryCallingCodeStr = @(countryCallingCode).stringValue;
   return [self getMetadataForRegion:countryCallingCodeStr];
 }
 
@@ -196,7 +196,7 @@ static NSString *StringByTrimming(NSString *aString) {
  * @param expandedLength Length of the expanded bytes.
  * @return JSON dictionary.
  */
-+ (NSDictionary *)jsonObjectFromZippedDataWithBytes:(z_const Bytef *)bytes
++ (id)jsonObjectFromZippedDataWithBytes:(z_const Bytef *)bytes
                                    compressedLength:(NSUInteger)compressedLength
                                      expandedLength:(NSUInteger)expandedLength {
   // Data is a gzipped JSON file that is embedded in the binary.
@@ -220,9 +220,9 @@ static NSString *StringByTrimming(NSString *aString) {
   NSAssert(err == Z_OK, @"Unable to inflate compressed data. err = %d", err);
 
   NSError *error = nil;
-  NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:gunzippedData
-                                                             options:0
-                                                               error:&error];
+  id jsonObject = [NSJSONSerialization JSONObjectWithData:gunzippedData
+                                                  options:0
+                                                    error:&error];
   NSAssert(error == nil, @"Unable to convert JSON - %@", error);
 
   return jsonObject;

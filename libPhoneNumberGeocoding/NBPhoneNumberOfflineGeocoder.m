@@ -22,7 +22,7 @@ static NSString *const INVALID_REGION_CODE = @"ZZ";
 
 - (instancetype)init {
   return [self
-      initWithMetadataHelperFactory:^NBGeocoderMetadataHelper *(NSNumber *_Nonnull countryCode,
+      initWithMetadataHelperFactory:^NBGeocoderMetadataHelper *(int32_t countryCode,
                                                                 NSString *_Nonnull language) {
         return [[NBGeocoderMetadataHelper alloc] initWithCountryCode:countryCode
                                                         withLanguage:language];
@@ -139,7 +139,7 @@ static NSString *const INVALID_REGION_CODE = @"ZZ";
 
 - (nullable NSString *)countryNameForNumber:(NBPhoneNumber *)number
                            withLanguageCode:(NSString *)languageCode {
-  NSArray *regionCodes = [_phoneNumberUtil getRegionCodesForCountryCode:number.countryCode];
+  NSArray<NSString *> *regionCodes = [_phoneNumberUtil getRegionCodesForCountryCode:number.countryCode];
   if ([regionCodes count] == 1) {
     return [self regionDisplayName:regionCodes[0] withLanguageCode:languageCode];
   } else {

@@ -26,7 +26,7 @@ static NSString *StringByTrimming(NSString *aString) {
 @implementation NBShortNumberMetadataHelper {
   NSCache<NSString *, NBPhoneMetaData *> *_shortNumberMetadataCache;
   NBMetadataHelper *_helper;
-  NSDictionary *_shortNumberDataMap;
+  NSDictionary<NSString *, id> *_shortNumberDataMap;
 }
 
 - (instancetype)init {
@@ -75,7 +75,7 @@ static NSString *StringByTrimming(NSString *aString) {
     return cachedMetadata;
   }
 
-  NSDictionary *dict = _shortNumberDataMap[@"countryToMetadata"];
+  NSDictionary<NSString *, id> *dict = _shortNumberDataMap[@"countryToMetadata"];
   NSArray *entry = dict[regionCode];
   if (entry) {
     NBPhoneMetaData *metadata = [[NBPhoneMetaData alloc] initWithEntry:entry];
@@ -94,7 +94,7 @@ static NSString *StringByTrimming(NSString *aString) {
  * @param expandedLength Length of the expanded bytes.
  * @return JSON dictionary.
  */
-+ (NSDictionary *)jsonObjectFromZippedDataWithBytes:(z_const Bytef[])bytes
++ (id)jsonObjectFromZippedDataWithBytes:(z_const Bytef[])bytes
                                    compressedLength:(NSUInteger)compressedLength
                                      expandedLength:(NSUInteger)expandedLength {
   // Data is a gzipped JSON file that is embedded in the binary.
@@ -118,7 +118,7 @@ static NSString *StringByTrimming(NSString *aString) {
   NSAssert(err == Z_OK, @"Unable to inflate compressed data. err = %d", err);
 
   NSError *error = nil;
-  NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:gunzippedData
+  id jsonObject = [NSJSONSerialization JSONObjectWithData:gunzippedData
                                                              options:0
                                                                error:&error];
   NSAssert(error == nil, @"Unable to convert JSON - %@", error);
