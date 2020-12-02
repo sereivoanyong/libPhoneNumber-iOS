@@ -41,12 +41,11 @@
   }
 
   NBPhoneNumber *other = object;
-  return (self.countryCode == other.countryCode) &&
-         (self.nationalNumber == other.nationalNumber) &&
-         (self.italianLeadingZero == other.italianLeadingZero) &&
-         (self.numberOfLeadingZeros == other.numberOfLeadingZeros) &&
-         ((self.extension == nil && other.extension == nil) ||
-          [self.extension isEqualToString:other.extension]);
+  return self.countryCode == other.countryCode &&
+         self.nationalNumber == other.nationalNumber &&
+         self.italianLeadingZero == other.italianLeadingZero &&
+         self.numberOfLeadingZeros == other.numberOfLeadingZeros &&
+         ((self.extension == nil && other.extension == nil) || [self.extension isEqualToString:other.extension]);
 }
 
 - (id)copyWithZone:(NSZone *)zone {

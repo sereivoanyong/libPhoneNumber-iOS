@@ -93,11 +93,11 @@
                                                 possibleIddPrefix:(NSString *)possibleIddPrefix;
 
 - (int32_t)maybeExtractCountryCode:(NSString *)number
-                             metadata:(NBPhoneMetaData *)defaultRegionMetadata
-                       nationalNumber:(NSString **)nationalNumber
-                         keepRawInput:(BOOL)keepRawInput
-                          phoneNumber:(NBPhoneNumber **)phoneNumber
-                                error:(NSError **)error;
+                          metadata:(NBPhoneMetaData *)defaultRegionMetadata
+                    nationalNumber:(NSString **)nationalNumber
+                      keepRawInput:(BOOL)keepRawInput
+                       phoneNumber:(NBPhoneNumber **)phoneNumber
+                             error:(NSError **)error;
 
 - (NBPhoneNumber *)parse:(NSString *)numberToParse
            defaultRegion:(NSString *)defaultRegion

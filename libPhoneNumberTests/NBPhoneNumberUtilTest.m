@@ -378,7 +378,7 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   XCTAssertEqual(1, metadata.countryCode);
   XCTAssertEqualObjects(@"011", metadata.internationalPrefix);
   XCTAssertTrue(metadata.nationalPrefix != nil);
-  XCTAssertEqual(2, (int)[metadata.numberFormats count]);
+  XCTAssertEqual(2, metadata.numberFormats.count);
   XCTAssertEqualObjects(@"(\\d{3})(\\d{3})(\\d{4})",
                         ((NBNumberFormat *)metadata.numberFormats[1]).pattern);
   XCTAssertEqualObjects(@"$1 $2 $3", ((NBNumberFormat *)metadata.numberFormats[1]).format);
@@ -398,9 +398,8 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   XCTAssertEqual(49, metadata.countryCode);
   XCTAssertEqualObjects(@"00", metadata.internationalPrefix);
   XCTAssertEqualObjects(@"0", metadata.nationalPrefix);
-  XCTAssertEqual(6, (int)[metadata.numberFormats count]);
-  XCTAssertEqual(1,
-                 (int)[((NBNumberFormat *)metadata.numberFormats[5]).leadingDigitsPatterns count]);
+  XCTAssertEqual(6, metadata.numberFormats.count);
+  XCTAssertEqual(1, metadata.numberFormats[5].leadingDigitsPatterns.count);
   XCTAssertEqualObjects(@"900",
                         ((NBNumberFormat *)metadata.numberFormats[5]).leadingDigitsPatterns[0]);
   XCTAssertEqualObjects(@"(\\d{3})(\\d{3,4})(\\d{4})",
@@ -1674,7 +1673,7 @@ static NSArray *PhoneNumberDescEntryForNationalNumberPattern(NSString *numberPat
   XCTAssertTrue([[_aUtil getRegionCodesForCountryCode:49] containsObject:@"DE"]);
   XCTAssertTrue([[_aUtil getRegionCodesForCountryCode:800] containsObject:@"001"]);
   // Test with invalid country calling code.
-  XCTAssertTrue([[_aUtil getRegionCodesForCountryCode:-1] count] == 0);
+  XCTAssertTrue([_aUtil getRegionCodesForCountryCode:-1].count == 0);
 }
 
 - (void)testGetCountryCodeForRegion {

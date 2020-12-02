@@ -19,7 +19,7 @@
 
 - (instancetype)init;
 
-- (NSArray<NSString *> *)regionCodeFromCountryCode:(int32_t)countryCodeNumber;
+- (NSArray<NSString *> *)regionCodeFromCountryCode:(int32_t)countryCallingCode;
 - (NSString *)countryCodeFromRegionCode:(NSString *)regionCode;
 
 - (NBPhoneMetaData *)getMetadataForNonGeographicalRegion:(int32_t)countryCallingCode;

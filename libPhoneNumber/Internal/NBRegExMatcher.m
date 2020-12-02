@@ -47,9 +47,8 @@
   NSRange wholeStringRange = NSMakeRange(0, string.length);
 
   // Prefix match (lookingAt()) search
-  NSRegularExpression *prefixRegEx =
-    [[NBRegularExpressionCache sharedInstance] regularExpressionForPattern:nationalNumberPattern
-                                                                     error:NULL];
+  NSRegularExpression *prefixRegEx = [[NBRegularExpressionCache sharedInstance] regularExpressionForPattern:nationalNumberPattern
+                                                                                                      error:NULL];
   if (prefixRegEx == nil) {
     NSAssert(true, @"Regular expression shouldn't be nil");
     return NO;
@@ -65,10 +64,10 @@
     // Found prefix match, but need to see if exact match works as well.
     // Exact match (matches()) search.
     NSTextCheckingResult *exactResult = [regEx firstMatchInString:string
-                                                     options:NSMatchingAnchored
-                                                       range:wholeStringRange];
+                                                          options:NSMatchingAnchored
+                                                            range:wholeStringRange];
 
-    return (allowsPrefixMatch || exactResult.numberOfRanges > 0);
+    return allowsPrefixMatch || exactResult.numberOfRanges > 0;
   }
 }
 

@@ -47,7 +47,7 @@
 #if PERF_TEST
 
 - (void)testParsing {
-  NSArray<NSString *> *regionCodes = [[NBMetadataHelper CCode2CNMap] allKeys];
+  NSArray<NSString *> *regionCodes = [NBMetadataHelper CCode2CNMap].allKeys;
 
   NSMutableArray<NBExampleNumber *> *exampleNumbers = [[NSMutableArray alloc] init];
 

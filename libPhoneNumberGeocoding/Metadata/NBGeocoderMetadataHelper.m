@@ -48,8 +48,8 @@ static NSString *const preparedStatement = @"WITH recursive count(x)"
     _countryCode = countryCode;
     _language = languageCode;
 
-    NSURL *bundleURL = [bundle resourceURL];
-    NSString *shortLanguageCode = [[languageCode componentsSeparatedByString:@"-"] firstObject];
+    NSURL *bundleURL = bundle.resourceURL;
+    NSString *shortLanguageCode = [languageCode componentsSeparatedByString:@"-"].firstObject;
     NSString *databasePath = [NSString stringWithFormat:@"%@%@.db", bundleURL, shortLanguageCode];
     if (databasePath == nil) {
       @throw [NSException exceptionWithName:NSInvalidArgumentException
@@ -59,7 +59,7 @@ static NSString *const preparedStatement = @"WITH recursive count(x)"
     sqlite3_open([databasePath UTF8String], &_database);
 
     sqlite3_prepare_v2(_database,
-                       [[NSString stringWithFormat:preparedStatement, countryCode] UTF8String], -1,
+                       [NSString stringWithFormat:preparedStatement, countryCode].UTF8String, -1,
                        &_selectStatement, NULL);
   }
   return self;
@@ -67,8 +67,7 @@ static NSString *const preparedStatement = @"WITH recursive count(x)"
 
 - (instancetype)initWithCountryCode:(int32_t)countryCode withLanguage:(NSString *)languageCode {
   NSBundle *bundle = [NSBundle bundleForClass:self.classForCoder];
-  NSURL *resourceURL =
-      [[bundle resourceURL] URLByAppendingPathComponent:@"GeocodingMetadata.bundle"];
+  NSURL *resourceURL = [bundle.resourceURL URLByAppendingPathComponent:@"GeocodingMetadata.bundle"];
   NSBundle *databaseBundle = [NSBundle bundleWithURL:resourceURL];
   return [self initWithCountryCode:countryCode withLanguage:languageCode withBundle:databaseBundle];
 }
@@ -79,7 +78,7 @@ static NSString *const preparedStatement = @"WITH recursive count(x)"
       _countryCode = phoneNumber.countryCode;
       sqlite3_finalize(_selectStatement);
       sqlite3_prepare_v2(_database,
-                         [[NSString stringWithFormat:preparedStatement, _countryCode] UTF8String],
+                         [NSString stringWithFormat:preparedStatement, _countryCode].UTF8String,
                          -1, &_selectStatement, NULL);
     }
 
@@ -110,11 +109,9 @@ static NSString *const preparedStatement = @"WITH recursive count(x)"
 
 - (const char *)createCompletePhoneNumber:(NBPhoneNumber *)phoneNumber {
   if ([phoneNumber italianLeadingZero]) {
-    return [[NSString
-        stringWithFormat:@"%d0%llu", phoneNumber.countryCode, phoneNumber.nationalNumber] UTF8String];
+    return [NSString stringWithFormat:@"%d0%llu", phoneNumber.countryCode, phoneNumber.nationalNumber].UTF8String;
   } else {
-    return [[NSString stringWithFormat:@"%d%llu", phoneNumber.countryCode, phoneNumber.nationalNumber]
-        UTF8String];
+    return [NSString stringWithFormat:@"%d%llu", phoneNumber.countryCode, phoneNumber.nationalNumber].UTF8String;
   }
 }
 

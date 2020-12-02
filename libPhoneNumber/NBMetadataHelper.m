@@ -22,8 +22,7 @@ static NSString *StringByTrimming(NSString *aString) {
   static dispatch_once_t onceToken;
   static NSCharacterSet *whitespaceCharSet = nil;
   dispatch_once(&onceToken, ^{
-    NSMutableCharacterSet *spaceCharSet =
-        [NSMutableCharacterSet characterSetWithCharactersInString:NB_NON_BREAKING_SPACE];
+    NSMutableCharacterSet *spaceCharSet = [NSMutableCharacterSet characterSetWithCharactersInString:NB_NON_BREAKING_SPACE];
     [spaceCharSet formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     whitespaceCharSet = spaceCharSet;
   });
@@ -129,8 +128,8 @@ static NSString *StringByTrimming(NSString *aString) {
   return resultMetadata;
 }
 
-- (NSArray<NSString *> *)regionCodeFromCountryCode:(int32_t)countryCodeNumber {
-  NSArray<NSString *> *res = [self countryCodeToRegionCodeDictionary][@(countryCodeNumber).stringValue];
+- (NSArray<NSString *> *)regionCodeFromCountryCode:(int32_t)countryCallingCode {
+  NSArray<NSString *> *res = [self countryCodeToRegionCodeDictionary][@(countryCallingCode).stringValue];
   if ([res isKindOfClass:[NSArray class]] && res.count > 0) {
     return res;
   }
@@ -155,7 +154,7 @@ static NSString *StringByTrimming(NSString *aString) {
     return nil;
   }
 
-  regionCode = [regionCode uppercaseString];
+  regionCode = regionCode.uppercaseString;
 
   NBPhoneMetaData *cachedMetadata = [_metadataCache objectForKey:regionCode];
   if (cachedMetadata != nil) {
@@ -179,8 +178,7 @@ static NSString *StringByTrimming(NSString *aString) {
  * @return {i18n.phonenumbers.PhoneMetadata}
  */
 - (NBPhoneMetaData *)getMetadataForNonGeographicalRegion:(int32_t)countryCallingCode {
-  NSString *countryCallingCodeStr = @(countryCallingCode).stringValue;
-  return [self getMetadataForRegion:countryCallingCodeStr];
+  return [self getMetadataForRegion:@(countryCallingCode).stringValue];
 }
 
 + (BOOL)hasValue:(NSString *)string {

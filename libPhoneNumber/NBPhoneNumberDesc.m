@@ -64,7 +64,7 @@
 }
 
 - (BOOL)isEqual:(id)object {
-  if ([object isKindOfClass:[NBPhoneNumberDesc class]] == NO) {
+  if (![object isKindOfClass:[NBPhoneNumberDesc class]]) {
     return NO;
   }
 

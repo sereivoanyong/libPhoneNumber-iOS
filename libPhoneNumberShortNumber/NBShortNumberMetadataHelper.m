@@ -68,7 +68,7 @@ static NSString *StringByTrimming(NSString *aString) {
   if (regionCode.length == 0) {
     return nil;
   }
-  regionCode = [regionCode uppercaseString];
+  regionCode = regionCode.uppercaseString;
 
   NBPhoneMetaData *cachedMetadata = [_shortNumberMetadataCache objectForKey:regionCode];
   if (cachedMetadata != nil) {

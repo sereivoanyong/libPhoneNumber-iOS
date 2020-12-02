@@ -39,16 +39,12 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
 @property(nonatomic, strong, readwrite) NSString *currentOutput_, *currentFormattingPattern_;
 @property(nonatomic, strong, readwrite) NSString *defaultCountry_;
 @property(nonatomic, strong, readwrite) NSString *nationalPrefixExtracted_;
-@property(nonatomic, strong, readwrite) NSMutableString *formattingTemplate_, *accruedInput_,
-    *prefixBeforeNationalNumber_, *accruedInputWithoutFormatting_, *nationalNumber_;
-@property(nonatomic, strong, readwrite) NSRegularExpression *DIGIT_PATTERN_,
-    *NATIONAL_PREFIX_SEPARATORS_PATTERN_, *CHARACTER_CLASS_PATTERN_, *STANDALONE_DIGIT_PATTERN_;
+@property(nonatomic, strong, readwrite) NSMutableString *formattingTemplate_, *accruedInput_, *prefixBeforeNationalNumber_, *accruedInputWithoutFormatting_, *nationalNumber_;
+@property(nonatomic, strong, readwrite) NSRegularExpression *DIGIT_PATTERN_, *NATIONAL_PREFIX_SEPARATORS_PATTERN_, *CHARACTER_CLASS_PATTERN_, *STANDALONE_DIGIT_PATTERN_;
 @property(nonatomic, strong, readwrite) NSRegularExpression *ELIGIBLE_FORMAT_PATTERN_;
-@property(nonatomic, assign, readwrite) BOOL ableToFormat_, inputHasFormatting_, isCompleteNumber_,
-    isExpectingCountryCallingCode_, shouldAddSpaceAfterNationalPrefix_;
+@property(nonatomic, assign, readwrite) BOOL ableToFormat_, inputHasFormatting_, isCompleteNumber_, isExpectingCountryCallingCode_, shouldAddSpaceAfterNationalPrefix_;
 @property(nonatomic, strong, readwrite) NBPhoneNumberUtil *phoneUtil_;
-@property(nonatomic, assign, readwrite) NSUInteger lastMatchPosition_, originalPosition_,
-    positionToRemember_;
+@property(nonatomic, assign, readwrite) NSUInteger lastMatchPosition_, originalPosition_, positionToRemember_;
 @property(nonatomic, strong, readwrite) NSMutableArray<NBNumberFormat *> *possibleFormats_;
 @property(nonatomic, strong, readwrite) NBPhoneMetaData *currentMetaData_, *defaultMetaData_;
 @property(nonatomic, strong) NBMetadataHelper *metadataHelper;
@@ -93,8 +89,9 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
      * @type {RegExp}
      * @private
      */
-    self.NATIONAL_PREFIX_SEPARATORS_PATTERN_ =
-        [NSRegularExpression regularExpressionWithPattern:@"[- ]" options:0 error:&anError];
+    self.NATIONAL_PREFIX_SEPARATORS_PATTERN_ = [NSRegularExpression regularExpressionWithPattern:@"[- ]"
+                                                                                         options:0
+                                                                                           error:&anError];
 
     /**
      * A pattern that is used to match character classes in regular expressions.
@@ -103,10 +100,9 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
      * @type {RegExp}
      * @private
      */
-    self.CHARACTER_CLASS_PATTERN_ =
-        [NSRegularExpression regularExpressionWithPattern:@"\\[([^\\[\\]])*\\]"
-                                                  options:0
-                                                    error:&anError];
+    self.CHARACTER_CLASS_PATTERN_ = [NSRegularExpression regularExpressionWithPattern:@"\\[([^\\[\\]])*\\]"
+                                                                              options:0
+                                                                                error:&anError];
 
     /**
      * Any digit in a regular expression that actually denotes a digit. For
@@ -118,10 +114,9 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
      * @type {RegExp}
      * @private
      */
-    self.STANDALONE_DIGIT_PATTERN_ =
-        [NSRegularExpression regularExpressionWithPattern:@"\\d(?=[^,}][^,}])"
-                                                  options:0
-                                                    error:&anError];
+    self.STANDALONE_DIGIT_PATTERN_ = [NSRegularExpression regularExpressionWithPattern:@"\\d(?=[^,}][^,}])"
+                                                                               options:0
+                                                                                 error:&anError];
 
     /**
      * A pattern that is used to determine if a numberFormat under availableFormats
@@ -138,8 +133,9 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
         @"^[-x‐-―−ー－-／ "
         @"­​⁠　()（）［］.\\[\\]/~⁓∼～]*(\\$\\d[-x‐-―−ー－-／ "
         @"­​⁠　()（）［］.\\[\\]/~⁓∼～]*)+$";
-    self.ELIGIBLE_FORMAT_PATTERN_ =
-        [NSRegularExpression regularExpressionWithPattern:eligible_format options:0 error:&anError];
+    self.ELIGIBLE_FORMAT_PATTERN_ = [NSRegularExpression regularExpressionWithPattern:eligible_format
+                                                                              options:0
+                                                                                error:&anError];
 
     /**
      * The pattern from numberFormat that is currently used to create
@@ -324,7 +320,7 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
   // When there are multiple available formats, the formatter uses the first
   // format where a formatting template could be created.
   /** @type {number} */
-  NSUInteger possibleFormatsLength = [self.possibleFormats_ count];
+  NSUInteger possibleFormatsLength = self.possibleFormats_.count;
   for (NSUInteger i = 0; i < possibleFormatsLength; ++i) {
     /** @type {i18n.phonenumbers.NumberFormat} */
     NBNumberFormat *numberFormat =
@@ -338,14 +334,13 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
 
     if ([self createFormattingTemplate_:numberFormat]) {
       self.currentFormattingPattern_ = pattern;
-      NSRange nationalPrefixRange =
-          NSMakeRange(0, [numberFormat.nationalPrefixFormattingRule length]);
+      NSRange nationalPrefixRange = NSMakeRange(0, numberFormat.nationalPrefixFormattingRule.length);
       if (nationalPrefixRange.length > 0) {
         NSTextCheckingResult *matchResult = [self.NATIONAL_PREFIX_SEPARATORS_PATTERN_
             firstMatchInString:numberFormat.nationalPrefixFormattingRule
                        options:0
                          range:nationalPrefixRange];
-        self.shouldAddSpaceAfterNationalPrefix_ = (matchResult != nil);
+        self.shouldAddSpaceAfterNationalPrefix_ = matchResult != nil;
       } else {
         self.shouldAddSpaceAfterNationalPrefix_ = NO;
       }
@@ -376,10 +371,10 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
     /** @type {i18n.phonenumbers.NumberFormat} */
     NBNumberFormat *format = [formatList nb_safeObjectAtIndex:i class:[NBNumberFormat class]];
     /** @type {BOOL} */
-    BOOL nationalPrefixIsUsedByCountry =
-        (self.currentMetaData_.nationalPrefix && self.currentMetaData_.nationalPrefix.length > 0);
+    BOOL nationalPrefixIsUsedByCountry = self.currentMetaData_.nationalPrefix && self.currentMetaData_.nationalPrefix.length > 0;
 
-    if (!nationalPrefixIsUsedByCountry || self.isCompleteNumber_ ||
+    if (!nationalPrefixIsUsedByCountry ||
+        self.isCompleteNumber_ ||
         format.nationalPrefixOptionalWhenFormatting ||
         [self.phoneUtil_ formattingRuleHasFirstGroupOnly:format.nationalPrefixFormattingRule]) {
       if ([self isFormatEligible_:format.format]) {
@@ -403,8 +398,8 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
   NSTextCheckingResult *matchResult =
       [self.ELIGIBLE_FORMAT_PATTERN_ firstMatchInString:format
                                                 options:0
-                                                  range:NSMakeRange(0, [format length])];
-  return (matchResult != nil);
+                                                  range:NSMakeRange(0, format.length)];
+  return matchResult != nil;
 }
 
 /**
@@ -431,12 +426,10 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
     }
 
     /** @type {number} */
-    NSInteger lastLeadingDigitsPattern =
-        MIN(indexOfLeadingDigitsPattern, format.leadingDigitsPatterns.count - 1);
+    NSInteger lastLeadingDigitsPattern = MIN(indexOfLeadingDigitsPattern, format.leadingDigitsPatterns.count - 1);
 
     /** @type {string} */
-    NSString *leadingDigitsPattern =
-        [format.leadingDigitsPatterns nb_safeStringAtIndex:lastLeadingDigitsPattern];
+    NSString *leadingDigitsPattern = [format.leadingDigitsPatterns nb_safeStringAtIndex:lastLeadingDigitsPattern];
 
     if ([self.phoneUtil_ stringPositionByRegex:leadingDigits regex:leadingDigitsPattern] == 0) {
       [possibleFormats addObject:format];
@@ -462,18 +455,16 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
   }
 
   // Replace anything in the form of [..] with \d
-  numberPattern = [self.CHARACTER_CLASS_PATTERN_
-      stringByReplacingMatchesInString:numberPattern
-                               options:0
-                                 range:NSMakeRange(0, [numberPattern length])
-                          withTemplate:@"\\\\d"];
+  numberPattern = [self.CHARACTER_CLASS_PATTERN_ stringByReplacingMatchesInString:numberPattern
+                                                                          options:0
+                                                                            range:NSMakeRange(0, numberPattern.length)
+                                                                     withTemplate:@"\\\\d"];
 
   // Replace any standalone digit (not the one in d{}) with \d
-  numberPattern = [self.STANDALONE_DIGIT_PATTERN_
-      stringByReplacingMatchesInString:numberPattern
-                               options:0
-                                 range:NSMakeRange(0, [numberPattern length])
-                          withTemplate:@"\\\\d"];
+  numberPattern = [self.STANDALONE_DIGIT_PATTERN_ stringByReplacingMatchesInString:numberPattern
+                                                                           options:0
+                                                                             range:NSMakeRange(0, numberPattern.length)
+                                                                      withTemplate:@"\\\\d"];
   [self.formattingTemplate_ setString:@""];
 
   /** @type {string} */
@@ -737,8 +728,7 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
           self.isExpectingCountryCallingCode_ = NO;
         }
         _isSuccessfulFormatting = YES;
-        return [NSString
-            stringWithFormat:@"%@%@", self.prefixBeforeNationalNumber_, self.nationalNumber_];
+        return [NSString stringWithFormat:@"%@%@", self.prefixBeforeNationalNumber_, self.nationalNumber_];
       }
 
       if (self.possibleFormats_.count > 0) {
@@ -811,8 +801,7 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
                                                              options:NSBackwardsSearch];
     /** @type {number} */
     NSUInteger indexOfPreviousNdd = lastRange.location;
-    self.prefixBeforeNationalNumber_ = [[prefixBeforeNationalNumberStr
-        substringWithRange:NSMakeRange(0, indexOfPreviousNdd)] mutableCopy];
+    self.prefixBeforeNationalNumber_ = [[prefixBeforeNationalNumberStr substringWithRange:NSMakeRange(0, indexOfPreviousNdd)] mutableCopy];
   }
 
   return self.nationalPrefixExtracted_ != [self removeNationalPrefixFromNationalNumber_];
@@ -827,8 +816,8 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
   NSString *digitPattern = [NSString stringWithFormat:@"([%@])", NB_VALID_DIGITS_STRING];
   NSString *plusPattern = [NSString stringWithFormat:@"[%@]+", NB_PLUS_CHARS];
 
-  BOOL isDigitPattern = [[self.phoneUtil_ matchesByRegex:nextChar regex:digitPattern] count] > 0;
-  BOOL isPlusPattern = [[self.phoneUtil_ matchesByRegex:nextChar regex:plusPattern] count] > 0;
+  BOOL isDigitPattern = [self.phoneUtil_ matchesByRegex:nextChar regex:digitPattern].count > 0;
+  BOOL isPlusPattern = [self.phoneUtil_ matchesByRegex:nextChar regex:plusPattern].count > 0;
 
   return isDigitPattern || (self.accruedInput_.length == 1 && isPlusPattern);
 }
@@ -853,15 +842,15 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
     NSString *pattern = numberFormat.pattern;
     /** @type {RegExp} */
     NSString *patternRegExp = [NSString stringWithFormat:@"^(?:%@)$", pattern];
-    BOOL isPatternRegExp = [[self.phoneUtil_ matchesByRegex:nationalNumber
-                                                      regex:patternRegExp] count] > 0;
+    BOOL isPatternRegExp = [self.phoneUtil_ matchesByRegex:nationalNumber
+                                                     regex:patternRegExp].count > 0;
     if (isPatternRegExp) {
       if (numberFormat.nationalPrefixFormattingRule.length > 0) {
         NSArray<NSTextCheckingResult *> *matches = [self.NATIONAL_PREFIX_SEPARATORS_PATTERN_
                                                     matchesInString:numberFormat.nationalPrefixFormattingRule
                                                     options:0
                                                     range:NSMakeRange(0, numberFormat.nationalPrefixFormattingRule.length)];
-        self.shouldAddSpaceAfterNationalPrefix_ = [matches count] > 0;
+        self.shouldAddSpaceAfterNationalPrefix_ = matches.count > 0;
       } else {
         self.shouldAddSpaceAfterNationalPrefix_ = NO;
       }
@@ -889,8 +878,7 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
   NSUInteger prefixBeforeNationalNumberLength = self.prefixBeforeNationalNumber_.length;
   unichar blank_char = [NBSeparatorBeforeNationalNumber characterAtIndex:0];
   if (self.shouldAddSpaceAfterNationalPrefix_ && prefixBeforeNationalNumberLength > 0 &&
-      [self.prefixBeforeNationalNumber_ characterAtIndex:prefixBeforeNationalNumberLength - 1] !=
-          blank_char) {
+      [self.prefixBeforeNationalNumber_ characterAtIndex:prefixBeforeNationalNumberLength - 1] != blank_char) {
     // We want to add a space after the national prefix if the national prefix
     // formatting rule indicates that this would normally be done, with the
     // exception of the case where we already appended a space because the NDD
@@ -923,10 +911,8 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
   /** @type {string} */
   NSString *currentOutput = self.currentOutput_;
 
-  while (accruedInputIndex < self.positionToRemember_ &&
-         currentOutputIndex < currentOutput.length) {
-    if ([accruedInputWithoutFormatting characterAtIndex:accruedInputIndex] ==
-        [currentOutput characterAtIndex:currentOutputIndex]) {
+  while (accruedInputIndex < self.positionToRemember_ && currentOutputIndex < currentOutput.length) {
+    if ([accruedInputWithoutFormatting characterAtIndex:accruedInputIndex] == [currentOutput characterAtIndex:currentOutputIndex]) {
       accruedInputIndex++;
     }
     currentOutputIndex++;
@@ -975,11 +961,9 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
     /** @type {string} */
     NSString *tempNationalNumber = @"";
     for (NSUInteger i = 0; i < lengthOfNationalNumber; i++) {
-      tempNationalNumber = [self
-          inputDigitHelper_:[NSString stringWithFormat:@"%C", [nationalNumber characterAtIndex:i]]];
+      tempNationalNumber = [self inputDigitHelper_:[NSString stringWithFormat:@"%C", [nationalNumber characterAtIndex:i]]];
     }
-    return self.ableToFormat_ ? [self appendNationalNumber_:tempNationalNumber]
-                              : self.accruedInput_;
+    return self.ableToFormat_ ? [self appendNationalNumber_:tempNationalNumber] : self.accruedInput_;
   } else {
     return self.prefixBeforeNationalNumber_;
   }
@@ -1001,9 +985,9 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
 
   /** @type {string} */
   NSString *nationalNumber = [self.nationalNumber_ copy];
-  return ([nationalNumber characterAtIndex:0] == '1') &&
-         ([nationalNumber characterAtIndex:1] != '0') &&
-         ([nationalNumber characterAtIndex:1] != '1');
+  return [nationalNumber characterAtIndex:0] == '1' &&
+         [nationalNumber characterAtIndex:1] != '0' &&
+         [nationalNumber characterAtIndex:1] != '1';
 }
 
 /**
@@ -1025,8 +1009,7 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
   } else if (self.currentMetaData_.nationalPrefixForParsing != nil &&
              self.currentMetaData_.nationalPrefixForParsing.length > 0) {
     /** @type {RegExp} */
-    NSString *nationalPrefixForParsing =
-        [NSString stringWithFormat:@"^(?:%@)", self.currentMetaData_.nationalPrefixForParsing];
+    NSString *nationalPrefixForParsing = [NSString stringWithFormat:@"^(?:%@)", self.currentMetaData_.nationalPrefixForParsing];
     /** @type {Array.<string>} */
     NSArray<NSString *> *m = [self.phoneUtil_ matchedStringByRegex:nationalNumber
                                                              regex:nationalPrefixForParsing];
@@ -1037,8 +1020,7 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
       // contain local formatting rules for numbers entered without area code.
       self.isCompleteNumber_ = YES;
       startOfNationalNumber = firstString.length;
-      [self.prefixBeforeNationalNumber_
-          appendString:[nationalNumber substringWithRange:NSMakeRange(0, startOfNationalNumber)]];
+      [self.prefixBeforeNationalNumber_ appendString:[nationalNumber substringWithRange:NSMakeRange(0, startOfNationalNumber)]];
     }
   }
 
@@ -1058,8 +1040,7 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
   /** @type {string} */
   NSString *accruedInputWithoutFormatting = [self.accruedInputWithoutFormatting_ copy];
   /** @type {RegExp} */
-  NSString *internationalPrefix =
-      [NSString stringWithFormat:@"^(?:\\+|%@)", self.currentMetaData_.internationalPrefix];
+  NSString *internationalPrefix = [NSString stringWithFormat:@"^(?:\\+|%@)", self.currentMetaData_.internationalPrefix];
   /** @type {Array.<string>} */
   NSArray<NSString *> *m = [self.phoneUtil_ matchedStringByRegex:accruedInputWithoutFormatting
                                                            regex:internationalPrefix];
@@ -1070,10 +1051,8 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
     self.isCompleteNumber_ = YES;
     /** @type {number} */
     NSUInteger startOfCountryCallingCode = firstString.length;
-    self.nationalNumber_ =
-        [[accruedInputWithoutFormatting substringFromIndex:startOfCountryCallingCode] mutableCopy];
-    self.prefixBeforeNationalNumber_ = [[accruedInputWithoutFormatting
-        substringWithRange:NSMakeRange(0, startOfCountryCallingCode)] mutableCopy];
+    self.nationalNumber_ = [[accruedInputWithoutFormatting substringFromIndex:startOfCountryCallingCode] mutableCopy];
+    self.prefixBeforeNationalNumber_ = [[accruedInputWithoutFormatting substringWithRange:NSMakeRange(0, startOfCountryCallingCode)] mutableCopy];
 
     if ([accruedInputWithoutFormatting characterAtIndex:0] != '+') {
       [self.prefixBeforeNationalNumber_ appendString:NBSeparatorBeforeNationalNumber];
@@ -1182,11 +1161,10 @@ static const NSUInteger NBMinLeadingDigitsLength = 3;
 
     /** @type {string} */
     NSRange tempRange = [formattingTemplate rangeOfString:NBDigitPlaceHolder];
-    NSString *tempTemplate =
-        [formattingTemplate stringByReplacingOccurrencesOfString:NBDigitPlaceHolder
-                                                      withString:nextChar
-                                                         options:NSLiteralSearch
-                                                           range:tempRange];
+    NSString *tempTemplate = [formattingTemplate stringByReplacingOccurrencesOfString:NBDigitPlaceHolder
+                                                                           withString:nextChar
+                                                                              options:NSLiteralSearch
+                                                                                range:tempRange];
     self.formattingTemplate_ = [tempTemplate mutableCopy];
     self.lastMatchPosition_ = digitPatternStart;
     return [tempTemplate substringWithRange:NSMakeRange(0, self.lastMatchPosition_ + 1)];

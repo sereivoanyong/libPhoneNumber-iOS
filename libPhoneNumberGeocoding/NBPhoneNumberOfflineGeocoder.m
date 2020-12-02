@@ -104,7 +104,7 @@ static NSString *const INVALID_REGION_CODE = @"ZZ";
 
 - (nullable NSString *)descriptionForNumber:(NBPhoneNumber *)phoneNumber {
   NBEPhoneNumberType numberType = [_phoneNumberUtil getNumberType:phoneNumber];
-  NSString *languageCode = [[NSLocale preferredLanguages] firstObject];
+  NSString *languageCode = [NSLocale preferredLanguages].firstObject;
 
   if (languageCode == nil) {
     return nil;
@@ -121,7 +121,7 @@ static NSString *const INVALID_REGION_CODE = @"ZZ";
 - (nullable NSString *)descriptionForNumber:(NBPhoneNumber *)phoneNumber
                              withUserRegion:(NSString *)userRegion {
   NBEPhoneNumberType numberType = [_phoneNumberUtil getNumberType:phoneNumber];
-  NSString *languageCode = [[NSLocale preferredLanguages] firstObject];
+  NSString *languageCode = [NSLocale preferredLanguages].firstObject;
 
   if (languageCode == nil) {
     return nil;
@@ -140,7 +140,7 @@ static NSString *const INVALID_REGION_CODE = @"ZZ";
 - (nullable NSString *)countryNameForNumber:(NBPhoneNumber *)number
                            withLanguageCode:(NSString *)languageCode {
   NSArray<NSString *> *regionCodes = [_phoneNumberUtil getRegionCodesForCountryCode:number.countryCode];
-  if ([regionCodes count] == 1) {
+  if (regionCodes.count == 1) {
     return [self regionDisplayName:regionCodes[0] withLanguageCode:languageCode];
   } else {
     NSString *regionWhereNumberIsValid = INVALID_REGION_CODE;
@@ -159,8 +159,7 @@ static NSString *const INVALID_REGION_CODE = @"ZZ";
 
 - (nullable NSString *)regionDisplayName:(NSString *)regionCode
                         withLanguageCode:(NSString *)languageCode {
-  if (regionCode == nil || [regionCode isEqualToString:INVALID_REGION_CODE] ||
-      [regionCode isEqual:NB_REGION_CODE_FOR_NON_GEO_ENTITY]) {
+  if (regionCode == nil || [regionCode isEqualToString:INVALID_REGION_CODE] || [regionCode isEqualToString:NB_REGION_CODE_FOR_NON_GEO_ENTITY]) {
     return nil;
   } else {
     return [[NSLocale localeWithLocaleIdentifier:languageCode] displayNameForKey:NSLocaleCountryCode
